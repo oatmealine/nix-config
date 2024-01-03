@@ -43,6 +43,12 @@ in {
     enable = true;
     userName = ''Jill "oatmealine" Monoids'';
     userEmail = "oatmealine@disroot.org";
+
+    extraConfig = {
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      init.defaultBranch = "main";
+    };
   };
 
   dconf = {

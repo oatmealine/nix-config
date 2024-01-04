@@ -1,19 +1,45 @@
-{ inputs, outputs, config, pkgs, ... }:
+{ inputs, outputs, pkgs, ... }:
 
-let
-  nix-colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
-in {
+{
   imports = [
   	inputs.nix-colors.homeManagerModules.default
     outputs.homeManagerModules.alacritty
     outputs.homeManagerModules.opinions
     outputs.homeManagerModules.gtkConfig
+    outputs.homeManagerModules.shellColors
+    outputs.homeManagerModules.microColors
+    outputs.homeManagerModules.gnomeBindings
   ];
-
-  nixpkgs.config.allowUnfree = true;
 
   home.username = "oatmealine";
   home.homeDirectory = "/home/oatmealine";
+  
+  nixpkgs.config.allowUnfree = true;
+
+  # Packages that should be installed to the user profile.
+  home.packages = with pkgs; let
+    discord = discord-canary.override {
+      withOpenASAR = true;
+      withVencord = true;	
+    };
+  in [
+    # archives
+    zip xz unzip p7zip
+    # utils
+    ripgrep jq
+    # nix
+    nil nix-output-monitor
+    # system
+    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall
+    # debug
+    strace ltrace lsof
+    # apps
+    vivaldi telegram-desktop onlyoffice-bin gnome.gnome-tweaks discord
+    # misc
+    cowsay file which tree gnused grc
+    # um
+    doas-sudo-shim gnome.dconf-editor
+  ];
 
   colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
 
@@ -51,67 +77,11 @@ in {
     };
   };
 
-  dconf = {
-    enable = true;
-    #settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-  };
-
-  # Packages that should be installed to the user profile.
-  home.packages = with pkgs; [
-    # archives
-    zip
-    xz
-    unzip
-    p7zip
-
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    nil
-
-    # misc
-    cowsay
-    file
-    which
-    tree
-    gnused
-    grc
-
-    nix-output-monitor
-
-    btop  # replacement of htop/nmon
-
-    # system call monitoring
-    strace # system call monitoring
-    ltrace # library call monitoring
-    lsof # list open files
-
-    # system tools
-    sysstat
-    lm_sensors # for `sensors` command
-    ethtool
-    pciutils # lspci
-    usbutils # lsusb
-    powertop
-
-    vivaldi
-    (discord.override {
-      withOpenASAR = true;
-      withVencord = true;	
-    })
-    telegram-desktop
-
-    doas-sudo-shim
-
-    gnome.gnome-tweaks
-
-    onlyoffice-bin
-  ];
-
   alacritty.enable = true;
   
   gtkConfig = {
     enable = true;
+    preferDark = true;
     cursor = {
       package = pkgs.graphite-cursors;
       name = "graphite-dark";
@@ -129,19 +99,10 @@ in {
     ];
   };
 
-  programs.fish = let
-    colorScript = nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; };
-  in {
-    enable = true;
-  	interactiveShellInit = ''
-      sh ${colorScript}
-  	'';
-    plugins = [
-      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-      #{ name = "tide"; src = pkgs.fishPlugins.tide.src; }
-    ];
-  };
-
+  shellColors.enable = true;
+  programs.fish.enable = true;
+  programs.fish.plugins = [ { name = "grc"; src = pkgs.fishPlugins.grc.src; } ];
+  
   programs.micro = {
     enable = true;
     settings = {
@@ -154,61 +115,31 @@ in {
       tabstospaces = true;
     };
   };
-  home.file."micro-generated-colorscheme" = {
-    enable = true;
-    target = ".config/micro/colorschemes/generated.micro";
-    text = with config.colorScheme.colors; ''
-      color-link default "#${base05},#${base00}"
-      color-link comment "#${base03},#${base00}"
-      color-link identifier "#${base0D},#${base00}"
-      color-link constant "#${base0E},#${base00}"
-      color-link constant.string "#E6DB74,#${base00}"
-      color-link constant.string.char "#BDE6AD,#${base00}"
-      color-link statement "#${base08},#${base00}"
-      color-link symbol.operator "#${base08},#${base00}"
-      color-link preproc "#CB4B16,#${base00}"
-      color-link type "#${base0D},#${base00}"
-      color-link special "#${base0B},#${base00}"
-      color-link underlined "#D33682,#${base00}"
-      color-link error "bold #CB4B16,#${base00}"
-      color-link todo "bold #D33682,#${base00}"
-      color-link hlsearch "#${base00},#E6DB74"
-      color-link statusline "#${base00},#${base05}"
-      color-link tabbar "#${base00},#${base05}"
-      color-link indent-char "#505050,#${base00}"
-      color-link line-number "#AAAAAA,#${base01}"
-      color-link current-line-number "#AAAAAA,#${base00}"
-      color-link diff-added "#00AF00"
-      color-link diff-modified "#FFAF00"
-      color-link diff-deleted "#D70000"
-      color-link gutter-error "#CB4B16,#${base00}"
-      color-link gutter-warning "#E6DB74,#${base00}"
-      color-link cursor-line "#${base01}"
-      color-link color-column "#${base01}"
-      #No extended types; Plain brackets.
-      color-link type.extended "default"
-      #color-link symbol.brackets "default"
-      color-link symbol.tag "#${base0E},#${base00}"
-    '';
-  };
+  microColors.enable = true;
 
   services.syncthing = {
     enable = true;
     tray.enable = true;
   };
 
-  dconf.settings = {
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-      ];
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+  gnomeBindings.enable = true;
+  gnomeBindings.shell = {
+    # disable defaults
+    "screenshot" = [];
+    "screenshot-window" = [];
+    "show-screenshot-ui" = [];
+  };
+  gnomeBindings.wm = {
+    "panel-run-dialog" = [ "Launch1" ];
+  };
+  gnomeBindings.custom = {
+    "take-screenshot" = {
       binding = "Print";
       command = "${pkgs.lib.getExe pkgs.flameshot} gui";
-      name = "take-screenshot";
     };
   };
+  # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
+  services.flameshot.enable = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -7,6 +7,7 @@ let
 in {
   options.gtkConfig = {
     enable = mkEnableOption "Enable GTK configuration";
+    preferDark = mkEnableOption "Prefer dark themes";
     cursor = mkOption {
       type = types.submodule {
         options = {
@@ -26,6 +27,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    dconf = {
+      enable = true;
+      settings."org/gnome/desktop/interface".color-scheme = mkIf cfg.preferDark "prefer-dark";
+    };
+
     gtk = {
       enable = true;
       cursorTheme = cfg.cursor;

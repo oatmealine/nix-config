@@ -29,12 +29,14 @@
     ripgrep jq
     # nix
     nil nix-output-monitor
+    # dev
+    sqlitebrowser sqlite-interactive
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin gnome.gnome-tweaks discord
+    vivaldi telegram-desktop onlyoffice-bin gnome.gnome-tweaks discord mpv
     # misc
     cowsay file which tree gnused grc
     # um

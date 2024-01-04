@@ -1,4 +1,4 @@
-{ inputs, outputs, pkgs, ... }:
+{ inputs, outputs, pkgs, lib, ... }:
 
 {
   imports = [
@@ -38,7 +38,7 @@
     # misc
     cowsay file which tree gnused grc
     # um
-    doas-sudo-shim gnome.dconf-editor
+    doas-sudo-shim gnome.dconf-editor rbw
   ];
 
   colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
@@ -130,16 +130,30 @@
     "show-screenshot-ui" = [];
   };
   gnomeBindings.wm = {
-    "panel-run-dialog" = [ "Launch1" ];
+    #"panel-run-dialog" = [ "Launch1" ];
   };
   gnomeBindings.custom = {
     "take-screenshot" = {
       binding = "Print";
-      command = "${pkgs.lib.getExe pkgs.flameshot} gui";
+      command = "${lib.getExe pkgs.flameshot} gui";
+    };
+    "grab-password" = let
+      grabScript = pkgs.writeScript "grab-password" ''
+        ${lib.getExe pkgs.rbw} get $(${lib.getExe pkgs.gnome.zenity} --entry --text="" --title="") | ${lib.getExe pkgs.xclip} -selection clipboard
+      '';
+    in {
+      binding = "Launch1";
+      command = ''${grabScript}'';
     };
   };
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
   services.flameshot.enable = true;
+
+  programs.rbw = {
+    enable = true;
+    settings.base_url = "https://bitwarden.lavatech.top";
+    settings.email = "oatmealine@disroot.org";
+  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

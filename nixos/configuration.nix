@@ -16,6 +16,7 @@
       ./security.nix
       ./users.nix
       ./software.nix
+      ./wireguard.nix
     ];
 
   nixpkgs.config.allowUnfree = true;

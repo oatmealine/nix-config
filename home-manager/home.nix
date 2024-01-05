@@ -9,6 +9,7 @@
     outputs.homeManagerModules.shellColors
     outputs.homeManagerModules.microColors
     outputs.homeManagerModules.gnomeBindings
+    outputs.homeManagerModules.disableNews
   ];
 
   home.username = "oatmealine";

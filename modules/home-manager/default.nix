@@ -5,4 +5,5 @@
   shellColors = import ./shell-colors.nix;
   microColors = import ./micro-colors.nix;
   gnomeBindings = import ./gnome-bindings.nix;
+  disableNews = import ./disable-news.nix;
 }

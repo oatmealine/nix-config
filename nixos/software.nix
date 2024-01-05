@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   # Enable sound with pipewire.
@@ -32,6 +32,7 @@
     doas
     catppuccin-gtk
     home-manager
+    wireguard-tools
   ];
 
   environment.variables.EDITOR = "micro";

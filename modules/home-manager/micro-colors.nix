@@ -3,13 +3,15 @@
 with lib;
 let
   cfg = config.microColors;
+  name = "generated";
 in {
   options.microColors = {
     enable = mkEnableOption "Enable shell color config";
   };
 
   config = mkIf cfg.enable {
-    home.file.".config/micro/colorschemes/generated.micro".text = with config.colorScheme.colors; ''
+    programs.micro.colorScheme = name;
+    home.file.".config/micro/colorschemes/${name}.micro".text = with config.colorScheme.colors; ''
       color-link default "#${base05},#${base00}"
       color-link comment "#${base03},#${base00}"
       color-link identifier "#${base0D},#${base00}"

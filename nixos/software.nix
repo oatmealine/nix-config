@@ -51,4 +51,7 @@
     atkinson-hyperlegible
     cozette
   ];
+  
+  services.flatpak.enable = true;
+  programs.noisetorch.enable = true;
 }

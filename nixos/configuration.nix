@@ -10,7 +10,6 @@
 
       ./hardware-configuration.nix
 
-      outputs.nixosModules.grub
       outputs.nixosModules.gnome
 
       ./security.nix
@@ -21,17 +20,25 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowAliases = false;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;
+    substituters =
+      [ "https://nix-community.cachix.org" "https://devenv.cachix.org" ];
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+    ];
+  };
+  nixpkgs.overlays = [
+    outputs.overlays.additions
+    outputs.overlays.unstable-packages
+    outputs.overlays.dynamic-triple-buffering
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  #grubConfig = {
-  #  enable = true;
-  #  font = "${pkgs.cozette}/share/fonts/truetype/CozetteVector.ttf";
-  #  fontSize = 10;
-  #};
 
   networking.hostName = "goop-drive"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -51,6 +58,10 @@
     xkbVariant = "workman";
   };
   console.useXkbConfig = true;
+
+  # Prefer tlp over Gnome's power-profiles-daemon
+  #services.power-profiles-daemon.enable = false;
+  #services.tlp.enable = true;
 
   # Enable CUPS to print documents.
   #services.printing.enable = false;

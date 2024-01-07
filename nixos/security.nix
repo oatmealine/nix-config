@@ -1,5 +1,5 @@
 {
-  #security.sudo.enable = false;
+  security.sudo.enable = false;
   security.doas.enable = true;
   security.doas.extraRules = [
     { users = [ "oatmealine" ]; noPass = true; persist = false; keepEnv = true; }

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 {
   programs.vscode = {
     enable = true;
@@ -19,17 +19,17 @@
     mutableExtensionsDir = false;
     enableExtensionUpdateCheck = false;
     enableUpdateCheck = false;
-    userSettings = with config.opinions.font; {
+    userSettings = with config.opinions.fonts; {
       "telemetry.enableTelemetry" = false;
 
       "editor.tabSize" = 2;
       "editor.cursorSmoothCaretAnimation" = "on";
 
       "editor.fontFamily" = "'${monospace.family}', monospace";
-      "editor.fontSize" = monospace.size;
+      "editor.fontSize" = monospace.size + 3; # no clue why i have to do this
 
       "terminal.integrated.fontFamily" = "\"${monospace.family}\"";
-      "terminal.integrated.fontSize" = monospace.size;
+      "terminal.integrated.fontSize" = monospace.size + 3;
 
       "window.dialogStyle" = "custom";
       "window.titleBarStyle" = "custom";

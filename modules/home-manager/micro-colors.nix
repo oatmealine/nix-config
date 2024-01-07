@@ -10,7 +10,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.micro.colorScheme = name;
+    programs.micro.settings.colorScheme = name;
     home.file.".config/micro/colorschemes/${name}.micro".text = with config.colorScheme.colors; ''
       color-link default "#${base05},#${base00}"
       color-link comment "#${base03},#${base00}"

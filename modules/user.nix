@@ -12,7 +12,7 @@ with lib.my;
   config = {
     user = rec {
       name = "oatmealine";
-      description = "Primary user account";
+      description = "jill";
       extraGroups = ["wheel" "input" "audio" "video" "storage"];
       isNormalUser = true;
       home = "/home/${name}";

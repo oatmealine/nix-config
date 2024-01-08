@@ -71,6 +71,12 @@ in {
     desktop-file-utils
     shared-mime-info
     xdg-user-dirs
-    xdg-utils  
+    xdg-utils
+    # fun fact! when using flakes not having
+    # git available as a global package while operating
+    # on a git repository makes nixos-rebuild break,
+    # rendering your system unable to rebuild.
+    # nix is really cool
+    git  
   ];
 }

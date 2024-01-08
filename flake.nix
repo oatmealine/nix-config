@@ -51,7 +51,8 @@
         };
       };
 
-    packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
+    #packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
+    packages."${system}" = {};
 
     nixosModules = mapModulesRec ./modules import;
 

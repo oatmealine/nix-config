@@ -1,11 +1,33 @@
 { config, lib, pkgs, ... }:
 
 with lib;
+with builtins;
 let
   cfg = config.modules.desktop.gnome;
 in {
   options.modules.desktop.gnome = {
     enable = mkEnableOption "Enable the Gnome desktop environment";
+    extensions = mkOption {
+      description = "Set a list of extensions to use";
+      type = types.listOf types.package;
+      default = with pkgs.gnomeExtensions; [
+        rounded-window-corners
+        force-quit
+        pixel-saver
+        status-area-horizontal-spacing
+        weeks-start-on-monday-again
+        user-themes
+        espresso
+        clipboard-indicator
+        appindicator
+        blur-my-shell
+        dash-to-dock
+        just-perfection
+        disable-unredirect-fullscreen-windows
+        gsconnect
+        launch-new-instance
+      ];
+    };
     keybinds = {
       shell = mkOption {
         description = ''Override Gnome shell keybindings (org/gnome/shell/keybindings/...)'';
@@ -68,22 +90,7 @@ in {
       gnome.dconf-editor
       gnome.gnome-tweaks
       gedit
-    ] ++ (with pkgs.gnomeExtensions; [
-      appindicator
-      clipboard-indicator
-      espresso
-      user-themes
-      blur-my-shell
-      dash-to-dock
-      just-perfection
-      rounded-window-corners
-      disable-unredirect-fullscreen-windows
-      force-quit
-      gsconnect
-      pixel-saver
-      status-area-horizontal-spacing
-      weeks-start-on-monday-again
-    ]);
+    ] ++ cfg.extensions;
 
     environment.gnome.excludePackages = with pkgs.gnome; [
       pkgs.gnome-tour
@@ -120,6 +127,8 @@ in {
       customBindingSets = imap0 (i: v: { name = "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${toString i}"; value = v; }) customBindings;
       # { key = binding }
       customBindingsAttr = listToAttrs customBindingSets;
+
+      extensions = map (pkg: pkg.extensionUuid) cfg.extensions;
     in {
       settings = {
         "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -129,6 +138,8 @@ in {
         "org/gnome/shell/keybindings" = cfg.keybinds.shell;
         "org/gnome/desktop/wm/keybindings" = cfg.keybinds.wm;
         "org/gnome/mutter/keybindings" = cfg.keybinds.mutter;
+
+        "org/gnome/shell".enabled-extensions = extensions;
       } // customBindingsAttr;
     };
   };

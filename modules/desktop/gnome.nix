@@ -60,27 +60,58 @@ in {
       wayland = mkForce (config.modules.desktop.envProto == "wayland");
     };
 
-    services.gnome.sushi.enable = true;
+    services.gnome.games.enable = true;
 
     hm.home.packages = with pkgs; [
       dconf2nix
       gnome.gnome-disk-utility
       gnome.dconf-editor
       gnome.gnome-tweaks
+      gedit
     ] ++ (with pkgs.gnomeExtensions; [
       appindicator
       clipboard-indicator
       espresso
       user-themes
-
-      # just out of curiosity
-      aylurs-widgets
       blur-my-shell
       dash-to-dock
       just-perfection
       rounded-window-corners
-      space-bar
+      disable-unredirect-fullscreen-windows
+      force-quit
+      gsconnect
+      pixel-saver
+      status-area-horizontal-spacing
+      weeks-start-on-monday-again
     ]);
+
+    environment.gnome.excludePackages = with pkgs.gnome; [
+      pkgs.gnome-tour
+      #baobab
+      epiphany
+      pkgs.gnome-text-editor
+      #gnome-calculator
+      #gnome-calendar
+      #gnome-characters
+      #gnome-clocks
+      pkgs.gnome-console
+      gnome-contacts
+      #gnome-font-viewer
+      #gnome-logs
+      gnome-maps
+      gnome-music
+      #gnome-system-monitor
+      #gnome-weather
+      #pkgs.loupe
+      #nautilus
+      pkgs.gnome-connections
+      simple-scan
+      pkgs.snapshot
+      #totem
+      yelp
+      seahorse
+      geary
+    ];
 
     hm.dconf = let
       # [ binding ]

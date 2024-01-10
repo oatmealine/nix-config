@@ -26,6 +26,8 @@ in {
     #  extraPortals = [pkgs.xdg-desktop-portal-gtk];
     #  config.common.default = "*";
     #};
+    
+    services.xserver.excludePackages = [ pkgs.xterm ];
 
     services.gnome.gnome-keyring.enable = true;
 

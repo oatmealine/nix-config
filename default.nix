@@ -79,4 +79,6 @@ in {
     # nix is really cool
     git  
   ];
+
+  documentation.nixos.enable = false;
 }

@@ -49,6 +49,8 @@ in {
       iconTheme = cfg.iconTheme;
       theme = cfg.gtkTheme;
     };
+    hm.dconf.settings."org/gnome/desktop/interface/gtk-theme".name = cfg.gtkTheme.name;
+    hm.dconf.settings."org/gnome/shell/extensions/user-theme".name = cfg.gtkTheme.name;
 
     hm.programs.vscode = {
       extensions = [ cfg.editor.vscode.extension ];

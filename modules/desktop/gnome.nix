@@ -20,11 +20,11 @@ in {
         espresso
         clipboard-indicator
         appindicator
-        blur-my-shell
-        dash-to-dock
+        #blur-my-shell
+        #dash-to-dock
         just-perfection
         disable-unredirect-fullscreen-windows
-        gsconnect
+        #gsconnect
         launch-new-instance
       ];
     };

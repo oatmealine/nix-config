@@ -33,7 +33,7 @@
       pipewire.enable = true;
     };
     desktop = {
-      envProto = "x11";
+      envProto = "wayland";
       gnome.enable = true;
       gnome.keybinds.shell = {
         # disable defaults
@@ -59,6 +59,7 @@
           command = ''${grabScript}'';
         };
       };
+      #xfce.enable = true;
       themes.active = "catppuccin";
     };
     software = {

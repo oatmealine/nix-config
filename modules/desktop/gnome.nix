@@ -25,7 +25,7 @@ in {
         just-perfection
         disable-unredirect-fullscreen-windows
         #gsconnect
-        launch-new-instance
+        #launch-new-instance
       ];
     };
     keybinds = {

@@ -9,7 +9,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # todo: declare sync folders & devices here
+    # declare sync folders & devices here
+    # edit: turns out you can't with hm. huh
     hm.services.syncthing.enable = true;
     hm.services.syncthing.tray.enable = true;
   };

@@ -1,6 +1,6 @@
 # nix-config
 
-hello!! welcome to my little nix cave, home to `goop-drive` and potentially more hosts to come.
+hello!! welcome to my little nix cave, home to `seven-red-suns` and potentially more hosts to come.
 
 this is a nix flake managing my nixos systems. it isn't really ready for other peoples' use, but you are free to look around.
 

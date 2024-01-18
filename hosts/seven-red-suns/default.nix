@@ -44,7 +44,9 @@
       gnome.keybinds.custom = {
         "take-screenshot" = {
           binding = "Print";
-          command = "${lib.getExe pkgs.flameshot} gui";
+          command = let
+            screenshotScript = pkgs.writeScript "screenshot" "XDG_SESSION_TYPE=wayland ${lib.getExe pkgs.flameshot} gui -c";
+          in ''${screenshotScript}'';
         };
         "take-screen-recording" = {
           binding = "<Shift>Print";

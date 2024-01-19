@@ -12,6 +12,8 @@ in {
   config = mkIf cfg.enable {
     user.packages = [ pkgs.grc ];
 
+    environment.systemPackages = with pkgs.fishPlugins; [ fzf-fish tide ];
+
     users.defaultUserShell = pkgs.fish;
     programs.fish.enable = true;
     hm.programs.fish = let

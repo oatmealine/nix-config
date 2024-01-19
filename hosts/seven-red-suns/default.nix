@@ -66,7 +66,8 @@
     };
     software = {
       # system
-      system.alacritty.enable = true;
+      #system.alacritty.enable = true;
+      system.wezterm.enable = true;
       system.fish.enable = true;
       system.syncthing.enable = true;
       # dev

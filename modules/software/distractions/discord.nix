@@ -25,8 +25,8 @@ in {
           "--enable-features=VaapiVideoDecoder"
         ];
       discord = (pkgs.unstable.discord-canary.override {
-        withOpenASAR = true;
-        withVencord = true;	
+        withOpenASAR = false;
+        withVencord = true;
       }).overrideAttrs (old: {
         preInstall = ''
           gappsWrapperArgs+=("--add-flags" "${concatStringsSep " " flags}")

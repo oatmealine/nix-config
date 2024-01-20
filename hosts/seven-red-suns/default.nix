@@ -18,7 +18,7 @@
     # apps
     vivaldi telegram-desktop onlyoffice-bin mpv
     # compatilibility
-    wine64
+    wineWowPackages.waylandFull winetricks
     # misc
     cowsay file which tree gnused yt-dlp
   ];
@@ -31,6 +31,10 @@
 
     hardware = {
       pipewire.enable = true;
+    };
+    dev = {
+      enable = true;
+      crystal.enable = true;
     };
     desktop = {
       envProto = "wayland";

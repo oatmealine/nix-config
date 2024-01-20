@@ -12,6 +12,8 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     catppuccin-vsc.url = "github:catppuccin/vscode";
+
+    crystal-flake.url = "github:manveru/crystal-flake";
   };
 
   outputs = inputs @ {

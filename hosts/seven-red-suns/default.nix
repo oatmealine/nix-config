@@ -18,7 +18,7 @@
     # apps
     vivaldi telegram-desktop onlyoffice-bin mpv
     # compatilibility
-    wine
+    wine64
     # misc
     cowsay file which tree gnused yt-dlp
   ];

@@ -14,9 +14,10 @@ in {
 
   config = mkMerge [
     {
-      env = {
-        QT_QPA_PLATFORMTHEME = "gnome";
-        QT_STYLE_OVERRIDE = "Adwaita";
+      qt = {
+        enable = true;
+        platformTheme = "gnome";
+        style = "adwaita-dark";
       };
 
       modules.desktop.fonts.enable = true;
@@ -27,8 +28,6 @@ in {
       #  extraPortals = [pkgs.xdg-desktop-portal-gtk];
       #  config.common.default = "*";
       #};
-      
-      services.xserver.excludePackages = [ pkgs.xterm ];
 
       services.gnome.gnome-keyring.enable = true;
 
@@ -47,6 +46,9 @@ in {
     (mkIf (cfg.envProto == "wayland") {
       # https://github.com/NixOS/nixpkgs/commit/b2eb5f62a7fd94ab58acafec9f64e54f97c508a6
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    })
+    (mkIf (cfg.envProto == "x11") {
+      services.xserver.excludePackages = [ pkgs.xterm ];
     })
   ];
 }

@@ -8,6 +8,8 @@
   powerManagement.powertop.enable = true;
   # Thermald proactively prevents overheating on Intel CPUs and works well with other tools.
   services.thermald.enable = true;
+  # Use power-profile-daemon for battery saving management
+  services.power-profiles-daemon.enable = true;
 
   boot.kernelParams = [
     # Enable the i915 Sandybridge Framebuffer Compression (confirmed 475mw savings)

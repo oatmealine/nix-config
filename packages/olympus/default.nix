@@ -41,6 +41,8 @@ pkgs.buildFHSEnv {
     pkgs.gtk3
     pkgs.glib
     pkgs.xdg-utils
+    pkgs.icu
+    pkgs.openssl
   ];
 
   # https://github.com/EverestAPI/Olympus/blob/main/lib-linux/olympus.desktop

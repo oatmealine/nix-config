@@ -20,8 +20,10 @@
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp
-  ];
+    cowsay file which tree gnused yt-dlp prismlauncher
+  ] ++ (with pkgs.my; [
+    olympus
+  ]);
 
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
   hm.services.flameshot.enable = true;

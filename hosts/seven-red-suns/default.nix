@@ -6,7 +6,7 @@
     # archives
     zip xz unzip p7zip
     # utils
-    ripgrep jq
+    ripgrep jq libqalculate
     # nix
     nix-output-monitor
     # dev
@@ -16,7 +16,7 @@
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin mpv
+    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc

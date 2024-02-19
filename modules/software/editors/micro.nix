@@ -1,8 +1,9 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.modules.software.editors.micro;
+  canUseOSC52 = config.modules.software.system.alacritty.enable;
 in {
   options.modules.software.editors.micro = {
     enable = mkEnableOption "Enable micro, the simple command-line code editor";
@@ -13,11 +14,15 @@ in {
   in mkIf cfg.enable {
     environment.variables.EDITOR = "micro";
 
+    hm.home.packages = mkIf (!canUseOSC52) (with pkgs; [
+      (if (config.modules.desktop.envProto == "x11") then xclip else wl-clipboard-x11)
+    ]);
+
     hm.programs.micro = {
       enable = true;
       settings = {
         autosu = true;
-        clipboard = "terminal";
+        clipboard = if canUseOSC52 then "terminal" else "external";
         savecursor = true;
         scrollbar = true;
         tabsize = 2;

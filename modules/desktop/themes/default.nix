@@ -41,6 +41,11 @@ in {
     hm.dconf = {
       enable = true;
       settings."org/gnome/desktop/interface".color-scheme = mkIf cfg.dark "prefer-dark";
+      settings."org/gnome/desktop/interface".gtk-theme = cfg.gtkTheme.name;
+      settings."org/gnome/desktop/interface".icon-theme = cfg.iconTheme.name;
+      settings."org/gnome/desktop/interface".cursor-theme = cfg.cursor.name;
+
+      settings."org/gnome/shell/extensions/user-theme".name = cfg.gtkTheme.name;
     };
 
     hm.gtk = {
@@ -49,8 +54,6 @@ in {
       iconTheme = cfg.iconTheme;
       theme = cfg.gtkTheme;
     };
-    hm.dconf.settings."org/gnome/desktop/interface/gtk-theme".name = cfg.gtkTheme.name;
-    hm.dconf.settings."org/gnome/shell/extensions/user-theme".name = cfg.gtkTheme.name;
 
     hm.programs.vscode = {
       extensions = [ cfg.editor.vscode.extension ];

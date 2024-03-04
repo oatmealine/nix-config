@@ -87,6 +87,12 @@ in {
     hm.gtk.font = {
       inherit (cfg.fonts.sans) package name size;
     };
+
+    hm.dconf.settings = {
+      "org/gnome/desktop/interface".font-name = with cfg.fonts.sans; "${family} ${toString size}";
+      "org/gnome/desktop/interface".document-font-name = with cfg.fonts.sansSerif; "${family} ${toString size}";
+      "org/gnome/desktop/interface".monospace-font-name = with cfg.fonts.monospace; "${family} ${toString size}";
+    };
   } // (mkIf cfg.baseFonts {
     fonts.packages = with pkgs; [
       fira-code

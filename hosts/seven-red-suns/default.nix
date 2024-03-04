@@ -16,13 +16,13 @@
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk
+    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
     cowsay file which tree gnused yt-dlp prismlauncher
   ] ++ (with pkgs.my; [
-    olympus
+    olympus iterator-icons
   ]);
 
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
@@ -30,6 +30,10 @@
 
   modules = {
     security.useDoas = true;
+    os-release = {
+      enable = true;
+      logo = "seven-red-suns";
+    };
 
     hardware = {
       pipewire.enable = true;

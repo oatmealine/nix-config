@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 
 with lib;
 let
@@ -16,5 +16,6 @@ in {
       enableRenice = true;
       settings = {};
     };
+    user.packages = [ pkgs.protontricks pkgs.steam-run ];
   };
 }

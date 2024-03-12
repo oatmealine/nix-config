@@ -24,6 +24,9 @@ in {
       interactiveShellInit = ''
         sh ${colorScript}
       '';
+      functions.fish_greeting = ''
+        ${lib.getExe pkgs.fortune} -e ${pkgs.my.scold-fortunes}/share/fortune
+      '';
     };
   };
 }

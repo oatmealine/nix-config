@@ -2,7 +2,7 @@ window {
   /*background: @base;*/
   background: alpha(@base, 0.3);
   color: @text;
-  font-family: 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;
+  font-family: 'Atkinson Hyperlegible Pro', 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;
   font-size: 14px;
   font-style: normal;
 }

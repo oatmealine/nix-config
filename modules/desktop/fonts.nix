@@ -31,13 +31,13 @@ in {
         
     fonts = {
       sans = mkFontOption "sans" {
-        package = pkgs.atkinson-hyperlegible;
-        family = "Atkinson Hyperlegible";
+        package = pkgs.my.atkinson-hyperlegible-pro;
+        family = "Atkinson Hyperlegible Pro";
         size = 11;
       };
       sansSerif = mkFontOption "sans-serif" {
-        package = pkgs.atkinson-hyperlegible;
-        family = "Atkinson Hyperlegible";
+        package = pkgs.my.atkinson-hyperlegible-pro;
+        family = "Atkinson Hyperlegible Pro";
         size = 11;
       };
       monospace = mkFontOption "monospace" {
@@ -106,7 +106,7 @@ in {
       twemoji-color-font
       noto-fonts-color-emoji
       noto-fonts-monochrome-emoji
-      #font-awesome
+      font-awesome
     ];
   });
 }

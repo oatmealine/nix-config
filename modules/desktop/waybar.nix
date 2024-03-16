@@ -12,10 +12,10 @@ in {
     hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe pkgs.waybar}" ];
     hm.programs.waybar = {
       enable = true;
-      #style = builtins.concatStringsSep "\n" [
-      #  "@import \"${inputs.waybar-catppuccin}/themes/mocha.css\";"
-      #  (lib.readFile ../../config/waybar.css)
-      #];
+      style = builtins.concatStringsSep "\n" [
+        "@import \"${inputs.waybar-catppuccin}/themes/mocha.css\";"
+        (lib.readFile ../../config/waybar.css)
+      ];
       settings = {
         mainBar = {
           layer = "top";

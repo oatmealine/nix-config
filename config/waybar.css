@@ -53,6 +53,10 @@ box.module, .modules-right box {
   border-bottom-right-radius: 1em;
 }
 
+#workspaces button.empty {
+  color: @overlay0;
+}
+
 #workspaces button.visible {
   background: @surface1;
 }
@@ -69,6 +73,9 @@ box.module, .modules-right box {
 
 #window {
   background: transparent;
+}
+window#waybar.floating #window {
+  color: @pink;
 }
 
 #clock {

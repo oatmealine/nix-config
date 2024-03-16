@@ -9,13 +9,23 @@
   inherit (lib.modules) mkAliasOptionModule mkDefault mkIf;
   inherit (lib.my) mapModulesRec';
 in {
+  # disables Nixpkgs Hyprland module to avoid conflicts
+  #disabledModules = [ "programs/hyprland.nix" ];
+  
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
-  	  inputs.nix-colors.homeManagerModules.default
       (mkAliasOptionModule ["hm"] ["home-manager" "users" config.user.name])
+  	  inputs.nix-colors.homeManagerModules.default
+      inputs.hyprland.nixosModules.default
     ]
     ++ (mapModulesRec' (toString ./modules) import);
+
+  hm.imports = [
+    inputs.hyprlock.homeManagerModules.hyprlock
+    inputs.hypridle.homeManagerModules.hypridle
+    inputs.hyprland.homeManagerModules.default
+  ];
 
   # Common config for all nixos machines;
   environment.variables = {
@@ -33,10 +43,11 @@ in {
       auto-optimise-store = true;
       keep-outputs = true;
       keep-derivations = true;
-      substituters = [ "https://nix-community.cachix.org" "https://nixpkgs-wayland.cachix.org" ];
+      substituters = [ "https://nix-community.cachix.org" "https://nixpkgs-wayland.cachix.org" "https://hyprland.cachix.org" ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
   };

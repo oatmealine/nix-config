@@ -1,0 +1,98 @@
+* {
+  bg-col: #24273a;
+  bg-col-light: #313244;
+  border-col: #363a4f;
+  selected-col: #45475a;
+  pink: #f5c2e7;
+  fg-col: #cdd6f4;
+  fg-col2: @pink;
+  grey: #bac2de;
+
+  width: 450px;
+}
+
+element-text, element-icon , mode-switcher {
+  background-color: inherit;
+  text-color: inherit;
+}
+
+window {
+  height: 500px;
+  border: 2px;
+  border-radius: 1em;
+  border-color: @pink;
+  background-color: @bg-col;
+}
+
+mainbox {background-color: @bg-col;}
+
+inputbar {
+  margin: 10px 5px 5px 5px;
+  children: [prompt, entry];
+  background-color: @bg-col;
+  padding: 1px;
+}
+
+prompt {
+  background-color: transparent;
+  padding: 1px;
+  text-color: @fg-col;
+  border-radius: 1.5em;
+}
+
+textbox-prompt-colon {
+  expand: true;
+  str: ":";
+}
+
+entry {
+  padding: 1px;
+  margin: 0px;
+  text-color: @fg-col;
+  background-color: @bg-col;
+}
+
+listview {
+  border: 0px 0px 0px;
+  margin: 5px 0px 0px 10px;
+  columns: 1;
+  lines: 10;
+  background-color: @bg-col;
+}
+
+element {
+  padding: 1px;
+  background-color: @bg-col;
+  text-color: @fg-col;
+}
+
+element-icon {size: 12px;}
+
+element.selected {
+  background-color: @selected-col;
+  text-color: @fg-col2;
+}
+
+
+scrollbar {
+  width:        4px ;
+  border:       0;
+  handle-color: @fg-col;
+  handle-width: 8px ;
+  padding:      0;
+}
+
+mode-switcher {spacing: 0;}
+
+button {
+  spacing: 0;
+  background-color: @bg-col-light;
+  text-color: @grey;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+}
+
+button.selected {
+  background-color: @bg-col;
+  text-color: @pink;
+}

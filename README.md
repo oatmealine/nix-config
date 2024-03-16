@@ -21,3 +21,7 @@ these are sorted by `theme - de`.
 ### Catppuccin - Gnome
 
 ![](./docs/assets/2024-01-08_14-24.png)
+
+### Catppuccin - Hyprland
+
+![](./docs/assets/2024-03-17_01-43.png)

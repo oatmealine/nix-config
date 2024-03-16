@@ -1,0 +1,27 @@
+window {
+  /*background: @base;*/
+  background: alpha(@base, 0.3);
+  color: @text;
+  font-family: 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;
+  font-size: 14px;
+  font-style: normal;
+}
+
+/* search entry */
+entry {
+  background-color: alpha(@surface0, 0.5);
+}
+
+button, image {
+  background: none;
+  border: none
+}
+
+button {
+  padding: 1em 0.5em;
+  border-radius: 1em;
+}
+
+button:hover {
+  background-color: alpha(@surface0, 0.5);
+}

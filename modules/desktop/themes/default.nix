@@ -33,6 +33,8 @@ in {
         extension = mkPackageOption pkgs "extension" {};
       };
     };
+
+    hyprland = mkOpt (nullOr str) null;
   };
 
   config = mkIf (cfg.active != null) {
@@ -55,11 +57,18 @@ in {
       theme = cfg.gtkTheme;
     };
 
+    hm.services.dunst.iconTheme = {
+      name = cfg.iconTheme.name;
+      package = cfg.iconTheme.package;
+    };
+
     hm.programs.vscode = {
       extensions = [ cfg.editor.vscode.extension ];
       userSettings = {
         "workbench.colorTheme" = cfg.editor.vscode.name;
       };
     };
+
+    hm.wayland.windowManager.hyprland.settings.source = mkIf (cfg.hyprland != null) [ cfg.hyprland ];
   };
 }

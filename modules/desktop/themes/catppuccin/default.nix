@@ -3,7 +3,8 @@
 with lib;
 let
   cfg = config.modules.desktop.themes;
-  #accent = "pink"; # TODO?
+  accent = "pink";
+  variant = "mocha";
 in {
   config = mkIf (cfg.active == "catppuccin") {
     colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
@@ -12,10 +13,10 @@ in {
       dark = true;
 
       gtkTheme = {
-        name = "Catppuccin-Mocha-Compact-Pink-Dark";
+        name = "Catppuccin-Mocha-Compact-Pink-Dark"; #todo put accent in here
         package = pkgs.catppuccin-gtk.override {
-          variant = "mocha";
-          accents = ["pink"];
+          variant = variant;
+          accents = [ accent ];
           tweaks = ["rimless"];
           size = "compact";
         };
@@ -35,7 +36,7 @@ in {
         vscode = {
           name = "Catppuccin Mocha";
           extension = (pkgs.vscode-extensions.catppuccin.catppuccin-vsc.override {
-            accent = "pink";
+            accent = accent;
             boldKeywords = false;
             italicComments = false;
             italicKeywords = false;
@@ -45,6 +46,8 @@ in {
           });
         };
       };
+
+      hyprland = "${inputs.hyprland-catppuccin}/themes/${variant}.conf";
     };
   };
 }

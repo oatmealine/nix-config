@@ -1,0 +1,118 @@
+* {
+  border: none;
+  border-radius: 0px;
+  min-height: 0;
+}
+
+window#waybar {
+  color: @text;
+  /*background: alpha(@base, 0.6);*/
+  background: @base;
+  border-radius: 1em;
+  /*font-family: VictorMono, Iosevka Nerd Font, Noto Sans CJK;*/
+  /*font-family: 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;*/
+  font-family: CozetteVector, FontAwesome, Noto Sans CJK;
+  font-size: 13px;
+  font-style: normal;
+}
+
+box.module, .modules-right box {
+  background-color: @surface0;
+  margin: 0 0.25em;
+  padding: 0.15em 0.25em;
+  border-radius: 1em;
+}
+.modules-right label.module {
+  margin: 0 0.5em;
+}
+
+.modules-right box {
+  padding: 0.15em 0.4em;
+}
+.modules-left, .modules-right {
+  margin: 0.4em 0.5em;
+}
+
+#workspaces {
+  background-color: @surface0;
+  padding: 0;
+}
+
+#workspaces button {
+  background-color: transparent;
+  color: @text;
+  padding: 0 0.4em;
+}
+
+#workspaces button:nth-child(1) {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+#workspaces button:nth-last-child(1) {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+#workspaces button.visible {
+  background: @surface1;
+}
+
+#workspaces button.active {
+  background: @pink;
+  color: @surface0;
+}
+
+#workspaces button.urgent {
+  background: @red;
+  color: @surface0;
+}
+
+#window {
+  background: transparent;
+}
+
+#clock {
+  color: @lavender;
+}
+
+#power-profiles-daemon {
+  color: @teal;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @peach;
+}
+
+#battery.critical:not(.charging) {
+  color: @maroon;
+}
+
+#network {
+  color: @sapphire;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#pulseaudio {
+  color: @pink;
+}
+
+#custom-power {
+  color: @red;
+}
+
+tooltip {
+  color: @text;
+  background: @base;
+  border: 1px solid @pink;
+}

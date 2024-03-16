@@ -14,6 +14,15 @@
     catppuccin-vsc.url = "github:catppuccin/vscode";
 
     crystal-flake.url = "github:manveru/crystal-flake";
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock.url = "github:hyprwm/hyprlock";
+    hypridle.url = "github:hyprwm/hypridle";
+
+    waybar-catppuccin.url = "github:catppuccin/waybar";
+    waybar-catppuccin.flake = false;
+    hyprland-catppuccin.url = "github:catppuccin/hyprland";
+    hyprland-catppuccin.flake = false;
   };
 
   outputs = inputs @ {

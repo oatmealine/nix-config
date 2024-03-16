@@ -42,10 +42,31 @@ in {
       # https://discourse.nixos.org/t/boot-faster-by-disabling-udev-settle-and-nm-wait-online/6339
       systemd.services.systemd-udev-settle.enable = false;
       systemd.services.NetworkManager-wait-online.enable = false;
+
+      # https://wiki.archlinux.org/title/Systemd/Journal#Persistent_journals
+      # limit systemd journal size
+      # journals get big really fasti and on desktops they are not audited often
+      # on servers, however, they are important for both security and stability
+      # thus, persisting them as is remains a good idea
+      services.journald.extraConfig = ''
+        SystemMaxUse=100M
+        RuntimeMaxUse=50M
+        SystemMaxFileSize=50M
+      '';
     }
     (mkIf (cfg.envProto == "wayland") {
-      # https://github.com/NixOS/nixpkgs/commit/b2eb5f62a7fd94ab58acafec9f64e54f97c508a6
-      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+      environment.sessionVariables = {
+        # https://github.com/NixOS/nixpkgs/commit/b2eb5f62a7fd94ab58acafec9f64e54f97c508a6
+        NIXOS_OZONE_WL = "1";
+        # the rest are borrowed from https://github.com/NotAShelf/nyx/blob/9fbba55f565c630469a971bc71e5957dc228703b/modules/core/common/system/os/display/wayland/environment.nix#L18
+        _JAVA_AWT_WM_NONEREPARENTING = "1";
+        GDK_BACKEND = "wayland,x11";
+        ANKI_WAYLAND = "1";
+        MOZ_ENABLE_WAYLAND = "1";
+        XDG_SESSION_TYPE = "wayland";
+        SDL_VIDEODRIVER = "wayland";
+        CLUTTER_BACKEND = "wayland";
+      };
     })
     (mkIf (cfg.envProto == "x11") {
       services.xserver.excludePackages = [ pkgs.xterm ];

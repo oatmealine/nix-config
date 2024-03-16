@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    hm.programs.rofi.terminal = "wezterm";
     hm.programs.wezterm = {
       enable = true;
       # custom settings

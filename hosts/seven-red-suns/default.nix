@@ -23,6 +23,10 @@
     cowsay file which tree gnused yt-dlp prismlauncher
   ] ++ (with pkgs.my; [
     olympus iterator-icons
+  ]) ++ (with pkgs.gnome; [
+    # these are usually defaults, but are missing when non-gnome DEs are used
+    # however gnome apps are my beloved so i'm just adding them back
+    nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
   ]);
 
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
@@ -44,7 +48,8 @@
     };
     desktop = {
       envProto = "wayland";
-      gnome.enable = true;
+      
+      /*gnome.enable = true;
       gnome.keybinds.shell = {
         # disable defaults
         "screenshot" = [];
@@ -70,8 +75,21 @@
           binding = "Launch1";
           command = ''${grabScript}'';
         };
-      };
+      };*/
+
       #xfce.enable = true;
+
+      # in my mind they're a lesbian polycule
+      hyprland.enable = true;
+      hyprlock.enable = true;
+      hyprpaper.enable = true;
+      hypridle.enable = true;
+
+      dunst.enable = true;
+      waybar.enable = true;
+      rofi.enable = true;
+      nwg-drawer.enable = true;
+
       themes.active = "catppuccin";
     };
     software = {

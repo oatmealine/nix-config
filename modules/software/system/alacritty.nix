@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    hm.programs.rofi.terminal = "alacritty";
     hm.programs.alacritty = {
       enable = true;
       # custom settings

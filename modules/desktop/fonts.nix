@@ -94,6 +94,7 @@ in {
       "org/gnome/desktop/interface".monospace-font-name = with cfg.fonts.monospace; "${family} ${toString size}";
     };
   } // (mkIf cfg.baseFonts {
+    fonts.enableDefaultPackages = true;
     fonts.packages = with pkgs; [
       fira-code
       fira-code-symbols
@@ -102,6 +103,10 @@ in {
       proggyfonts
       atkinson-hyperlegible
       cozette
+      twemoji-color-font
+      noto-fonts-color-emoji
+      noto-fonts-monochrome-emoji
+      #font-awesome
     ];
   });
 }

@@ -41,17 +41,17 @@ in {
         size = 11;
       };
       monospace = mkFontOption "monospace" {
-        package = pkgs.cozette;
+        package = pkgs.unstable.cozette;
         family = "CozetteVector";
         size = 10;
       };
       monospaceBitmap = mkFontOption "bitmap monospace" {
-        package = pkgs.cozette;
+        package = pkgs.unstable.cozette;
         family = "Cozette";
         size = 10;
       };
       emoji = mkFontOption "emoji" {
-        package = pkgs.twitter-color-emoji;
+        package = pkgs.unstable.twitter-color-emoji;
         family = "Twitter Color Emoji";
         size = 10; # not applicable, but whatever
       };
@@ -69,7 +69,7 @@ in {
         emoji = [ cfg.fonts.emoji.family ];
       };
       enableGhostscriptFonts = true;
-      packages = with pkgs; [  	
+      packages = with pkgs.unstable; [  	
         corefonts
         noto-fonts
         noto-fonts-cjk-sans
@@ -95,7 +95,7 @@ in {
     };
   } // (mkIf cfg.baseFonts {
     fonts.enableDefaultPackages = true;
-    fonts.packages = with pkgs; [
+    fonts.packages = with pkgs.unstable; [
       fira-code
       fira-code-symbols
       mplus-outline-fonts.githubRelease

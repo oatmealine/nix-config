@@ -3,19 +3,28 @@
 with lib;
 let
   cfg = config.modules.desktop.hyprland;
+  hyprpkgs = inputs.hyprland.packages.${system};
 in {
   options.modules.desktop.hyprland = {
     enable = mkEnableOption "Enable Hyprland, a dynamic tiling Wayland compositor based on wlroots that doesn't sacrifice on its looks";
     allowTearing = mkEnableOption "Enable tearing, reduces latency in games but unsupported on some GPUs";
+    package = mkOption {
+      type = types.package;
+      default = hyprpkgs.hyprland;
+      example = "pkgs.hyprland";
+    };
+    portalPackage = mkOption {
+      type = types.package;
+      default = hyprpkgs.xdg-desktop-portal-hyprland;
+      example = "pkgs.xdg-desktop-portal-hyprland";
+    };
   };
 
-  config = let
-    hyprpkgs = inputs.hyprland.packages.${system};
-  in mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = [ hyprpkgs.hyprland ];
+  config = mkIf cfg.enable {
+    services.xserver.displayManager.sessionPackages = [ cfg.package ];
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk hyprpkgs.xdg-desktop-portal-hyprland ];
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk cfg.portalPackage ];
       config = {
         common = {
           default = [ "hyprland" "gtk" ];
@@ -30,7 +39,7 @@ in {
     hm.wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      package = hyprpkgs.hyprland;
+      package = cfg.package;
 
       settings = {
         source = [];

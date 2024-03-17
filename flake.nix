@@ -18,6 +18,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
 
     waybar-catppuccin.url = "github:catppuccin/waybar";
     waybar-catppuccin.flake = false;

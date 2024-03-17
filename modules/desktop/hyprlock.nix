@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, inputs, system, ... }:
 
 with lib;
 let
@@ -6,12 +6,21 @@ let
 in {
   options.modules.desktop.hyprlock = {
     enable = mkEnableOption "Enable hyprlock, a simple, yet fast, multi-threaded and GPU-accelerated screen lock for hyprland";
+    package = mkOption {
+      type = types.package;
+      default = inputs.hyprlock.packages.${system}.hyprlock;
+      example = "pkgs.hyprlock";
+    };
   };
 
   config = mkIf cfg.enable {
     security.pam.services.hyprlock.text = "auth include login";
+    powerManagement.resumeCommands = ''
+      ${cfg.package}
+    '';
     hm.programs.hyprlock = with config.colorScheme.colors; {
       enable = true;
+      package = cfg.package;
       general = {
         hide_cursor = false;
         no_fade_in = true;

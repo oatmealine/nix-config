@@ -94,6 +94,7 @@ in {
             "$mod, mouse_up, workspace, e-1"
 
             ", XF86Launch1, exec, ${grabScript}"
+            ", XF86ScreenSaver, exec, ${lib.getExe config.modules.desktop.hyprlock.package}"
           ]
           ++ (
             # workspaces

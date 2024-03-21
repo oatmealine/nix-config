@@ -70,13 +70,13 @@ in {
             format = "";
             tooltip = true;
             tooltip-format = "Exit Hyprland";
-            on-click = "hyprctl dispatch exit";
+            on-click = "${config.modules.desktop.hyprland.package}/bin/hyprctl dispatch exit";
           };
           "custom/lock" = {
             format = "";
             tooltip = true;
             tooltip-format = "Lock the system";
-            on-click = "hyprlock";
+            on-click = "${lib.getExe config.modules.desktop.hyprlock.package}";
           };
           "custom/reboot" = {
             format = "↻";

@@ -26,6 +26,10 @@ in {
       name = mkOpt str "";
       package = mkPackageOption pkgs "cursor" {};
     };
+    sddmTheme = {
+      name = mkOpt str "";
+      package = mkPackageOption pkgs "catppuccin-sddm-corners" {};
+    };
 
     editor = {
       vscode = {

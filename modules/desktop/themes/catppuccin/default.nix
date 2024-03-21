@@ -32,6 +32,16 @@ in {
         name = "graphite-dark";
       };
 
+      sddmTheme = {
+        name = "catppuccin-sddm-corners";
+        package = (pkgs.my.catppuccin-sddm-corners.override {
+          config.General = {
+            Background = ../../../../assets/lockscreen.png;
+            Font = config.modules.desktop.fonts.fonts.sansSerif.family;
+          };
+        });
+      };
+
       editor = {
         vscode = {
           name = "Catppuccin Mocha";

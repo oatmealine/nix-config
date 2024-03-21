@@ -90,6 +90,8 @@
       rofi.enable = true;
       nwg-drawer.enable = true;
 
+      sddm.enable = true;
+
       themes.active = "catppuccin";
     };
     software = {

@@ -14,6 +14,8 @@
     catppuccin-vsc.url = "github:catppuccin/vscode";
 
     crystal-flake.url = "github:manveru/crystal-flake";
+    
+    waybar.url = "github:Alexays/Waybar";
 
     hyprland.url = "github:hyprwm/Hyprland";
     hyprlock.url = "github:hyprwm/hyprlock";

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, inputs, system, ... }:
 
 with lib;
 let
@@ -6,12 +6,18 @@ let
 in {
   options.modules.desktop.waybar = {
     enable = mkEnableOption "Enable Waybar, a lightweight desktop environment based on GTK+";
+    package = mkOption {
+      type = types.package;
+      default = inputs.waybar.packages.${system}.default;
+      example = "pkgs.waybar";
+    };
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe pkgs.waybar}" ];
+    hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe cfg.package}" ];
     hm.programs.waybar = {
       enable = true;
+      package = cfg.package;
       style = builtins.concatStringsSep "\n" [
         "@import \"${inputs.waybar-catppuccin}/themes/mocha.css\";"
         (lib.readFile ../../config/waybar.css)

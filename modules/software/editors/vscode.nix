@@ -15,6 +15,7 @@ in {
         jnoortheen.nix-ide
         sumneko.lua
         ms-vsliveshare.vsliveshare
+        svelte.svelte-vscode
       ];
       mutableExtensionsDir = false;
       enableExtensionUpdateCheck = false;

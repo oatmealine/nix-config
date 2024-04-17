@@ -11,6 +11,11 @@
   # Use power-profile-daemon for battery saving management
   services.power-profiles-daemon.enable = true;
 
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+  services.blueman.enable = true;
+
   # better performance than the actual Intel driver
   services.xserver.videoDrivers = ["modesetting"];
 

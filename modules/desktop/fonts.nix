@@ -107,6 +107,7 @@ in {
       noto-fonts-color-emoji
       noto-fonts-monochrome-emoji
       font-awesome
+      recursive
     ];
   });
 }

@@ -61,6 +61,13 @@ in {
       theme = cfg.gtkTheme;
     };
 
+    hm.home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      name = cfg.cursor.name;
+      package = cfg.cursor.package;
+    };
+
     hm.services.dunst.iconTheme = {
       name = cfg.iconTheme.name;
       package = cfg.iconTheme.package;

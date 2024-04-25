@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     security.pam.services.hyprlock.text = "auth include login";
     powerManagement.resumeCommands = ''
-      ${cfg.package}
+      ${lib.getExe cfg.package}
     '';
     hm.programs.hyprlock = with config.colorScheme.colors; {
       enable = true;

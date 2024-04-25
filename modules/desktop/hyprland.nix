@@ -170,11 +170,25 @@ in {
           "immediate, class:^steam_app_"
           "float, class:^steam_app_"
 
+          "immediate, class:XDRV.x86_64"
+          "fullscreen, class:XDRV.x86_64"
+
           # common popups
           "float, class:file-roller"
+          "size 1100 730, class:file-roller"
           "float, class:org.gnome.Loupe"
-          "float, initialTitle:^Open Folder$"
-          "float, initialTitle:^Open File$"
+          "size 1100 730, class:org.gnome.Loupe"
+          "float, title:^Open Folder$"
+          "size 1100 730, title:^Open Folder$"
+          "float, title:^Open File$"
+          "size 1100 730, title:^Open File$"
+
+          "float, class:notitg-v4.3.0.exe"
+          # doesn't look great w/ wine's window decorations
+          "rounding 0, class:notitg-v4.3.0.exe"
+          # stepmania is a crusty old engine and likes to mess w/ fullscreening upon launch
+          "suppressevent maximize, class:notitg-v4.3.0.exe"
+          "suppressevent fullscreen, class:notitg-v4.3.0.exe"
           
           #"float, class:org.gnome.Nautilus"
 

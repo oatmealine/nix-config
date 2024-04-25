@@ -182,6 +182,7 @@ in {
           "size 1100 730, title:^Open Folder$"
           "float, title:^Open File$"
           "size 1100 730, title:^Open File$"
+          "float, class:zenity"
 
           "float, class:notitg-v4.3.0.exe"
           # doesn't look great w/ wine's window decorations
@@ -189,6 +190,8 @@ in {
           # stepmania is a crusty old engine and likes to mess w/ fullscreening upon launch
           "suppressevent maximize, class:notitg-v4.3.0.exe"
           "suppressevent fullscreen, class:notitg-v4.3.0.exe"
+
+          "float, class:\.exe$"
           
           #"float, class:org.gnome.Nautilus"
 

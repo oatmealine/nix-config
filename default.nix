@@ -17,14 +17,13 @@ in {
       inputs.home-manager.nixosModules.home-manager
       (mkAliasOptionModule ["hm"] ["home-manager" "users" config.user.name])
   	  inputs.nix-colors.homeManagerModules.default
-      inputs.hyprland.nixosModules.default
+      #inputs.hyprland.nixosModules.default
+      inputs.lix-module.nixosModules.default
     ]
     ++ (mapModulesRec' (toString ./modules) import);
 
   hm.imports = [
-    inputs.hyprlock.homeManagerModules.hyprlock
-    inputs.hypridle.homeManagerModules.hypridle
-    inputs.hyprland.homeManagerModules.default
+    #inputs.hyprland.homeManagerModules.default
   ];
 
   # Common config for all nixos machines;
@@ -43,11 +42,17 @@ in {
       auto-optimise-store = true;
       keep-outputs = true;
       keep-derivations = true;
-      substituters = [ "https://nix-community.cachix.org" "https://nixpkgs-wayland.cachix.org" "https://hyprland.cachix.org" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://nixpkgs-wayland.cachix.org"
+        "https://hyprland.cachix.org"
+        "https://cache.lix.systems"
+      ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
       ];
     };
   };
@@ -57,6 +62,8 @@ in {
     configurationRevision = with inputs; mkIf (self ? rev) self.rev;
   };
   hm.home.stateVersion = config.system.stateVersion;
+  # Mods, release the spores into his body. thank you
+  hm.home.enableNixpkgsReleaseCheck = false;
 
   boot = {
     kernelPackages = mkDefault pkgs.unstable.linuxPackages_latest;

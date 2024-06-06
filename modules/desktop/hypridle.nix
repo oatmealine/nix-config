@@ -17,32 +17,35 @@ in {
     hm.services.hypridle = {
       enable = true;
       package = cfg.package;
+      settings = {
+        general = {
+          lock_cmd = "${lib.getExe config.modules.desktop.hyprlock.package}";
+          #after_sleep_cmd = "pkill -USR1 hyprlock";
 
-      lockCmd = "${lib.getExe config.modules.desktop.hyprlock.package}";
-      unlockCmd = "pkill -USR1 hyprlock";
-
-      listeners = let
-        hyprctl = "${config.modules.desktop.hyprland.package}/bin/hyprctl";
-      in [
-        {
-          timeout = 60 * 1; # 1 min
-          onTimeout = "${lib.getExe pkgs.brightnessctl} -s set 20";
-          onResume = "${lib.getExe pkgs.brightnessctl} -r" ;
-        }
-        {
-          timeout = 90; # 1.5 min
-          onTimeout = "${hyprctl} dispatch dpms off"; # turn off screen
-          onResume = "${hyprctl} dispatch dpms on"; # turn it back on
-        }
-        {
-          timeout = 60 * 2; # 2 min
-          onTimeout = "loginctl lock-session"; # lock the system
-        }
-        {
-          timeout = 60 * 5; # 5 min
-          onTimeout = "systemctl suspend"; # suspend
-        }
-      ];
+          listener = let
+            hyprctl = "${config.modules.desktop.hyprland.package}/bin/hyprctl";
+          in [
+            {
+              timeout = 60 * 1; # 1 min
+              on-timeout = "${lib.getExe pkgs.brightnessctl} -s set 20";
+              on-resume = "${lib.getExe pkgs.brightnessctl} -r" ;
+            }
+            {
+              timeout = 90; # 1.5 min
+              on-timeout = "${hyprctl} dispatch dpms off"; # turn off screen
+              on-resume = "${hyprctl} dispatch dpms on"; # turn it back on
+            }
+            {
+              timeout = 60 * 2; # 2 min
+              on-timeout = "loginctl lock-session"; # lock the system
+            }
+            {
+              timeout = 60 * 5; # 5 min
+              on-timeout = "systemctl suspend"; # suspend
+            }
+          ];
+        };
+      };
     };
   };
 }

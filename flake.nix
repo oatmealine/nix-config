@@ -5,19 +5,19 @@
     nixpkgs.url = "nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
     nix-colors.url = "github:misterio77/nix-colors";
 
-    catppuccin-vsc.url = "github:catppuccin/vscode";
+    catppuccin-vsc.url = "github:catppuccin/vscode/catppuccin-vsc-v3.14.0";
 
     crystal-flake.url = "github:manveru/crystal-flake";
     
     waybar.url = "github:Alexays/Waybar";
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
     hyprpaper.url = "github:hyprwm/hyprpaper";
@@ -26,6 +26,16 @@
     waybar-catppuccin.flake = false;
     hyprland-catppuccin.url = "github:catppuccin/hyprland";
     hyprland-catppuccin.flake = false;
+
+    lix = {
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
+      flake = false;
+    };
+    lix-module = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module";
+      inputs.lix.follows = "lix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

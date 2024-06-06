@@ -16,6 +16,7 @@ in {
         sumneko.lua
         ms-vsliveshare.vsliveshare
         svelte.svelte-vscode
+        editorconfig.editorconfig
       ];
       mutableExtensionsDir = false;
       enableExtensionUpdateCheck = false;
@@ -55,6 +56,8 @@ in {
 
         # prevent VSCode from modifying the terminal colors
         "terminal.integrated.minimumContrastRatio" = 1;
+
+        "Lua.workspace.ignoreDir" = [ ".vscode" ".direnv" ];
       };
     };
   };

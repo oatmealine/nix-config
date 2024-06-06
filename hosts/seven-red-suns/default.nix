@@ -33,6 +33,8 @@
   hm.services.flameshot.enable = true;
 
   modules = {
+    #ssh.enable = true;
+
     security.useDoas = true;
     os-release = {
       enable = true;

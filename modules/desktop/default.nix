@@ -67,6 +67,7 @@ in {
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";
       };
+      programs.xwayland.enable = true;
     })
     (mkIf (cfg.envProto == "x11") {
       services.xserver.excludePackages = [ pkgs.xterm ];

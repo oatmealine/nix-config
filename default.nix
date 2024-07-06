@@ -18,7 +18,7 @@ in {
       (mkAliasOptionModule ["hm"] ["home-manager" "users" config.user.name])
   	  inputs.nix-colors.homeManagerModules.default
       #inputs.hyprland.nixosModules.default
-      inputs.lix-module.nixosModules.default
+      #inputs.lix-module.nixosModules.default
     ]
     ++ (mapModulesRec' (toString ./modules) import);
 

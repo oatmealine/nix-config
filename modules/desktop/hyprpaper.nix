@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe cfg.package}" ];
     hm.xdg.configFile."hypr/hyprpaper.conf" = let
-      img = ../../assets/wallpaper.png;
+      img = ../../assets/wp2.webp;
     in {
       text = ''
         preload = ${img}

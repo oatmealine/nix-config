@@ -40,10 +40,18 @@ in {
             "clock"
           ];
           modules-right = [
+            "group/playback"
             "group/status"
             "tray"
             "group/power"
           ];
+
+          "group/playback" = {
+            orientation = "inherit";
+            modules = [
+              "mpris"
+            ];
+          };
 
           "group/status" = {
             orientation = "inherit";
@@ -147,6 +155,18 @@ in {
             on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
             tooltip = true;
             tooltip-format = "{flag} {long}";
+          };
+          mpris = {
+            format = "♫ {dynamic}";
+            format-paused = "{status_icon} {dynamic}";
+            dynamic-order = [ "title" ];
+            tooltip-format = "{player}: {dynamic}";
+            interval = 1;
+            status-icons = {
+		          playing = "▶";
+              paused = "⏸";
+            };
+            player = "chromium"; # setting it to the default breaks it ?
           };
           pulseaudio = {
             format = "{icon} {volume}%";

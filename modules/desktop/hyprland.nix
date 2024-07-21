@@ -154,8 +154,8 @@ in {
 
           gaps_in = 6;
           gaps_out = 6;
-          border_size = 2;
-          no_border_on_floating = true;
+          border_size = 1;
+          no_border_on_floating = false;
 
           layout = "dwindle";
 
@@ -207,7 +207,12 @@ in {
 
         blurls = [
           "gtk-layer-shell"
-          "waybar"
+          "dunst"
+          #"waybar"
+        ];
+
+        layerrule = [
+          "blur,notifications"
         ];
 
         decoration = {
@@ -246,6 +251,7 @@ in {
             "border, 1, 2, outExpo"
             "fade, 1, 3, outCubic"
             "workspaces, 1, 6, outExpo"
+            "specialWorkspace, 1, 2, outCubic, fade"
           ];
         };
 

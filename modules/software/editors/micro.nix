@@ -32,7 +32,7 @@ in {
       };
     };
 
-    hm.home.file.".config/micro/colorschemes/${schemeName}.micro".text = with config.colorScheme.colors; ''
+    hm.home.file.".config/micro/colorschemes/${schemeName}.micro".text = with config.colorScheme.palette; ''
       color-link default "#${base05},#${base00}"
       color-link comment "#${base03},#${base00}"
       color-link identifier "#${base0D},#${base00}"

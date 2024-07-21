@@ -10,11 +10,16 @@ window {
 /* search entry */
 entry {
   background-color: alpha(@surface0, 0.5);
+  color: @text;
 }
 
-button, image {
+button, box, widget, image {
   background: none;
-  border: none
+  border: none;
+  color: @text;
+  text-shadow: 0 1px alpha(@base, 0.75);
+  box-shadow: none;
+  outline: none;
 }
 
 button {
@@ -22,6 +27,6 @@ button {
   border-radius: 1em;
 }
 
-button:hover {
-  background-color: alpha(@surface0, 0.5);
+button:hover, button:active, box:hover, box:active {
+  background: alpha(@surface0, 0.5);
 }

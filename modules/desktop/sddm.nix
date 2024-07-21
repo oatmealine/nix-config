@@ -16,7 +16,7 @@ in {
       libsForQt5.qt5.qtgraphicaleffects
       libsForQt5.qt5.qtquickcontrols2
     ];
-    services.xserver.displayManager.sddm = {
+    services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
       theme = config.modules.desktop.themes.sddmTheme.name;

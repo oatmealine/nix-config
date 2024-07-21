@@ -71,9 +71,9 @@ in {
   };
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "workman";
+    variant = "workman";
   };
   console = {
     useXkbConfig = mkDefault true;

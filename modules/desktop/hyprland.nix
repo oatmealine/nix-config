@@ -21,7 +21,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = [ cfg.package ];
+    services.displayManager.sessionPackages = [ cfg.package ];
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk cfg.portalPackage ];

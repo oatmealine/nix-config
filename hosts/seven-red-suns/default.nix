@@ -16,7 +16,7 @@
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape
+    unstable.vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc

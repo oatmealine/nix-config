@@ -2,7 +2,7 @@
   description = "λ simple and configureable Nix-Flake repository!";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
     home-manager.url = "github:nix-community/home-manager";

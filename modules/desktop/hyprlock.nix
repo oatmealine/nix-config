@@ -18,7 +18,7 @@ in {
     powerManagement.resumeCommands = ''
       ${lib.getExe cfg.package}
     '';
-    hm.programs.hyprlock = with config.colorScheme.colors; {
+    hm.programs.hyprlock = with config.colorScheme.palette; {
       enable = true;
       package = cfg.package;
       settings = {

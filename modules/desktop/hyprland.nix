@@ -41,7 +41,9 @@ in {
       xwayland.enable = true;
       package = cfg.package;
 
-      settings = {
+      settings = let
+        wobSock = config.modules.desktop.wob.sockPath;
+      in {
         source = [];
 
         "$mod" = "SUPER";
@@ -50,16 +52,24 @@ in {
           "$mod, mouse:272, movewindow"
           "$mod, mouse:273, resizewindow"
         ];
-        bindel = [
+        bindel = (if config.modules.desktop.wob.enable then [
+          ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"
+          ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"
+          ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} s +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > ${wobSock}"
+          ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} s 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > ${wobSock}"
+        ] else [
           ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+"
-          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
+          ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%-"
           ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} s +5%"
           ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} s 5%-"
-        ];
-        bindl = [
-          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ]);
+        bindl = ([
           ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-        ];
+        ] ++ (if config.modules.desktop.wob.enable then [
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > ${wobSock}) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"
+        ] else [
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ]));
         bindr = [
           "SUPER, Super_L, exec, ${lib.getExe pkgs.nwg-drawer}"
         ];
@@ -207,12 +217,11 @@ in {
 
         blurls = [
           "gtk-layer-shell"
-          "dunst"
-          #"waybar"
         ];
 
         layerrule = [
           "blur,notifications"
+          "blur,wob"
         ];
 
         decoration = {

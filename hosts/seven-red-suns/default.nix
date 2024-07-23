@@ -16,7 +16,7 @@
     # debug
     strace ltrace lsof
     # apps
-    unstable.vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape
+    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape obsidian
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
@@ -91,8 +91,11 @@
       waybar.enable = true;
       rofi.enable = true;
       nwg-drawer.enable = true;
+      wob.enable = true;
 
       sddm.enable = true;
+
+      gammastep.enable = true;
 
       themes.active = "catppuccin";
     };

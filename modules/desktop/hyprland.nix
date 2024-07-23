@@ -148,7 +148,10 @@ in {
         # Execute your favorite apps at launch
         # exec-once = waybar & hyprpaper & firefox
 
-        exec-once = [ "${lib.getExe pkgs.networkmanagerapplet}" ];
+        exec-once = [
+          "${lib.getExe pkgs.networkmanagerapplet}"
+          "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"
+        ];
 
         # Source a file (multi-file configs)
         # source = ~/.config/hypr/myColors.conf

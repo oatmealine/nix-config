@@ -85,7 +85,7 @@ in {
             #"$mod, ;, exec, "
             "$mod, Q, killactive, "
             #"$mod, M, exit, "
-            "$mod, V, togglefloating, "
+            "$mod, F, togglefloating, "
             "$mod, P, pseudo, " # dwindle
             "$mod, J, togglesplit, " # dwindle
 

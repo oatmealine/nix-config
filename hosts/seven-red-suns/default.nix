@@ -92,6 +92,7 @@
       rofi.enable = true;
       nwg-drawer.enable = true;
       wob.enable = true;
+      clipse.enable = true;
 
       sddm.enable = true;
 

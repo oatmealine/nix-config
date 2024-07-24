@@ -64,6 +64,7 @@ in {
           ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} s 5%-"
         ]);
         bindl = ([
+          ",switch:Lid Switch,exec,${lib.getExe config.modules.desktop.hyprlock.package}"
           ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ] ++ (if config.modules.desktop.wob.enable then [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > ${wobSock}) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"

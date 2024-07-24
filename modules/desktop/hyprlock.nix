@@ -36,23 +36,34 @@ in {
         ];
         label = [
           {
+            position = "0, 80";
             text = "cmd[update:1000] echo \"$(date +'%H:%M')\"";
-            font_size = 58;
+            font_size = 48;
             color = "rgb(${base05})";
             font_family = config.modules.desktop.fonts.fonts.sansSerif.family;
-            position = { x = 0; y = 30; };
+            halign = "center"; valign = "center";
           }
           {
+            position = "0, 30";
             text = "cmd[update:1000] echo \"$(date +'%A %B %e')\"";
             font_size = 14;
             color = "rgb(${base05})";
             font_family = config.modules.desktop.fonts.fonts.sansSerif.family;
-            position = { x = 0; y = 10; };
+            halign = "center"; valign = "center";
+          }
+          {
+            position = "10, 10";
+            halign = "left"; valign = "bottom";
+            color = "rgb(${base05})";
+            font_size = 8;
+            font_family = config.modules.desktop.fonts.fonts.sansSerif.family;
+            text = "$LAYOUT";
           }
         ];
         input-field = [
           {
-            size = { width = 300; height = 28; };
+            position = "0, -40";
+            size = "280, 48";
             outline_thickness = 2;
             dots_size = 0.2;
             fade_on_empty = false;
@@ -64,8 +75,6 @@ in {
             check_color = "rgb(${base02})";
             fail_color = "rgb(${base08})";
             capslock_color = "rgb(${base09})";
-
-            position = { x = 0; y = -30; };
           }
         ];
       };

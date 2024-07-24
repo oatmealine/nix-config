@@ -70,41 +70,33 @@ in {
           };
           "group/power" = {
             orientation = "inherit";
-            drawer = {
-              transition-duration = 200;
-              children-class = "not-power";
-              transition-left-to-right = false;
-            };
             modules = [
               "custom/power"
-              "custom/lock"
-              "custom/reboot"
-              "custom/quit"
             ];
           };
-          "custom/quit" = {
-            format = "";
-            tooltip = true;
-            tooltip-format = "Exit Hyprland";
-            on-click = "${config.modules.desktop.hyprland.package}/bin/hyprctl dispatch exit";
-          };
-          "custom/lock" = {
-            format = "";
-            tooltip = true;
-            tooltip-format = "Lock the system";
-            on-click = "${lib.getExe config.modules.desktop.hyprlock.package}";
-          };
-          "custom/reboot" = {
-            format = "↻";
-            tooltip = true;
-            tooltip-format = "Reboot";
-            on-click = "reboot";
-          };
-          "custom/power" = {
+          "custom/power" = let
+            powerSelect = pkgs.writeScript "power-menu" ''
+              cmd=$(echo 'shutdown|reboot|lock|exit Hyprland' | rofi -dmenu -sep '|' -i -p 'what to do ?' -theme-str 'window { height: 132px; }')
+              case "$cmd" in
+                shutdown)
+                  shutdown now
+                  ;;
+                reboot)
+                  reboot
+                  ;;
+                lock)
+                  ${lib.getExe config.modules.desktop.hyprlock.package}
+                  ;;
+                "exit Hyprland")
+                  ${config.modules.desktop.hyprland.package}/bin/hyprctl dispatch exit
+                  ;;
+              esac
+            '';
+          in {
             format = "⏻";
             tooltip = true;
-            tooltip-format = "Power off";
-            on-click = "shutdown now";
+            tooltip-format = "Power menu";
+            on-click = "${powerSelect}";
           };
           "image#logo" = {
             path = ../../packages/iterator-icons/icons/seven-red-suns.png;

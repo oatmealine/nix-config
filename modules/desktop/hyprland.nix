@@ -78,7 +78,8 @@ in {
           [
             "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show run"
             ", Print, exec, ${lib.getExe pkgs.grimblast} copy area"
-            "$mod, T, exec, ${lib.getExe pkgs.wezterm}"
+            #"$mod, T, exec, [float] ${lib.getExe pkgs.wezterm}"
+            "$mod, T, exec, ${lib.getExe pkgs.wezterm}" # this does not work
             #"$mod, ;, exec, "
             "$mod, Q, killactive, "
             #"$mod, M, exit, "
@@ -102,6 +103,8 @@ in {
 
             ", XF86Launch1, exec, ${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20"
             ", XF86ScreenSaver, exec, ${lib.getExe config.modules.desktop.hyprlock.package}"
+
+            "ALT, Tab, exec, ${lib.getExe pkgs.rofi-wayland} -show window"
           ]
           ++ (
             # workspaces
@@ -195,14 +198,14 @@ in {
           "size 1100 730, title:^Open File$"
           "float, class:zenity"
 
-          "float, class:notitg-v4.3.0.exe"
-          # doesn't look great w/ wine's window decorations
-          "rounding 0, class:notitg-v4.3.0.exe"
           # stepmania is a crusty old engine and likes to mess w/ fullscreening upon launch
           "suppressevent maximize, class:notitg-v4.3.0.exe"
           "suppressevent fullscreen, class:notitg-v4.3.0.exe"
 
+          # generic wine stuff
           "float, class:\.exe$"
+          # doesn't look great w/ wine's window decorations
+          "rounding 0, class:\.exe$"
           
           #"float, class:org.gnome.Nautilus"
 
@@ -211,9 +214,9 @@ in {
           "stayfocused, class:^rofi"
 
           # workspace moving
-          "workspace 1, class:^vivaldi"
-          "workspace 2, class:code-url-handler"
-          "workspace 4, class:ArmCord"
+          "workspace 1 silent, class:^vivaldi"
+          "workspace 2 silent, class:code-url-handler"
+          "workspace 4 silent, class:ArmCord"
         ];
 
         blurls = [

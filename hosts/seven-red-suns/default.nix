@@ -93,6 +93,7 @@
       nwg-drawer.enable = true;
       wob.enable = true;
       clipse.enable = true;
+      batsignal.enable = true;
 
       sddm.enable = true;
 

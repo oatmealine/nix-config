@@ -75,11 +75,7 @@ in {
           "SUPER, Super_L, exec, ${lib.getExe pkgs.nwg-drawer}"
         ];
         bind =
-          let
-            grabScript = pkgs.writeScript "grab-password" ''
-              ${lib.getExe pkgs.rbw} get $(${lib.getExe pkgs.gnome.zenity} --entry --text="" --title="") | ${lib.getExe pkgs.xclip} -selection clipboard
-            '';
-          in [
+          [
             "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show run"
             ", Print, exec, ${lib.getExe pkgs.grimblast} copy area"
             "$mod, T, exec, ${lib.getExe pkgs.wezterm}"
@@ -104,7 +100,7 @@ in {
             "$mod, mouse_down, workspace, e+1"
             "$mod, mouse_up, workspace, e-1"
 
-            ", XF86Launch1, exec, ${grabScript}"
+            ", XF86Launch1, exec, ${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20"
             ", XF86ScreenSaver, exec, ${lib.getExe config.modules.desktop.hyprlock.package}"
           ]
           ++ (

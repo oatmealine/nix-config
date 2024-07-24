@@ -4,6 +4,10 @@
   min-height: 0;
 }
 
+button, button:hover {
+  box-shadow: none; /* undo default styles */
+}
+
 window#waybar {
   color: @text;
   /*background: alpha(@base, 0.6);*/
@@ -42,6 +46,7 @@ box.module, .modules-right box {
   background-color: transparent;
   color: @text;
   padding: 0 0.4em;
+  transition: none;
 }
 
 #workspaces button:nth-child(1) {
@@ -61,7 +66,20 @@ box.module, .modules-right box {
   background: @surface1;
 }
 
+#workspaces button.focused {
+  box-shadow: none;
+}
+
 #workspaces button.active {
+  background: @pink;
+  color: @surface0;
+}
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: @text;
+  box-shadow: none;
+}
+#workspaces button.active:hover {
   background: @pink;
   color: @surface0;
 }

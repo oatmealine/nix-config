@@ -27,12 +27,13 @@ in {
           layer = "top";
           position = "top";
           #spacing = 4;
-          height = 24;
+          height = 28;
           margin-top = 6;
           margin-left = 6;
           margin-right = 6;
           margin-bottom = 0;
           modules-left = [
+            "image#logo"
             "hyprland/workspaces"
             "hyprland/window"
           ];
@@ -63,6 +64,7 @@ in {
               "memory"
               "power-profiles-daemon"
               "battery"
+              "privacy"
               #"network"
             ];
           };
@@ -103,6 +105,12 @@ in {
             tooltip = true;
             tooltip-format = "Power off";
             on-click = "shutdown now";
+          };
+          "image#logo" = {
+            path = ../../packages/iterator-icons/icons/seven-red-suns.png;
+            size = 20;
+            tooltip = false;
+            interval = 0;
           };
           "hyprland/workspaces" = {
             format = "{icon}";
@@ -247,6 +255,15 @@ in {
                 on-scroll-down = "shift_down";
               };
             };
+          };
+          privacy = {
+            icon-spacing = 0;
+            icon-size = 12;
+            transition-duration = 250;
+            modules = [
+              { type = "screenshare"; }
+              { type = "audio-in"; }
+            ];
           };
           power-profiles-daemon = {
             format = "{icon}";

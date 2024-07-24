@@ -151,7 +151,8 @@ in {
 
         exec-once = [
           "${lib.getExe pkgs.networkmanagerapplet}"
-          "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"
+          "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"   # authentication prompts
+          "${lib.getExe pkgs.wl-clip-persist} --clipboard primary" # to fix wl clipboards disappearing
         ];
 
         # Source a file (multi-file configs)

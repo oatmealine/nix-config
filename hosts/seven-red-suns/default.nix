@@ -20,7 +20,9 @@
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp prismlauncher
+    cowsay file which tree gnused yt-dlp libnotify
+    # games
+    unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [
     olympus iterator-icons
   ]) ++ (with pkgs.gnome; [

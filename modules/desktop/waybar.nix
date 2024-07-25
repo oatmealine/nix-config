@@ -76,13 +76,16 @@ in {
           };
           "custom/power" = let
             powerSelect = pkgs.writeScript "power-menu" ''
-              cmd=$(echo 'shutdown|reboot|lock|exit Hyprland' | rofi -dmenu -sep '|' -i -p 'what to do ?' -theme-str 'window { height: 132px; }')
+              cmd=$(echo 'shutdown|reboot|suspend|lock|exit Hyprland' | rofi -dmenu -sep '|' -i -p 'what to do ?' -theme-str 'window { height: 148px; }')
               case "$cmd" in
                 shutdown)
                   shutdown now
                   ;;
                 reboot)
                   reboot
+                  ;;
+                suspend)
+                  systemctl suspend
                   ;;
                 lock)
                   ${lib.getExe config.modules.desktop.hyprlock.package}

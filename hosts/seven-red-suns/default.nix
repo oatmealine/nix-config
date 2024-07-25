@@ -16,7 +16,7 @@
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape obsidian
+    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape obsidian vlc
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc

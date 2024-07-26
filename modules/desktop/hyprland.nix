@@ -77,7 +77,7 @@ in {
         bind =
           [
             "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show run"
-            ", Print, exec, ${lib.getExe pkgs.grimblast} copy area"
+            ", Print, exec, ${lib.getExe pkgs.grimblast} --freeze copy area"
             #"$mod, T, exec, [float] ${lib.getExe pkgs.wezterm}"
             "$mod, T, exec, ${lib.getExe pkgs.wezterm}" # this does not work
             #"$mod, ;, exec, "

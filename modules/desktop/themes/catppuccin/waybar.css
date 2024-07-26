@@ -75,7 +75,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-  background: @pink;
+  background: @accent;
   color: @surface0;
 }
 #workspaces button:hover {
@@ -84,7 +84,7 @@ window#waybar {
   box-shadow: none;
 }
 #workspaces button.active:hover {
-  background: @pink;
+  background: @accent;
   color: @surface0;
 }
 

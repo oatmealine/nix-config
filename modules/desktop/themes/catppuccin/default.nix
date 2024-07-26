@@ -3,18 +3,19 @@
 with lib;
 let
   cfg = config.modules.desktop.themes;
-  accent = "pink";
+  accent = "red";
   variant = "mocha";
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+  colorScheme = inputs.nix-colors.colorSchemes.${"catppuccin-${variant}"};
+  pascalCase = s: (toUpper (substring 0 1 s)) + (toLower (substring 1 (stringLength s) s));
 in {
   config = mkIf (cfg.active == "catppuccin") {
     colorScheme = colorScheme;
 
     modules.desktop.themes = {
-      dark = true;
+      dark = variant != "latte";
 
       gtkTheme = {
-        name = "Catppuccin-Mocha-Compact-Pink-Dark"; #todo put accent in here
+        name = "Catppuccin-${pascalCase variant}-Compact-${pascalCase accent}-Dark";
         package = pkgs.catppuccin-gtk.override {
           variant = variant;
           accents = [ accent ];
@@ -45,7 +46,7 @@ in {
 
       editor = {
         vscode = {
-          name = "Catppuccin Mocha";
+          name = "Catppuccin ${pascalCase variant}";
           extension = (pkgs.vscode-extensions.catppuccin.catppuccin-vsc.override {
             accent = accent;
             boldKeywords = false;
@@ -77,6 +78,7 @@ in {
 
       waybar = builtins.concatStringsSep "\n" [
         "@import \"${inputs.waybar-catppuccin}/themes/${variant}.css\";"
+        "@define-color accent @${accent};"
         (lib.readFile ./waybar.css)
       ];
 

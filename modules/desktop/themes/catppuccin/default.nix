@@ -5,9 +5,10 @@ let
   cfg = config.modules.desktop.themes;
   accent = "pink";
   variant = "mocha";
+  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
 in {
   config = mkIf (cfg.active == "catppuccin") {
-    colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+    colorScheme = colorScheme;
 
     modules.desktop.themes = {
       dark = true;
@@ -57,7 +58,35 @@ in {
         };
       };
 
-      hyprland = "${inputs.hyprland-catppuccin}/themes/${variant}.conf";
+      hyprland = {
+        source = "${inputs.hyprland-catppuccin}/themes/${variant}.conf";
+        extraConfig = ''
+          general {
+            col.active_border=''$${accent}
+            col.inactive_border=$surface0
+          }
+          decoration {
+            col.shadow=$surface0
+            col.shadow_inactive=$surface0
+          }
+          misc {
+            background_color=$crust
+          }
+        '';
+      };
+
+      waybar = builtins.concatStringsSep "\n" [
+        "@import \"${inputs.waybar-catppuccin}/themes/${variant}.css\";"
+        (lib.readFile ./waybar.css)
+      ];
+
+      wob = with colorScheme.palette; {
+        borderColor = "${base04}FF";
+        backgroundColor = "${base01}66";
+        barColor = "${base05}FF";
+      };
+
+      rofi = ./rofi.rasi;
     };
   };
 }

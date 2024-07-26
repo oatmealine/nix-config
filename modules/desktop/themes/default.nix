@@ -38,7 +38,20 @@ in {
       };
     };
 
-    hyprland = mkOpt (nullOr str) null;
+    hyprland = {
+      source = mkOpt (nullOr str) null;
+      extraConfig = mkOpt (nullOr str) null;
+    };
+
+    waybar = mkOpt str "";
+
+    wob = {
+      borderColor = mkOpt (nullOr str) null;
+      backgroundColor = mkOpt (nullOr str) null;
+      barColor = mkOpt (nullOr str) null;
+    };
+
+    rofi = mkOpt (nullOr path) null;
   };
 
   config = mkIf (cfg.active != null) {
@@ -80,6 +93,26 @@ in {
       };
     };
 
-    hm.wayland.windowManager.hyprland.settings.source = mkIf (cfg.hyprland != null) [ cfg.hyprland ];
+    hm.wayland.windowManager.hyprland = {
+      settings.source = mkIf (cfg.hyprland.source != null) [ cfg.hyprland.source ];
+
+      # this has to be done this way because source (on my end) is shoved at the bottom
+      # which means the theme variables aren't loaded in the regular config.
+      # luckily, extraConfig is always last
+      # EDIT: no longer the case cus sources can be pushed to the top. too lazy to
+      # fix, so leaving this as a
+      # TODO
+      extraConfig = mkIf (cfg.hyprland.extraConfig != null) cfg.hyprland.extraConfig;
+    };
+
+    hm.programs.waybar.style = cfg.waybar;
+
+    hm.services.wob.settings."" = {
+      border_color = cfg.wob.borderColor;
+      background_color = cfg.wob.backgroundColor;
+      bar_color = cfg.wob.barColor;
+    };
+
+    hm.programs.rofi.theme = cfg.rofi;
   };
 }

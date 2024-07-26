@@ -37,7 +37,6 @@ in {
         "window.titleBarStyle" = "custom";
 
         "workbench.tips.enabled" = false;
-        "workbench.colorTheme" = "Catppuccin Mocha";
 
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "${lib.getExe pkgs.nil}";

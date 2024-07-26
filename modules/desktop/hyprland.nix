@@ -298,22 +298,6 @@ in {
         # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       };
-      # this has to be done this way because source (on my end) is shoved at the bottom
-      # which means the theme variables aren't loaded in the regular config.
-      # luckily, extraConfig is always last
-      extraConfig = ''
-        general {
-          col.active_border=$pink
-          col.inactive_border=$surface0
-        }
-        decoration {
-          col.shadow=$surface0
-          col.shadow_inactive=$surface0
-        }
-        misc {
-          background_color=$crust
-        }
-      '';
     };
   };
 }

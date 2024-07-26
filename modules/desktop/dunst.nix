@@ -11,6 +11,7 @@ in {
   config = mkIf cfg.enable {
     hm.services.dunst = {
       enable = true;
+      # TODO: nixify and put into theme system
       configFile = ../../config/dunst.conf;
     };
   };

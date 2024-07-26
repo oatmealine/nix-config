@@ -18,10 +18,6 @@ in {
     hm.programs.waybar = {
       enable = true;
       package = cfg.package;
-      style = builtins.concatStringsSep "\n" [
-        "@import \"${inputs.waybar-catppuccin}/themes/mocha.css\";"
-        (lib.readFile ../../config/waybar.css)
-      ];
       settings = {
         mainBar = {
           layer = "top";

@@ -16,7 +16,6 @@ in {
       extraConfig = {
         show-icons = true;
       };
-      theme = ../../config/rofi.rasi;
     };
   };
 }

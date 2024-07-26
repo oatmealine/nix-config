@@ -22,7 +22,7 @@ in {
     in [ script ];
     hm.services.wob = {
       enable = true;
-      settings = with config.colorScheme.palette; {
+      settings = {
         "" = {
           timeout = 1000;
           
@@ -35,10 +35,6 @@ in {
           height = 30;
 
           margin = 12;
-
-          border_color = "${base04}FF";
-          background_color = "${base01}66";
-          bar_color = "${base05}FF";
 
           overflow_mode = "nowrap";
           output_mode = "focused";

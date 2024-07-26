@@ -16,7 +16,7 @@ different color schemes, icons and flavors are grouped into "themes", which you 
 
 ## screenshots
 
-these are sorted by `theme - de`.
+these are sorted by `theme - de`. credit for wallpapers and other assets can be seen in [assets/readme.txt](./assets/readme.txt)
 
 ### Catppuccin - Gnome
 
@@ -24,4 +24,4 @@ these are sorted by `theme - de`.
 
 ### Catppuccin - Hyprland
 
-![](./docs/assets/2024-03-17_01-43.png)
+![](./docs/assets/2024-07-25_23-36.png)

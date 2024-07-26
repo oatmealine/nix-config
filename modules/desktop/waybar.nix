@@ -102,7 +102,7 @@ in {
             on-click = "${powerSelect}";
           };
           "image#logo" = {
-            path = ../../packages/iterator-icons/icons/seven-red-suns.png;
+            path = ../../packages/iterator-icons/icons/color-seven-red-suns.png;
             size = 20;
             tooltip = false;
             interval = 0;

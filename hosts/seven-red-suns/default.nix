@@ -40,7 +40,7 @@
     security.useDoas = true;
     os-release = {
       enable = true;
-      logo = "seven-red-suns";
+      logo = "color-seven-red-suns";
     };
 
     hardware = {

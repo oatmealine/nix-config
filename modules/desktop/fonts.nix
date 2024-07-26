@@ -108,6 +108,7 @@ in {
       noto-fonts-monochrome-emoji
       font-awesome
       recursive
+      pkgs.my.rain-world-menu-font
     ];
   });
 }

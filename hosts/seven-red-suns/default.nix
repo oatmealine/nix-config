@@ -20,7 +20,7 @@
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify
+    cowsay file which tree gnused yt-dlp libnotify font-manager
     # games
     unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [
@@ -28,7 +28,7 @@
   ]) ++ (with pkgs.gnome; [
     # these are usually defaults, but are missing when non-gnome DEs are used
     # however gnome apps are my beloved so i'm just adding them back
-    nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
+    nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller gnome-font-viewer
   ]);
 
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328

@@ -206,11 +206,24 @@ in {
           "float, class:\.exe$"
           # doesn't look great w/ wine's window decorations
           "rounding 0, class:\.exe$"
+
+          # steam notifs
+          "rounding 0, title:^notificationtoasts_"
+          "pin, title:^notificationtoasts_"
+          "noborder, title:^notificationtoasts_"
+          "nofocus, title:^notificationtoasts_"
+          "noshadow, title:^notificationtoasts_"
+
+          # vivaldi pip
+          "pin, title:^Picture in picture$"
+          "noborder, title:^Picture in picture$"
+          "keepaspectratio, title:^Picture in picture$"
           
           #"float, class:org.gnome.Nautilus"
 
           # fix focus
           "stayfocused, class:^pinentry-"
+          "dimaround, class:^pinentry-"
           "stayfocused, class:^rofi"
 
           # workspace moving

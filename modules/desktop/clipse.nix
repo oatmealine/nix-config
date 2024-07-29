@@ -21,6 +21,8 @@ in {
       windowrulev2 = [
         "float, class:^${class}$"
         "size 622 652, class:^${class}$"
+        "stayfocused, class:^${class}$"
+        "dimaround, class:^${class}$"
       ];
 
       bind = [

@@ -30,7 +30,7 @@
     fuzzel-catppuccin.flake = false;
 
     lix = {
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
+      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90.0";
       flake = false;
     };
     lix-module = {

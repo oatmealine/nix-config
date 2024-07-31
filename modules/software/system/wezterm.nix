@@ -33,11 +33,12 @@ in {
         config.freetype_load_flags = 'MONOCHROME'
         --config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
         config.enable_wayland = false
-        config.color_scheme = 'Catppuccin Mocha'
         config.use_fancy_tab_bar = false
         config.use_resize_increments = true
         config.initial_cols = 120
         config.initial_rows = 40
+        config.window_background_opacity = 0.8
+        ${config.modules.desktop.themes.wezterm or ""}
 
         config.window_frame = {
           font = wezterm.font '${fonts.sans.family}',

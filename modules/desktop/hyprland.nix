@@ -25,6 +25,7 @@ in {
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk cfg.portalPackage ];
+      configPackages = [ pkgs.xdg-desktop-portal-gtk cfg.portalPackage ];
       config = {
         common = {
           default = [ "hyprland" "gtk" ];
@@ -237,6 +238,7 @@ in {
 
         blurls = [
           "gtk-layer-shell"
+          "org.wezfurlong.wezterm"
         ];
 
         layerrule = [

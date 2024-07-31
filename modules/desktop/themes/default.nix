@@ -53,6 +53,8 @@ in {
 
     rofi = mkOpt (nullOr path) null;
     fuzzel = mkOpt (nullOr str) null;
+
+    wezterm = mkOpt (nullOr str) null;
   };
 
   config = mkIf (cfg.active != null) {
@@ -73,6 +75,8 @@ in {
       cursorTheme = cfg.cursor;
       iconTheme = cfg.iconTheme;
       theme = cfg.gtkTheme;
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
     };
 
     hm.home.pointerCursor = {

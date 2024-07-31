@@ -17,7 +17,7 @@ in {
       qt = {
         enable = true;
         platformTheme = "gnome";
-        style = "adwaita-dark";
+        style = "adwaita";
       };
 
       modules.desktop.fonts.enable = true;

@@ -120,7 +120,7 @@
       # distractions
       distractions.steam.enable = true;
       distractions.discord.enable = true;
-      distractions.discord.armcord = true;
+      distractions.discord.vesktop = true;
     };
   };
 }

@@ -20,33 +20,32 @@ let
       "--enable-features=WebRTCPipeWireCapturer"
       "--ozone-platform=wayland" # armcord specific
     ];
+  vanillaDiscordPackage = pkgs.unstable.discord-canary.override {
+    withOpenASAR = false;
+    withVencord = true;
+  };
+  package = if cfg.armcord then pkgs.unstable.armcord else (if cfg.vesktop then pkgs.unstable.vesktop else vanillaDiscordPackage);
 in {
   options.modules.software.distractions.discord = {
     enable = mkEnableOption "Enable Discord, a social messaging app";
     armcord = mkEnableOption "Use Armcord, an alternative Electron client";
+    vesktop = mkEnableOption "Use Vesktop, an alternative Electron client with Vencord pre-installed";
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    (mkIf (!cfg.armcord) {
-      user.packages = let
-        discord = (pkgs.unstable.discord-canary.override {
-          withOpenASAR = false;
-          withVencord = true;
-        }).overrideAttrs (old: {
-          preInstall = ''
-            gappsWrapperArgs+=("--add-flags" "${concatStringsSep " " flags}")
-          '';
-        });
-      in [ discord ];
-    })
-    (mkIf cfg.armcord {
-      user.packages = [
-        (pkgs.unstable.armcord.overrideAttrs (old: {
-          preInstall = ''
-            gappsWrapperArgs+=("--add-flags" "${concatStringsSep " " flags}")
-          '';
-        }))
-      ];
-    })
-  ]);
+  config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = !(cfg.armcord && cfg.vesktop);
+        message = "You must either enable Armcord or Vesktop, not both";
+      }
+    ];
+
+    user.packages = [
+      (if !cfg.vesktop then (package.overrideAttrs (old: {
+        preInstall = ''
+          gappsWrapperArgs+=("--add-flags" "${concatStringsSep " " flags}")
+        '';
+      })) else package)
+    ];
+  };
 }

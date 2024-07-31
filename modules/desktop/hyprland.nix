@@ -218,6 +218,9 @@ in {
           "pin, title:^Picture in picture$"
           "noborder, title:^Picture in picture$"
           "keepaspectratio, title:^Picture in picture$"
+          # discord pip
+          "pin, initialTitle:^Discord Popout$"
+          "float, initialTitle:^Discord Popout$"
           
           #"float, class:org.gnome.Nautilus"
 
@@ -239,6 +242,7 @@ in {
         layerrule = [
           "blur,notifications"
           "blur,wob"
+          "blur,launcher"
         ];
 
         decoration = {

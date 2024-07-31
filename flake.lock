@@ -235,6 +235,22 @@
         "type": "github"
       }
     },
+    "fuzzel-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722007827,
+        "narHash": "sha256-ut46aEuBdMekkuB72Va3snR9q5tmRLQvYIC4E6rjbYs=",
+        "owner": "catppuccin",
+        "repo": "fuzzel",
+        "rev": "125dc68ba79ddfe71e59412257698418c4f05218",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "fuzzel",
+        "type": "github"
+      }
+    },
     "hardware": {
       "locked": {
         "lastModified": 1721413321,
@@ -796,6 +812,7 @@
       "inputs": {
         "catppuccin-vsc": "catppuccin-vsc",
         "crystal-flake": "crystal-flake",
+        "fuzzel-catppuccin": "fuzzel-catppuccin",
         "hardware": "hardware",
         "home-manager": "home-manager",
         "hypridle": "hypridle",

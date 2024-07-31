@@ -92,10 +92,10 @@
       dunst.enable = true;
       waybar.enable = true;
       rofi.enable = true;
-      nwg-drawer.enable = true;
       wob.enable = true;
       clipse.enable = true;
       batsignal.enable = true;
+      fuzzel.enable = true;
 
       sddm.enable = true;
 

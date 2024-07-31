@@ -26,6 +26,8 @@
     waybar-catppuccin.flake = false;
     hyprland-catppuccin.url = "github:catppuccin/hyprland";
     hyprland-catppuccin.flake = false;
+    fuzzel-catppuccin.url = "github:catppuccin/fuzzel";
+    fuzzel-catppuccin.flake = false;
 
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";

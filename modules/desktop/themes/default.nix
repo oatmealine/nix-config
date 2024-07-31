@@ -52,6 +52,7 @@ in {
     };
 
     rofi = mkOpt (nullOr path) null;
+    fuzzel = mkOpt (nullOr str) null;
   };
 
   config = mkIf (cfg.active != null) {
@@ -114,5 +115,9 @@ in {
     };
 
     hm.programs.rofi.theme = cfg.rofi;
+    hm.programs.fuzzel.settings.main = {
+      include = cfg.fuzzel;
+      icon-theme = cfg.iconTheme.name;
+    };
   };
 }

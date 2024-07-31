@@ -89,6 +89,7 @@ in {
       };
 
       rofi = ./rofi.rasi;
+      fuzzel = "${inputs.fuzzel-catppuccin}/themes/${variant}/${accent}.ini";
     };
   };
 }

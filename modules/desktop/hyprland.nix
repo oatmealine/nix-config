@@ -72,7 +72,7 @@ in {
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ]));
         bindr = [
-          "SUPER, Super_L, exec, ${lib.getExe pkgs.nwg-drawer}"
+          "SUPER, Super_L, exec, ${lib.getExe config.modules.desktop.fuzzel.package}"
         ];
         bind =
           [

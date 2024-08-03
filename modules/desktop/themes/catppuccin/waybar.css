@@ -140,6 +140,10 @@ window#waybar.floating #window {
   color: @red;
 }
 
+#custom-wallpaper {
+  color: @overlay1;
+}
+
 #privacy {
   margin: 0 0.25em;
   padding: 0;

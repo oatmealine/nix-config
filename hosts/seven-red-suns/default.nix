@@ -12,7 +12,7 @@
     # dev
     sqlitebrowser sqlite-interactive
     # system
-    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall
+    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
     # debug
     strace ltrace lsof
     # apps

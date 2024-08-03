@@ -61,6 +61,7 @@ in {
               "power-profiles-daemon"
               "battery"
               "privacy"
+              "custom/wallpaper"
               #"network"
             ];
           };
@@ -96,6 +97,11 @@ in {
             tooltip = true;
             tooltip-format = "Power menu";
             on-click = "${powerSelect}";
+          };
+          "custom/wallpaper" = {
+            format = "";
+            tooltip = false;
+            on-click = "${config.modules.desktop.hyprpaper.swapScript}";
           };
           "image#logo" = {
             path = ../../packages/iterator-icons/icons/color-seven-red-suns.png;

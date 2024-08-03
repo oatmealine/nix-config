@@ -53,6 +53,12 @@ in {
         RuntimeMaxUse=50M
         SystemMaxFileSize=50M
       '';
+
+      # MTP support : https://nixos.wiki/wiki/MTP
+      services.gvfs.enable = true;
+
+      programs.adb.enable = true;
+      user.extraGroups = [ "adbusers" ];
     }
     (mkIf (cfg.envProto == "wayland") {
       environment.sessionVariables = {

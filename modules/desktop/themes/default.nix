@@ -43,6 +43,11 @@ in {
       extraConfig = mkOpt (nullOr str) null;
     };
 
+    niri = {
+      accent = mkOpt str "#7fc8ff";
+      inactive = mkOpt str "#505050";
+    };
+
     waybar = mkOpt str "";
 
     wob = {
@@ -93,9 +98,9 @@ in {
 
     hm.programs.vscode = {
       extensions = [ cfg.editor.vscode.extension ];
-      userSettings = {
-        "workbench.colorTheme" = cfg.editor.vscode.name;
-      };
+      #userSettings = {
+      #  "workbench.colorTheme" = cfg.editor.vscode.name;
+      #};
     };
 
     hm.wayland.windowManager.hyprland = {

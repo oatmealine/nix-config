@@ -9,7 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe pkgs.nwg-drawer} -r -nofs -nocats -term wezterm -spacing 15 -fm nautilus" ];
+    modules.desktop.execOnStart = [ "${lib.getExe pkgs.nwg-drawer} -r -nofs -nocats -term wezterm -spacing 15 -fm nautilus" ];
     hm.xdg.configFile."nwg-drawer/drawer.css".text =
       builtins.concatStringsSep "\n" [
         "@import \"${inputs.waybar-catppuccin}/themes/mocha.css\";"

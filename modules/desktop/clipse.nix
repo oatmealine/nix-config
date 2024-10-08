@@ -13,11 +13,12 @@ in {
   };
 
   config = mkIf cfg.enable {
+    modules.desktop.execOnStart = [
+      "${lib.getExe cfg.package} -listen-shell"
+    ];
     hm.wayland.windowManager.hyprland.settings = let
       class = "clipse";
     in {
-      exec-once = [ "${lib.getExe cfg.package} -listen-shell" ];
-      
       windowrulev2 = [
         "float, class:^${class}$"
         "size 622 652, class:^${class}$"

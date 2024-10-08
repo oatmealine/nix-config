@@ -60,5 +60,6 @@ in {
         init.defaultBranch = "main";
       };
     };
+    hm.programs.gh.enable = true;
   };
 }

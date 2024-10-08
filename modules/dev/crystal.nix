@@ -16,14 +16,14 @@ in {
       crystal
     ]);
 
-    hm.programs.vscode.extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [ {
+    /*hm.programs.vscode.extensions = pkgs.vscode-utils.extensionsFromVscodeMarketplace [ {
       name = "crystal-lang";
       publisher = "crystal-lang-tools";
       version = "0.8.4";
       sha256 = "sha256-hU6g4CqcCxXlhqSKL36vgzX2EJ7fIdbIuPCHbpRW/zE=";
-    } ];
+    } ];*/
 
-    hm.programs.vscode.userSettings = {
+    /*hm.programs.vscode.userSettings = {
       "crystal-lang.completion" = true;
       "crystal-lang.hover" = true;
       "crystal-lang.implementations" = true;
@@ -31,6 +31,6 @@ in {
       "crystal-lang.server" = getExe pkgs.crystalline;
       "crystal-lang.compiler" = getExe crpkgs.crystal;
       "crystal-lang.shards" = getExe pkgs.shards;
-    };
+    };*/
   };
 }

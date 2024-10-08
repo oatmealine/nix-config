@@ -5,7 +5,7 @@ let
   cfg = config.modules.desktop.waybar;
 in {
   options.modules.desktop.waybar = {
-    enable = mkEnableOption "Enable Waybar, a lightweight desktop environment based on GTK+";
+    enable = mkEnableOption "Enable Waybar, a highly customizable Wayland bar";
     package = mkOption {
       type = types.package;
       default = inputs.waybar.packages.${system}.default;
@@ -14,11 +14,64 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = [ "${lib.getExe cfg.package}" ];
+    modules.desktop.execOnStart = [ "${lib.getExe cfg.package}" ];
     hm.programs.waybar = {
       enable = true;
       package = cfg.package;
-      settings = {
+      settings = let
+        window = {
+          format = "{}";
+          icon = true;
+          icon-size = 16;
+          rewrite = {
+            "(.*) - Vivaldi" = "$1";
+            "(.*) - Visual Studio Code" = "$1";
+            #"(.*\\.nix\\s.*)" = "";
+            "(\\S+\\.js\\s.*)" = " $1";
+            "(\\S+\\.ts\\s.*)" = " $1";
+            "(\\S+\\.go\\s.*)" = " $1";
+            "(\\S+\\.lua\\s.*)" = " $1";
+            "(\\S+\\.java\\s.*)" = " $1";
+            "(\\S+\\.rb\\s.*)" = " $1";
+            "(\\S+\\.php\\s.*)" = " $1";
+            "(\\S+\\.jsonc?\\s.*)" = " $1";
+            "(\\S+\\.md\\s.*)" = " $1";
+            "(\\S+\\.txt\\s.*)" = " $1";
+            "(\\S+\\.cs\\s.*)" = " $1";
+            "(\\S+\\.c\\s.*)" = " $1";
+            "(\\S+\\.cpp\\s.*)" = " $1";
+            "(\\S+\\.hs\\s.*)" = " $1";
+            ".*Discord | (.*) | .*" = "$1 - ArmCord";
+            #"(.*) - ArmCord" = "$1";
+          };
+          separate-outputs = true;
+        };
+        workspaces = {
+          format = "{icon}";
+          format-icons = {
+            "1" = "";
+            "2" = "";
+            "3" = "";
+            "4" = "";
+            urgent = "";
+            default = "•";
+          };
+          persistent-workspaces = {
+            "1" = [];
+            "2" = [];
+            "3" = [];
+            "4" = [];
+          };
+        };
+        language = {
+          format = " {}";
+          format-en = "Aa";
+          format-ru = "Ру";
+          on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+          tooltip = true;
+          tooltip-format = "{flag} {long}";
+        };
+      in {
         mainBar = {
           layer = "top";
           position = "top";
@@ -32,6 +85,8 @@ in {
             "image#logo"
             "hyprland/workspaces"
             "hyprland/window"
+            "niri/workspaces"
+            "niri/window"
           ];
           modules-center = [
             "clock"
@@ -54,6 +109,7 @@ in {
             orientation = "inherit";
             modules = [
               "hyprland/language"
+              "niri/language"
               "pulseaudio"
               "backlight"
               "cpu"
@@ -101,7 +157,7 @@ in {
           "custom/wallpaper" = {
             format = "";
             tooltip = false;
-            on-click = "${config.modules.desktop.hyprpaper.swapScript}";
+            on-click = "${config.modules.desktop.swww.swapScript}";
           };
           "image#logo" = {
             path = ../../packages/iterator-icons/icons/color-seven-red-suns.png;
@@ -109,58 +165,12 @@ in {
             tooltip = false;
             interval = 0;
           };
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "4" = "";
-              urgent = "";
-              default = "•";
-            };
-            persistent-workspaces = {
-              "1" = [];
-              "2" = [];
-              "3" = [];
-              "4" = [];
-            };
-          };
-          "hyprland/window" = {
-            format = "{}";
-            icon = true;
-            icon-size = 16;
-            rewrite = {
-              "(.*) - Vivaldi" = "$1";
-              "(.*) - Visual Studio Code" = "$1";
-              #"(.*\\.nix\\s.*)" = "";
-              "(\\S+\\.js\\s.*)" = " $1";
-              "(\\S+\\.ts\\s.*)" = " $1";
-              "(\\S+\\.go\\s.*)" = " $1";
-              "(\\S+\\.lua\\s.*)" = " $1";
-              "(\\S+\\.java\\s.*)" = " $1";
-              "(\\S+\\.rb\\s.*)" = " $1";
-              "(\\S+\\.php\\s.*)" = " $1";
-              "(\\S+\\.jsonc?\\s.*)" = " $1";
-              "(\\S+\\.md\\s.*)" = " $1";
-              "(\\S+\\.txt\\s.*)" = " $1";
-              "(\\S+\\.cs\\s.*)" = " $1";
-              "(\\S+\\.c\\s.*)" = " $1";
-              "(\\S+\\.cpp\\s.*)" = " $1";
-              "(\\S+\\.hs\\s.*)" = " $1";
-              ".*Discord | (.*) | .*" = "$1 - ArmCord";
-              #"(.*) - ArmCord" = "$1";
-            };
-            separate-outputs = true;
-          };
-          "hyprland/language" = {
-            format = " {}";
-            format-en = "Aa";
-            format-ru = "Ру";
-            on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
-            tooltip = true;
-            tooltip-format = "{flag} {long}";
-          };
+          "hyprland/workspaces" = workspaces;
+          #"niri/workspaces" = workspaces; # niri workspaces are kind of silly
+          "hyprland/window" = window;
+          "niri/window" = window;
+          "hyprland/language" = language;
+          "niri/language" = language;
           mpris = {
             format = "♫ {dynamic}";
             format-paused = "{status_icon} {dynamic}";

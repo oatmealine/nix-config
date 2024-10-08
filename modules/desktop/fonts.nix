@@ -109,6 +109,8 @@ in {
       font-awesome
       recursive
       pkgs.my.rain-world-menu-font
+      vistafonts
+      arkpandora_ttf
     ];
   });
 }

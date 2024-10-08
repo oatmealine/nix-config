@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.modules.desktop.themes;
-  accent = "peach"; # rosewater, flamingo, pink, mauve, red, maroon, peach, yellow, green, teal, sky, sapphire, blue, lavender
+  accent = "rosewater"; # rosewater, flamingo, pink, mauve, red, maroon, peach, yellow, green, teal, sky, sapphire, blue, lavender
   variant = "mocha"; # mocha, macchiato, frappe, latte
   colorScheme = inputs.nix-colors.colorSchemes.${"catppuccin-${variant}"};
   pascalCase = s: (toUpper (substring 0 1 s)) + (toLower (substring 1 (stringLength s) s));
@@ -94,6 +94,12 @@ in {
       wezterm = ''
         config.color_scheme = 'Catppuccin ${pascalCase variant}'
       '';
+
+      niri = with colorScheme.palette; {
+        # this sucks but i'd need to get a nix version of the colorscheme to fix this
+        accent = "#${base06}";
+        inactive = "#${base02}";
+      };
     };
   };
 }

@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = [
+    modules.desktop.execOnStart = [
       # -w 20 -c 10 -d 5  --  set battery levels
       # -p                --  notify on plug/unplug
       # -m 2              --  set interval to 2 seconds

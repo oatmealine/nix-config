@@ -22,6 +22,8 @@
     hypridle.url = "github:hyprwm/hypridle";
     hyprpaper.url = "github:hyprwm/hyprpaper";
 
+    niri.url = "github:sodiboo/niri-flake";
+
     waybar-catppuccin.url = "github:catppuccin/waybar";
     waybar-catppuccin.flake = false;
     hyprland-catppuccin.url = "github:catppuccin/hyprland";

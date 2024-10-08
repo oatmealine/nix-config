@@ -10,7 +10,7 @@
     # nix
     nix-output-monitor
     # dev
-    sqlitebrowser sqlite-interactive
+    sqlitebrowser sqlite-interactive nil
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
     # debug
@@ -48,7 +48,7 @@
     };
     dev = {
       enable = true;
-      crystal.enable = true;
+      #crystal.enable = true;
     };
     desktop = {
       envProto = "wayland";
@@ -84,9 +84,11 @@
       #xfce.enable = true;
 
       # in my mind they're a lesbian polycule
-      hyprland.enable = true;
+      #hyprland.enable = true;
+      niri.enable = true;
       hyprlock.enable = true;
-      hyprpaper.enable = true;
+      #hyprpaper.enable = true;
+      swww.enable = true;
       hypridle.enable = true;
 
       dunst.enable = true;

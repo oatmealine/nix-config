@@ -11,7 +11,7 @@ button, button:hover {
 window#waybar {
   color: @text;
   /*background: alpha(@base, 0.6);*/
-  background: @base;
+  background: alpha(@base, 0.9999999); /* cool niri issue workaround */
   border-radius: 1em;
   /*font-family: VictorMono, Iosevka Nerd Font, Noto Sans CJK;*/
   /*font-family: 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;*/

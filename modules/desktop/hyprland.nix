@@ -153,7 +153,7 @@ in {
           "${lib.getExe pkgs.networkmanagerapplet}"
           "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent"   # authentication prompts
           "${lib.getExe pkgs.wl-clip-persist} --clipboard primary" # to fix wl clipboards disappearing
-        ];
+        ] ++ config.modules.desktop.execOnStart;
 
         # Source a file (multi-file configs)
         # source = ~/.config/hypr/myColors.conf
@@ -234,6 +234,7 @@ in {
           "workspace 1 silent, class:^vivaldi"
           "workspace 2 silent, class:code-url-handler"
           "workspace 4 silent, class:ArmCord"
+          "workspace 4 silent, class:vesktop"
         ];
 
         blurls = [

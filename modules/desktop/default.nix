@@ -10,6 +10,11 @@ in {
       description = "What display protocol to use.";
       default = null;
     };
+    execOnStart = mkOption {
+      type = types.listOf types.str;
+      description = "Commands to call upon startup";
+      default = null;
+    };
   };
 
   config = mkMerge [

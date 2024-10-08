@@ -14,12 +14,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = let
+    modules.desktop.execOnStart = let
       path = cfg.sockPath;
       script = pkgs.writeScript "launch-wob" ''
         rm -f ${path} && mkfifo ${path} && tail -f ${path} | ${lib.getExe pkgs.wob}
       '';
-    in [ script ];
+    in [ (toString script) ];
     hm.services.wob = {
       enable = true;
       settings = {

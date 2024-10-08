@@ -32,7 +32,7 @@ in {
         config.font_size = ${toString fonts.monospaceBitmap.size}
         config.freetype_load_flags = 'MONOCHROME'
         --config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
-        config.enable_wayland = false
+        config.enable_wayland = ${if (!config.modules.desktop.hyprland.enable) then "true" else "false"}
         config.use_fancy_tab_bar = false
         config.use_resize_increments = true
         config.initial_cols = 120

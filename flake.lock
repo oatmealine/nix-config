@@ -708,6 +708,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-amneziawg": {
+      "locked": {
+        "lastModified": 1725734855,
+        "narHash": "sha256-ZOXnsIr0Z9OT9kLMgTCAAb60kudOPVAU6KwHM6Cc+6Q=",
+        "owner": "averyanalex",
+        "repo": "nixpkgs",
+        "rev": "45c4b954aff0024890dbb5355667d398053dedd4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "averyanalex",
+        "ref": "init-linuxpackages-amneziawg",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -944,6 +960,7 @@
         "niri": "niri",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_9",
+        "nixpkgs-amneziawg": "nixpkgs-amneziawg",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "waybar": "waybar",
         "waybar-catppuccin": "waybar-catppuccin"

@@ -1,5 +1,5 @@
 {
-  description = "λ simple and configureable Nix-Flake repository!";
+  description = "pornussy";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.05";
@@ -30,6 +30,8 @@
     hyprland-catppuccin.flake = false;
     fuzzel-catppuccin.url = "github:catppuccin/fuzzel";
     fuzzel-catppuccin.flake = false;
+
+    nixpkgs-amneziawg.url = "github:averyanalex/nixpkgs/init-linuxpackages-amneziawg";
 
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90.0";
@@ -67,7 +69,7 @@
         lib = final;
       };
     });
-  in {
+  in rec {
     lib = lib.my;
 
     overlays =
@@ -79,7 +81,7 @@
         };
       };
 
-    packages."${system}" = mapModules ./packages (p: pkgs.callPackage p {});
+    packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { inherit system; inherit packages; });
 
     nixosModules = mapModulesRec ./modules import;
 

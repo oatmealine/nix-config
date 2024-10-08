@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC }:
+{ lib, stdenvNoCC, ... }:
 
 stdenvNoCC.mkDerivation {
   pname = "rain-world-menu-font";

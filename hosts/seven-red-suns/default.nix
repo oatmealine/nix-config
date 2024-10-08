@@ -24,7 +24,7 @@
     # games
     unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [
-    olympus iterator-icons
+    olympus iterator-icons amnezia-client
   ]) ++ (with pkgs.gnome; [
     # these are usually defaults, but are missing when non-gnome DEs are used
     # however gnome apps are my beloved so i'm just adding them back
@@ -32,7 +32,7 @@
   ]);
 
   # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
-  hm.services.flameshot.enable = true;
+  #hm.services.flameshot.enable = true;
 
   modules = {
     #ssh.enable = true;

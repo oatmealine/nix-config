@@ -252,15 +252,24 @@ in {
           # See https://wiki.hyprland.org/Configuring/Variables/ for more
 
           rounding = 10;
-            
+
           blur = {
             enabled = true;
-            size = 4;
-            passes = 1;
-            #popups = true;
+            size = 7;
+            passes = 3;
+            new_optimizations = true;
+            special = true;
           };
 
-          drop_shadow = false;
+          active_opacity = 0.9;
+          inactive_opacity = 0.85;
+          dim_inactive = true;
+          dim_strength = 0.15;
+          drop_shadow = true;
+          shadow_range = 6;
+          shadow_render_power = 3;
+          #col.shadow = "$color0";
+
           #shadow_range = 4;
           #shadow_render_power = 3;
 

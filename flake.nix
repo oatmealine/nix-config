@@ -81,7 +81,7 @@
         };
       };
 
-    packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { inherit system; inherit packages; });
+    packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
     nixosModules = mapModulesRec ./modules import;
 

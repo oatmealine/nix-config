@@ -11,7 +11,7 @@ in {
   imports = [ inputs.niri.nixosModules.niri ];
 
   config = mkIf cfg.enable {
-    hm.home.packages = [ pkgs.xwayland-satellite ];
+    hm.home.packages = [ pkgs.xwayland-satellite-unstable ];
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri = {
       enable = true;
@@ -19,10 +19,13 @@ in {
     hm.programs.niri = {
       settings = {
         spawn-at-startup = [
-          { command = [ "${lib.getExe pkgs.xwayland-satellite}" ]; }
+          { command = [ "${lib.getExe pkgs.xwayland-satellite-unstable}" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
           { command = [ "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist} --clipboard primary" ]; } # to fix wl clipboards disappearing
+          (if config.modules.desktop.hypridle.enable then {
+            command = [ "${lib.getExe config.modules.desktop.hypridle.package}" ];
+          } else null)
         ] ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart);
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Input
@@ -52,29 +55,7 @@ in {
         layout = {
           gaps = 6;
 
-          # When to center a column when changing focus, options are:
-          # - "never", default behavior, focusing an off-screen column will keep at the left
-          #   or right edge of the screen.
-          # - "always", the focused column will always be centered.
-          # - "on-overflow", focusing a column will center it if it doesn't fit
-          #   together with the previously focused column.
           center-focused-column = "on-overflow";
-
-          # You can change the default width of the new windows.
-          #default-column-width { proportion 0.5; }
-          # If you leave the brackets empty, the windows themselves will decide their initial width.
-          # default-column-width {}
-
-          # By default focus ring and border are rendered as a solid background rectangle
-          # behind windows. That is, they will show up through semitransparent windows.
-          # This is because windows using client-side decorations can have an arbitrary shape.
-          #
-          # If you don't like that, you should uncomment `prefer-no-csd` below.
-          # Niri will draw focus ring and border *around* windows that agree to omit their
-          # client-side decorations.
-          #
-          # Alternatively, you can override it with a window rule called
-          # `draw-border-with-background`.
 
           focus-ring = {
             enable = false;
@@ -91,36 +72,52 @@ in {
           };
         };
 
-        # Add lines like this to spawn processes at startup.
-        # Note that running niri as a session supports xdg-desktop-autostart,
-        # which may be more convenient to use.
-        # See the binds section below for more spawn examples.
-        # spawn-at-startup "alacritty" "-e" "fish"
-
         screenshot-path = null;
 
-        # Animation settings.
-        # The wiki explains how to configure individual animations:
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
         animations = {
-          # Uncomment to turn off all animations.
-          # off
+          shaders.window-resize = ''
+            vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
+              vec3 coords_next_geo = niri_curr_geo_to_next_geo * coords_curr_geo;
 
-          # Slow down all animations by this factor. Values below 1 speed them up instead.
-          # slowdown 3.0
+              vec3 coords_stretch = niri_geo_to_tex_next * coords_curr_geo;
+              vec3 coords_crop = niri_geo_to_tex_next * coords_next_geo;
+
+              // We can crop if the current window size is smaller than the next window
+              // size. One way to tell is by comparing to 1.0 the X and Y scaling
+              // coefficients in the current-to-next transformation matrix.
+              bool can_crop_by_x = niri_curr_geo_to_next_geo[0][0] <= 1.0;
+              bool can_crop_by_y = niri_curr_geo_to_next_geo[1][1] <= 1.0;
+
+              vec3 coords = coords_stretch;
+              if (can_crop_by_x)
+                coords.x = coords_crop.x;
+              if (can_crop_by_y)
+                coords.y = coords_crop.y;
+
+              vec4 color = texture2D(niri_tex_next, coords.st);
+
+              // However, when we crop, we also want to crop out anything outside the
+              // current geometry. This is because the area of the shader is unspecified
+              // and usually bigger than the current geometry, so if we don't fill pixels
+              // outside with transparency, the texture will leak out.
+              //
+              // When stretching, this is not an issue because the area outside will
+              // correspond to client-side decoration shadows, which are already supposed
+              // to be outside.
+              if (can_crop_by_x && (coords_curr_geo.x < 0.0 || 1.0 < coords_curr_geo.x))
+                color = vec4(0.0);
+              if (can_crop_by_y && (coords_curr_geo.y < 0.0 || 1.0 < coords_curr_geo.y))
+                color = vec4(0.0);
+
+              return color;
+            }
+          '';
         };
 
-        # Window rules let you adjust behavior for individual windows.
-        # Find more information on the wiki:
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-
-        # Work around WezTerm's initial configure bug
-        # by setting an empty default-column-width.
         window-rules = [
           {
-            # This regular expression is intentionally made as specific as possible,
-            # since this is the default config, and we want no false positives.
-            # You can get away with just app-id="wezterm" if you want.
             matches = [{ app-id = "^org\.wezfurlong\.wezterm$"; }];
             default-column-width = {};
           }
@@ -130,78 +127,22 @@ in {
             geometry-corner-radius = allCorners 10.0;
             clip-to-geometry = true;
           })
+          {
+            matches = [
+              { app-id = "^clipse$"; }
+              #{ app-id = "^rofi-rbw$"; }
+            ];
+            block-out-from = "screen-capture";
+          }
         ];
 
-        animations.shaders.window-resize = ''
-          vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
-            vec3 coords_next_geo = niri_curr_geo_to_next_geo * coords_curr_geo;
-
-            vec3 coords_stretch = niri_geo_to_tex_next * coords_curr_geo;
-            vec3 coords_crop = niri_geo_to_tex_next * coords_next_geo;
-
-            // We can crop if the current window size is smaller than the next window
-            // size. One way to tell is by comparing to 1.0 the X and Y scaling
-            // coefficients in the current-to-next transformation matrix.
-            bool can_crop_by_x = niri_curr_geo_to_next_geo[0][0] <= 1.0;
-            bool can_crop_by_y = niri_curr_geo_to_next_geo[1][1] <= 1.0;
-
-            vec3 coords = coords_stretch;
-            if (can_crop_by_x)
-              coords.x = coords_crop.x;
-            if (can_crop_by_y)
-              coords.y = coords_crop.y;
-
-            vec4 color = texture2D(niri_tex_next, coords.st);
-
-            // However, when we crop, we also want to crop out anything outside the
-            // current geometry. This is because the area of the shader is unspecified
-            // and usually bigger than the current geometry, so if we don't fill pixels
-            // outside with transparency, the texture will leak out.
-            //
-            // When stretching, this is not an issue because the area outside will
-            // correspond to client-side decoration shadows, which are already supposed
-            // to be outside.
-            if (can_crop_by_x && (coords_curr_geo.x < 0.0 || 1.0 < coords_curr_geo.x))
-              color = vec4(0.0);
-            if (can_crop_by_y && (coords_curr_geo.y < 0.0 || 1.0 < coords_curr_geo.y))
-              color = vec4(0.0);
-
-            return color;
-          }
-        '';
-
-        binds = with config.hm.lib.niri.actions; {
-          # Keys consist of modifiers separated by + signs, followed by an XKB key name
-          # in the end. To find an XKB name for a particular key, you may use a program
-          # like wev.
-          #
-          # "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
-          # when running as a winit window.
-          #
-          # Most actions that you can bind here can also be invoked programmatically with
-          # `niri msg action do-something`.
-
-          # Mod-Shift-/, which is usually the same as Mod-?,
-          # shows a list of important hotkeys.
+        # https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
+        binds = with config.hm.lib.niri.actions; let
+          sh = spawn "sh" "-c";
+        in {
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
           "Mod+D".action = spawn "fuzzel";
-          "Super+Alt+L".action = spawn "hyprlock";
-
-          # You can also use a shell. Do this if you need pipes, multiple commands, etc.
-          # Note: the entire command goes as a single argument in the end.
-          # "Mod+T".action = spawn "bash" "-c" "notify-send hello && exec alacritty";
-
-          # Example volume keys mappings for PipeWire & WirePlumber.
-          # The allow-when-locked=true property makes them work even when the session is locked.
-          "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
-          "XF86AudioRaiseVolume".allow-when-locked = true;
-          "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
-          "XF86AudioLowerVolume".allow-when-locked = true;
-          "XF86AudioMute".action        = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
-          "XF86AudioMute".allow-when-locked = true;
-          "XF86AudioMicMute".action     = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
-          "XF86AudioMicMute".allow-when-locked = true;
 
           "Mod+Q".action = close-window;
 
@@ -223,8 +164,6 @@ in {
           #"Mod+Shift+K".action     = move-window-up;
           #"Mod+Shift+L".action     = move-column-right;
 
-          # Alternative commands that move across workspaces when reaching
-          # the first or last window in a column.
           # "Mod+J".action     = focus-window-or-workspace-down;
           # "Mod+K".action     = focus-window-or-workspace-up;
           # "Mod+Ctrl+J".action     = move-window-down-or-to-workspace-down;
@@ -232,8 +171,8 @@ in {
 
           "Mod+Home".action = focus-column-first;
           "Mod+End".action  = focus-column-last;
-          "Mod+Ctrl+Home".action = move-column-to-first;
-          "Mod+Ctrl+End".action  = move-column-to-last;
+          "Mod+Shift+Home".action = move-column-to-first;
+          "Mod+Shift+End".action  = move-column-to-last;
 
           #"Mod+Shift+Left".action  = focus-monitor-left;
           #"Mod+Shift+Down".action  = focus-monitor-down;
@@ -253,14 +192,6 @@ in {
           #"Mod+Shift+Ctrl+K".action     = move-column-to-monitor-up;
           #"Mod+Shift+Ctrl+L".action     = move-column-to-monitor-right;
 
-          # Alternatively, there are commands to move just a single window:
-          # "Mod+Shift+Ctrl+Left".action  = move-window-to-monitor-left;
-          # ...
-
-          # And you can also move a whole workspace to another monitor:
-          # "Mod+Shift+Ctrl+Left".action  = move-workspace-to-monitor-left;
-          # ...
-
           "Mod+Page_Down".action      = focus-workspace-down;
           "Mod+Page_Up".action        = focus-workspace-up;
           #"Mod+U".action              = focus-workspace-down;
@@ -270,23 +201,11 @@ in {
           #"Mod+Ctrl+U".action         = move-column-to-workspace-down;
           #"Mod+Ctrl+I".action         = move-column-to-workspace-up;
 
-          # Alternatively, there are commands to move just a single window:
-          # "Mod+Ctrl+Page_Down".action = move-window-to-workspace-down;
-          # ...
-
           "Mod+Ctrl+Page_Down".action = move-workspace-down;
           "Mod+Ctrl+Page_Up".action   = move-workspace-up;
           #"Mod+Shift+U".action         = move-workspace-down;
           #"Mod+Shift+I".action         = move-workspace-up;
 
-          # You can refer to workspaces by index. However, keep in mind that
-          # niri is a dynamic workspace system, so these commands are kind of
-          # "best effort". Trying to refer to a workspace index bigger than
-          # the current workspace count will instead refer to the bottommost
-          # (empty) workspace.
-          #
-          # For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
-          # will all refer to the 3rd workspace.
           "Mod+1".action = focus-workspace 1;
           "Mod+2".action = focus-workspace 2;
           "Mod+3".action = focus-workspace 3;
@@ -306,16 +225,9 @@ in {
           "Mod+Shift+8".action = move-column-to-workspace 8;
           "Mod+Shift+9".action = move-column-to-workspace 9;
 
-          # Alternatively, there are commands to move just a single window:
-          # "Mod+Ctrl+1".action = move-window-to-workspace 1;
-
-          # Switches focus between the current and the previous workspace.
-          # "Mod+Tab".action = focus-workspace-previous;
-
           "Mod+Comma".action  = consume-window-into-column;
           "Mod+Period".action = expel-window-from-column;
 
-          # There are also commands that consume or expel a single window to the side.
           "Mod+BracketLeft".action  = consume-or-expel-window-left;
           "Mod+BracketRight".action = consume-or-expel-window-right;
 
@@ -326,40 +238,50 @@ in {
           "Mod+Shift+F".action = fullscreen-window;
           "Mod+C".action = center-column;
 
-          # Finer width adjustments.
-          # This command can also:
-          # * set width in pixels: "1000"
-          # * adjust width in pixels: "-5" or "+5"
-          # * set width as a percentage of screen width: "25%"
-          # * adjust width as a percentage of screen width: "-10%" or "+10%"
-          # Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
-          # set-column-width "100" will make the column occupy 200 physical screen pixels.
           "Mod+Minus".action = set-column-width "-10%";
           "Mod+Equal".action = set-column-width "+10%";
 
-          # Finer height adjustments when in column with other windows.
           "Mod+Shift+Minus".action = set-window-height "-10%";
           "Mod+Shift+Equal".action = set-window-height "+10%";
-
-          # Actions to switch layouts.
-          # Note: if you uncomment these, make sure you do NOT have
-          # a matching layout switch hotkey configured in xkb options above.
-          # Having both at once on the same hotkey will break the switching,
-          # since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
-          # "Mod+Space".action       = switch-layout "next";
-          # "Mod+Shift+Space".action = switch-layout "prev";
 
           "Print".action = screenshot;
           "Ctrl+Print".action = screenshot-screen;
           "Alt+Print".action = screenshot-window;
 
-          # The quit action will show a confirmation dialog to avoid accidental exits.
           "Mod+Shift+E".action = quit;
 
-          # Powers off the monitors. To turn them back on, do any input like
-          # moving the mouse or pressing any other key.
-          "Mod+Shift+P".action = power-off-monitors;
-        };
+          "XF86AudioMicMute".action     = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+          "XF86AudioMicMute".allow-when-locked = true;
+
+          "XF86Launch1".action = sh "${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20";
+          "XF86ScreenSaver".action = sh "${lib.getExe config.modules.desktop.hyprlock.package}";
+
+          "Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
+        } // (if config.modules.desktop.wob.enable then let
+          wobSock = config.modules.desktop.wob.sockPath;
+        in {
+          "XF86AudioRaiseVolume".action = sh "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}";
+          "XF86AudioRaiseVolume".allow-when-locked = true;
+          "XF86AudioLowerVolume".action = sh "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}";
+          "XF86AudioLowerVolume".allow-when-locked = true;
+          "XF86AudioMute".action        = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && (wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 0 > ${wobSock}) || wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}";
+          "XF86AudioMute".allow-when-locked = true;
+          "XF86MonBrightnessUp".action = sh "${lib.getExe pkgs.brightnessctl} s +5% && ${lib.getExe pkgs.brightnessctl} -m | awk -F, '{ print $4 }' | sed 's/.$//' > ${wobSock}";
+          "XF86MonBrightnessUp".allow-when-locked = true;
+          "XF86MonBrightnessDown".action = sh "${lib.getExe pkgs.brightnessctl} s 5%- && ${lib.getExe pkgs.brightnessctl} -m | awk -F, '{ print $4 }' | sed 's/.$//' > ${wobSock}";
+          "XF86MonBrightnessDown".allow-when-locked = true;
+        } else {
+          "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
+          "XF86AudioRaiseVolume".allow-when-locked = true;
+          "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
+          "XF86AudioLowerVolume".allow-when-locked = true;
+          "XF86AudioMute".action        = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+          "XF86AudioMute".allow-when-locked = true;
+          "XF86MonBrightnessUp".action = spawn (lib.getExe pkgs.brightnessctl) "s" "+5%";
+          "XF86MonBrightnessUp".allow-when-locked = true;
+          "XF86MonBrightnessDown".action = spawn (lib.getExe pkgs.brightnessctl) "s" "5%-";
+          "XF86MonBrightnessDown".allow-when-locked = true;
+        });
       };
     };
   };

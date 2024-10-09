@@ -26,9 +26,9 @@ in {
         "dimaround, class:^${class}$"
       ];
 
-      bind = [
-        "$mod, V, exec, ${lib.getExe pkgs.wezterm} start --class ${class} -e '${lib.getExe cfg.package}'"
-      ];
+      #bind = [
+      #  "$mod, V, exec, ${lib.getExe pkgs.wezterm} start --class ${class} -e '${lib.getExe cfg.package}'"
+      #];
     };
   };
 }

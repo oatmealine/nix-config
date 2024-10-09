@@ -22,7 +22,7 @@
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager
     # games
-    unstable.ringracers prismlauncher
+    unstable.ringracers (prismlauncher.override { withWaylandGLFW = true; textToSpeechSupport = false; })
   ] ++ (with pkgs.my; [
     olympus iterator-icons amnezia-client
   ]) ++ (with pkgs.gnome; [

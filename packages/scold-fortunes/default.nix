@@ -1,4 +1,4 @@
-{ stdenv, pkgs, ... }:
+{ stdenv, pkgs }:
 
 stdenv.mkDerivation {
   pname = "scold-fortunes";

@@ -18,9 +18,6 @@
 , qt6
 , libsForQt5
 , breakpointHook
-, system
-, packages
-, ...
 }:
 
 stdenv.mkDerivation rec {
@@ -59,9 +56,6 @@ stdenv.mkDerivation rec {
     shadowsocks-libev
 #    wireguard-go # not the same one
     xray
-
-    packages.${system}.amneziawg-go
-    packages.${system}.amneziawg-tools
   ];
 
   installPhase = ''

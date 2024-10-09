@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , writeText
 , config ? {}
-, ...
 }:
 
 let

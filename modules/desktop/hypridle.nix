@@ -14,6 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    hm.home.packages = [ cfg.package ];
     hm.services.hypridle = {
       enable = true;
       package = cfg.package;
@@ -23,18 +24,11 @@ in {
           #after_sleep_cmd = "pkill -USR1 hyprlock";
         };
 
-        listener = let
-          hyprctl = "${config.modules.desktop.hyprland.package}/bin/hyprctl";
-        in [
+        listener = [
           {
             timeout = 60 * 1; # 1 min
             on-timeout = "${lib.getExe pkgs.brightnessctl} -s set 20";
             on-resume = "${lib.getExe pkgs.brightnessctl} -r" ;
-          }
-          {
-            timeout = 90; # 1.5 min
-            on-timeout = "${hyprctl} dispatch dpms off"; # turn off screen
-            on-resume = "${hyprctl} dispatch dpms on"; # turn it back on
           }
           {
             timeout = 60 * 2; # 2 min
@@ -44,7 +38,16 @@ in {
             timeout = 60 * 5; # 5 min
             on-timeout = "systemctl suspend"; # suspend
           }
-        ];
+        ] ++ optional config.modules.desktop.hyprland.enable (let 
+          hyprctl = "${config.modules.desktop.hyprland.package}/bin/hyprctl";
+        in {
+          timeout = 90; # 1.5 min
+          on-timeout = "${hyprctl} dispatch dpms off"; # turn off screen
+          on-resume = "${hyprctl} dispatch dpms on"; # turn it back on
+        }) ++ optional config.modules.desktop.niri.enable {
+          timeout = 90; # 1.5 min
+          on-timeout = "niri msg action power-off-monitors";
+        };
       };
     };
   };

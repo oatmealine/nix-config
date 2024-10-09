@@ -1,6 +1,6 @@
 # Borrowed from https://raw.githubusercontent.com/VergeDX/config-nixpkgs/341684da8ccb6699fad399b998aa0caad723d882/packages/gui/olympus.nix
 
-{ pkgs, makeDesktopItem, ... }:
+{ pkgs, makeDesktopItem }:
 let
   olympus = pkgs.stdenv.mkDerivation rec {
     pname = "olympus";

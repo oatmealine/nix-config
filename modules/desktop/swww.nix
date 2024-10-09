@@ -19,7 +19,7 @@ in {
       default = pkgs.writeScript "swww-start" ''
         ${cfg.package}/bin/swww-daemon &
         wallpaper=$(cat "${lastWallpaperPath}")
-        ${lib.getExe cfg.package} img "$wallpaper"
+        ${lib.getExe cfg.package} img "$wallpaper" --transition-type none
       '';
     };
     swapScript = mkOption {

@@ -72,6 +72,8 @@ in {
           };
         };
 
+        hotkey-overlay.skip-at-startup = true;
+
         screenshot-path = null;
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Animations

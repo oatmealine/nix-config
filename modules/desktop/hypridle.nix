@@ -14,7 +14,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.home.packages = [ cfg.package ];
+    hm.home.packages = [ cfg.package inputs.vigiland.packages.${system}.vigiland ];
     hm.services.hypridle = {
       enable = true;
       package = cfg.package;

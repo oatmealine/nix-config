@@ -25,3 +25,7 @@ these are sorted by `theme - de`. credit for wallpapers and other assets can be 
 ### Catppuccin - Hyprland
 
 ![](./docs/assets/2024-07-25_23-36.png)
+
+### Catppuccin - Niri
+
+![](./docs/assets/2024-10-10_05-03.png)

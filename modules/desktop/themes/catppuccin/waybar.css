@@ -18,6 +18,8 @@ window#waybar {
   font-family: CozetteVector, monospace, FontAwesome, Noto Sans CJK;
   font-size: 13px;
   font-style: normal;
+
+  border: 1px solid @surface0;
 }
 
 #workspaces, .modules-right box {

@@ -962,6 +962,7 @@
         "nixpkgs": "nixpkgs_9",
         "nixpkgs-amneziawg": "nixpkgs-amneziawg",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "vigiland": "vigiland",
         "waybar": "waybar",
         "waybar-catppuccin": "waybar-catppuccin"
       }
@@ -1083,6 +1084,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vigiland": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1719400387,
+        "narHash": "sha256-Y/MUjPWd09YGUWBIXSjQGAcRmgKLcHAMYNjWvDTiV2c=",
+        "owner": "jappie3",
+        "repo": "vigiland",
+        "rev": "62d0d6be2e19690c88e627eff76161ba41adbf97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jappie3",
+        "repo": "vigiland",
         "type": "github"
       }
     },

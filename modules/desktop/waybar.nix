@@ -116,6 +116,7 @@ in {
               "memory"
               "power-profiles-daemon"
               "battery"
+              "custom/weather"
               "privacy"
               "custom/wallpaper"
               #"network"
@@ -286,6 +287,13 @@ in {
           tray = {
             icon-size = 16;
             spacing = 4;
+          };
+          "custom/weather" = {
+            format = "{}°";
+            tooltip = true;
+            interval = 3600;
+            exec = "${lib.getExe pkgs.wttrbar} --location 'Moscow, Russia' --hide-conditions";
+            return-type = "json";
           };
         };
       };

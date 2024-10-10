@@ -31,6 +31,9 @@
     fuzzel-catppuccin.url = "github:catppuccin/fuzzel";
     fuzzel-catppuccin.flake = false;
 
+    vigiland.url = "github:jappie3/vigiland";
+    vigiland.inputs.nixpkgs.follows = "nixpkgs";
+
     nixpkgs-amneziawg.url = "github:averyanalex/nixpkgs/init-linuxpackages-amneziawg";
 
     lix = {

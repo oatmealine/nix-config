@@ -24,14 +24,12 @@
     extraPackages = with pkgs; [
       #intel-compute-runtime
       intel-media-driver
-      intel-vaapi-driver
       libvdpau-va-gl
     ];
 
     extraPackages32 = with pkgs.pkgsi686Linux; [
       #intel-compute-runtime
       intel-media-driver
-      intel-vaapi-driver
       libvdpau-va-gl
     ];
   };

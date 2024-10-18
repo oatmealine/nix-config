@@ -6,6 +6,11 @@ let
 in {
   options.modules.desktop.niri = {
     enable = mkEnableOption "Enable niri, a scrollable-tiling Wayland compositor.";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.niri-unstable;
+      example = "pkgs.niri";
+    };
   };
 
   imports = [ inputs.niri.nixosModules.niri ];
@@ -15,6 +20,7 @@ in {
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri = {
       enable = true;
+      package = cfg.package;
     };
     hm.programs.niri = {
       settings = {
@@ -33,8 +39,8 @@ in {
           #workspace-auto-back-and-forth = true;
 
           keyboard.xkb = {
-            layout = "us,ru";
-            variant = "workman,";
+            layout = "us,us,ru";
+            variant = ",workman,";
             options = "grp:win_space_toggle";
           };
 
@@ -285,7 +291,7 @@ in {
           "XF86AudioMicMute".allow-when-locked = true;
 
           "XF86Launch1".action = sh "${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20";
-          "XF86ScreenSaver".action = sh "${lib.getExe config.modules.desktop.hyprlock.package}";
+          "XF86ScreenSaver".action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
 
           "Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
         } // (if config.modules.desktop.wob.enable then let

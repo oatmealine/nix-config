@@ -18,9 +18,9 @@
     # apps
     vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape obsidian vlc
     # compatilibility
-    wineWowPackages.waylandFull winetricks
+    wine winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev
     # games
     unstable.ringracers (prismlauncher.override { withWaylandGLFW = true; textToSpeechSupport = false; })
   ] ++ (with pkgs.my; [
@@ -111,6 +111,7 @@
       system.wezterm.enable = true;
       system.fish.enable = true;
       system.syncthing.enable = true;
+      system.flatpak.enable = true;
       # dev
       dev.git.enable = true;
       # editors

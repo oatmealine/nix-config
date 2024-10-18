@@ -89,7 +89,7 @@ in {
       };
 
       rofi = ./rofi.rasi;
-      fuzzel = "${inputs.fuzzel-catppuccin}/themes/${variant}/${accent}.ini";
+      fuzzel = "${inputs.fuzzel-catppuccin}/themes/catppuccin-${variant}/${accent}.ini";
 
       wezterm = ''
         config.color_scheme = 'Catppuccin ${pascalCase variant}'

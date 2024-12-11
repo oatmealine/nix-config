@@ -183,7 +183,7 @@ in {
 		          playing = "▶";
               paused = "⏸";
             };
-            player = "chromium"; # setting it to the default breaks it ?
+            player = "tauon"; # setting it to the default breaks it ?
           };
           pulseaudio = {
             format = "{icon} {volume}%";

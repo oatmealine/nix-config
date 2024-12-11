@@ -16,7 +16,7 @@ window#waybar {
   /*font-family: VictorMono, Iosevka Nerd Font, Noto Sans CJK;*/
   /*font-family: 'Atkinson Hyperlegible', FontAwesome, Noto Sans CJK;*/
   font-family: CozetteVector, monospace, FontAwesome, Noto Sans CJK;
-  font-size: 13px;
+  font-size: 12px;
   font-style: normal;
 
   border: 1px solid @surface0;

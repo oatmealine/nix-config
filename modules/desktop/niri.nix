@@ -29,10 +29,11 @@ in {
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
           { command = [ "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist} --clipboard primary" ]; } # to fix wl clipboards disappearing
-          (if config.modules.desktop.hypridle.enable then {
+        ]
+          ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart)
+          ++ (optional (config.modules.desktop.hypridle.enable) ({
             command = [ "${lib.getExe config.modules.desktop.hypridle.package}" ];
-          } else null)
-        ] ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart);
+          }));
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Input
         input = {
@@ -291,7 +292,10 @@ in {
           "XF86AudioMicMute".allow-when-locked = true;
 
           "XF86Launch1".action = sh "${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20";
-          "XF86ScreenSaver".action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
+
+          "XF86AudioPrev".action = sh "${lib.getExe pkgs.playerctl} previous";
+          "XF86AudioPlay".action = sh "${lib.getExe pkgs.playerctl} play-pause";
+          "XF86AudioNext".action = sh "${lib.getExe pkgs.playerctl} next";
 
           "Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
         } // (if config.modules.desktop.wob.enable then let
@@ -318,7 +322,9 @@ in {
           "XF86MonBrightnessUp".allow-when-locked = true;
           "XF86MonBrightnessDown".action = spawn (lib.getExe pkgs.brightnessctl) "s" "5%-";
           "XF86MonBrightnessDown".allow-when-locked = true;
-        });
+        }) // (if config.modules.desktop.hyprlock.enable then {
+          "XF86ScreenSaver".action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
+        } else {});
       };
     };
   };

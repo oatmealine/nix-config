@@ -11,19 +11,19 @@ in {
   config = mkIf cfg.enable {
     hm.programs.vscode = {
       enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        jnoortheen.nix-ide
-        sumneko.lua
-        ms-vsliveshare.vsliveshare
-        svelte.svelte-vscode
-        editorconfig.editorconfig
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [ {
-        name = "luxe";
-        publisher = "luxeengine";
-        version = "0.0.64";
-        sha256 = "sha256-yA8b/N7Ka0Vt154kKbLDZxdjuDffuFV916xxgxfkfsQ=";
-      } ];
-      mutableExtensionsDir = false;
+      #extensions = with pkgs.vscode-extensions; [
+      #  jnoortheen.nix-ide
+      #  sumneko.lua
+      #  ms-vsliveshare.vsliveshare
+      #  svelte.svelte-vscode
+      #  editorconfig.editorconfig
+      #] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [ {
+      #  name = "luxe";
+      #  publisher = "luxeengine";
+      #  version = "0.0.64";
+      #  sha256 = "sha256-yA8b/N7Ka0Vt154kKbLDZxdjuDffuFV916xxgxfkfsQ=";
+      #} ];
+      #mutableExtensionsDir = false;
       #enableExtensionUpdateCheck = false;
       #enableUpdateCheck = false;
       /*userSettings = with config.modules.desktop.fonts.fonts; {

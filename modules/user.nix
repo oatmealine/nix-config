@@ -24,6 +24,7 @@ with lib.my;
     users.users.${config.user.name} = mkAliasDefinitions options.user;
 
     home-manager.useUserPackages = true;
+    home-manager.useGlobalPkgs = true;
 
     hm.home.username = config.user.name;
     hm.home.homeDirectory = lib.mkForce config.user.home;

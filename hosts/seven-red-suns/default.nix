@@ -16,13 +16,13 @@
     # debug
     strace ltrace lsof
     # apps
-    vivaldi telegram-desktop onlyoffice-bin mpv qalculate-gtk krita inkscape obsidian vlc
+    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc
     # compatilibility
     wine winetricks
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev
     # games
-    unstable.ringracers (prismlauncher.override { withWaylandGLFW = true; textToSpeechSupport = false; })
+    unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [
     olympus iterator-icons amnezia-client
   ]) ++ (with pkgs.gnome; [

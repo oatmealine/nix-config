@@ -9,6 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    programs.ssh.askPassword = ""; # holy shit x11-ssh-askpass is UGLY
     hm.programs.git = {
       enable = true;
       package = pkgs.gitFull;

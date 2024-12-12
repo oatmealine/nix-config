@@ -11,6 +11,7 @@ in {
       default = inputs.hypridle.packages.${system}.hypridle;
       example = "pkgs.hypridle";
     };
+    desktop = mkEnableOption "Disable turning the screen off or locking the screen";
   };
 
   config = mkIf cfg.enable {
@@ -30,6 +31,7 @@ in {
             on-timeout = "${lib.getExe pkgs.brightnessctl} -s set 20";
             on-resume = "${lib.getExe pkgs.brightnessctl} -r" ;
           }
+        ] ++ optionals (!cfg.desktop) [
           {
             timeout = 60 * 2; # 2 min
             on-timeout = "loginctl lock-session"; # lock the system

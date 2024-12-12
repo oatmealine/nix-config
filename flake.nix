@@ -45,6 +45,10 @@
       inputs.lix.follows = "lix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    musnix.url = "github:musnix/musnix";
+
+    stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
   };
 
   outputs = inputs @ {

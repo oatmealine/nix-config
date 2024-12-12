@@ -11,6 +11,11 @@ in {
       default = inputs.waybar.packages.${system}.default;
       example = "pkgs.waybar";
     };
+    hostname = mkOption {
+      description = "Hostname name, for the iterator icon";
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -22,6 +27,7 @@ in {
         window = {
           format = "{}";
           icon = true;
+          max-length = 64;
           icon-size = 16;
           rewrite = {
             "(.*) - Vivaldi" = "$1";
@@ -41,7 +47,7 @@ in {
             "(\\S+\\.c\\s.*)" = " $1";
             "(\\S+\\.cpp\\s.*)" = " $1";
             "(\\S+\\.hs\\s.*)" = " $1";
-            ".*Discord | (.*) | .*" = "$1 - ArmCord";
+            ".*Discord | (.*) | .*" = "$1";
             #"(.*) - ArmCord" = "$1";
           };
           separate-outputs = true;
@@ -67,7 +73,7 @@ in {
           format = " {}";
           format-en = "Aa";
           format-ru = "Ру";
-          on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+          #on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
           tooltip = true;
           tooltip-format = "{flag} {long}";
         };
@@ -162,23 +168,34 @@ in {
             on-click = "${config.modules.desktop.swww.swapScript}";
           };
           "image#logo" = {
-            path = ../../packages/iterator-icons/icons/color-seven-red-suns.png;
+            path = if (cfg.hostname != null) then "${pkgs.my.iterator-icons}/share/icons/hicolor/256x256/apps/color-${cfg.hostname}.png" else "";
             size = 20;
             tooltip = false;
             interval = 0;
           };
           "hyprland/workspaces" = workspaces;
           #"niri/workspaces" = workspaces; # niri workspaces are kind of silly
+          "niri/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              urgent = "◈";
+              focused = "◆";
+              default = "◇";
+            };
+          };
           "hyprland/window" = window;
           "niri/window" = window;
           "hyprland/language" = language;
           "niri/language" = language;
           mpris = {
             format = "♫ {dynamic}";
+            title-len = 48;
             format-paused = "{status_icon} {dynamic}";
-            dynamic-order = [ "title" ];
-            tooltip-format = "{player}: {dynamic}";
+            dynamic-order = [ "artist" "title" ];
+            tooltip-format = "{player} | {status_icon} {artist} - {title} from {album} ({position}/{length})";
             interval = 1;
+            on-scroll-up = "${lib.getExe pkgs.playerctl} -p tauon volume 0.05+";
+            on-scroll-down = "${lib.getExe pkgs.playerctl} -p tauon volume 0.05-";
             status-icons = {
 		          playing = "▶";
               paused = "⏸";
@@ -210,11 +227,17 @@ in {
           cpu = {
             interval = 4;
             format = " {usage}%";
+            on-click = "${lib.getExe pkgs.gnome-system-monitor}";
           };
           memory = {
             interval = 4;
             format = " {percentage}%";
             tooltip-format = "{used:0.1f}GiB/{avail:0.1f}GiB used\n{swapUsed:0.1f}GiB/{swapAvail:0.1f}GiB swap";
+            on-click = "${lib.getExe pkgs.gnome-system-monitor}";
+            states = {
+              warning = 80;
+              critical = 90;
+            };
           };
           "battery" = {
             interval = 30;

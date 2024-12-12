@@ -11,6 +11,7 @@ in {
   config = mkIf cfg.enable {
     hm.programs.vscode = {
       enable = true;
+      package = pkgs.vscode.fhs;
       #extensions = with pkgs.vscode-extensions; [
       #  jnoortheen.nix-ide
       #  sumneko.lua

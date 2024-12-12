@@ -20,7 +20,7 @@
   services.xserver.videoDrivers = ["modesetting"];
 
   # OpenCL support and VAAPI
-  hardware.opengl = {
+  hardware.graphics = {
     extraPackages = with pkgs; [
       #intel-compute-runtime
       intel-media-driver

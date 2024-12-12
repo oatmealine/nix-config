@@ -26,8 +26,11 @@ in {
         fonts = config.modules.desktop.fonts.fonts;
       in ''
         local wezterm = require 'wezterm'
+        local act = wezterm.action
         local config = {}
 
+        -- https://www.reddit.com/r/wezterm/comments/1eze6zt/comment/ljncdct/
+        config.front_end = 'WebGpu'
         config.font = wezterm.font '${fonts.monospaceBitmap.family}'
         config.font_size = ${toString fonts.monospaceBitmap.size}
         config.freetype_load_flags = 'MONOCHROME'
@@ -43,6 +46,29 @@ in {
         config.window_frame = {
           font = wezterm.font '${fonts.sans.family}',
           font_size = ${toString fonts.sans.size},
+        }
+
+        -- https://wezfurlong.org/wezterm/config/mouse.html
+        config.mouse_bindings = {
+          -- Change the default click behavior so that it only selects
+          -- text and doesn't open hyperlinks
+          {
+            event = { Up = { streak = 1, button = 'Left' } },
+            mods = 'NONE',
+            action = act.CompleteSelection 'ClipboardAndPrimarySelection',
+          },
+          -- Bind 'Up' event of CTRL-Click to open hyperlinks
+          {
+            event = { Up = { streak = 1, button = 'Left' } },
+            mods = 'CTRL',
+            action = act.OpenLinkAtMouseCursor,
+          },
+          -- Disable the 'Down' event of CTRL-Click to avoid weird program behaviors
+          {
+            event = { Down = { streak = 1, button = 'Left' } },
+            mods = 'CTRL',
+            action = act.Nop,
+          },
         }
 
         return config

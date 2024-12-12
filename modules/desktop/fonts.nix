@@ -62,6 +62,7 @@ in {
     fonts = {
       fontDir.enable = true;
       fontconfig.enable = true;
+      fontconfig.useEmbeddedBitmaps = true;
       fontconfig.defaultFonts = {
         sans = [ cfg.fonts.sans.family ];
         sansSerif = [ cfg.fonts.sansSerif.family ];
@@ -108,11 +109,13 @@ in {
       noto-fonts-monochrome-emoji
       font-awesome
       recursive
-      pkgs.my.rain-world-menu-font
       vistafonts
       arkpandora_ttf
       inter
       cascadia-code
+
+      pkgs.my.rain-world-menu-font
+      pkgs.my.apple-otf
     ];
   });
 }

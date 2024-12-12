@@ -39,6 +39,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    hm.home.packages = [ cfg.package ];
     modules.desktop.execOnStart = [ "${cfg.startScript}" ];
   };
 }

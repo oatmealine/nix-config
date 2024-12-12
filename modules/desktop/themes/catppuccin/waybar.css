@@ -1,7 +1,8 @@
 * {
   border: none;
-  border-radius: 0px;
+  border-radius: 0;
   min-height: 0;
+  padding: 0;
 }
 
 button, button:hover {
@@ -22,12 +23,13 @@ window#waybar {
   border: 1px solid @surface0;
 }
 
-#workspaces, .modules-right box {
+.modules-right box {
   background-color: @surface0;
   margin: 0 0.25em;
   padding: 0.15em 0.25em;
   border-radius: 1em;
 }
+
 .modules-right label.module {
   margin: 0 0.5em;
 }
@@ -43,14 +45,21 @@ window#waybar {
   margin: 0.4em 0.5em;
 }
 
+/* WORKSPACES STYLE 1 */
+/* buttons with icons inside of them */
+
+/*
 #workspaces {
   background-color: @surface0;
   padding: 0;
+  margin: 0 0.25em;
+  border-radius: 1em;
 }
 
 #workspaces button {
   background-color: transparent;
   color: @text;
+  min-width: 0;
   padding: 0 0.4em;
   transition: none;
 }
@@ -94,9 +103,60 @@ window#waybar {
   background: @red;
   color: @surface0;
 }
+*/
+
+/* WORKSPACES STYLE 2 */
+/* just the text, colored */
+
+#workspaces {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+#workspaces button {
+  background-color: transparent;
+  color: @text;
+  padding: 0 0;
+  margin: 0 0.3em;
+  min-width: 0;
+  transition: none;
+}
+
+#workspaces button.empty {
+  color: @overlay0;
+}
+
+#workspaces button.visible {
+  color: @text;
+}
+
+#workspaces button.focused {
+  box-shadow: none;
+}
+
+#workspaces button.active {
+  background: transparent;
+  color: @accent;
+}
+#workspaces button:hover {
+  background: transparent;
+  color: @overlay0;
+  box-shadow: none;
+}
+#workspaces button.active:hover {
+  background: transparent;
+  color: @accent;
+}
+
+#workspaces button.urgent {
+  color: @red;
+}
+
 
 #window {
   background: transparent;
+  margin: 0 0.5em;
 }
 window#waybar.floating #window {
   color: @pink;
@@ -110,7 +170,29 @@ window#waybar.floating #window {
   color: @teal;
 }
 
+
+@keyframes blink {
+  to {
+    color: @text;
+  }
+}
+
+#memory {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  color: @lavender;
+}
+#memory.critical {
+  color: @maroon;
+  animation-name: blink;
+  animation-duration: 2s;
+}
+
 #battery {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
   color: @green;
 }
 
@@ -118,24 +200,31 @@ window#waybar.floating #window {
   color: @green;
 }
 
-#battery.warning:not(.charging) {
+#battery.warning.discharging {
   color: @peach;
+  animation-name: blink;
+  animation-duration: 3s;
 }
 
-#battery.critical:not(.charging) {
+#battery.critical.discharging {
   color: @maroon;
+  animation-name: blink;
+  animation-duration: 2s;
 }
 
-#network {
+#network, #cpu {
   color: @sapphire;
 }
 
-#backlight {
+#backlight, #custom-weather {
   color: @yellow;
 }
 
 #pulseaudio {
   color: @pink;
+}
+#pulseaudio.muted {
+  color: @overlay1;
 }
 
 #custom-power {
@@ -155,13 +244,38 @@ window#waybar.floating #window {
   color: @text;
 }
 
-tooltip {
+window decoration {
+  box-shadow: none;
+}
+
+tooltip, window.popup menu {
   background: @base;
   border: 1px solid @surface2;
+  font-size: 12px;
+  color: @text;
+}
+tooltip *, window.popup {
+  font-family: CozetteVector, monospace;
 }
 tooltip * {
   padding: 0px;
   margin: 0px;
   color: @text;
-  font-family: CozetteVector, monospace;
+}
+
+window.popup separator {
+  background-color: @surface0;
+}
+
+window.popup menuitem:disabled {
+  color: @overlay1;
+}
+
+window.popup menuitem:hover {
+  background-color: @accent;
+  color: @surface0;
+}
+
+window.popup menuitem:hover > box {
+  background-color: transparent;
 }

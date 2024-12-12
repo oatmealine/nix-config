@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     hm.programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi-wayland-unwrapped;
       font = with config.modules.desktop.fonts.fonts.monospace; "${family} ${toString size}";
       extraConfig = {
         show-icons = true;

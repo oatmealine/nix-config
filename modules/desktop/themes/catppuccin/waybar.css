@@ -117,8 +117,8 @@ window#waybar {
 #workspaces button {
   background-color: transparent;
   color: @text;
-  padding: 0 0;
-  margin: 0 0.3em;
+  padding: 0 0.3em;
+  margin: 0 0;
   min-width: 0;
   transition: none;
 }

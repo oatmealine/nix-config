@@ -18,7 +18,7 @@ in {
       settings = {
         main = {
           terminal = "wezterm start";
-          font = with config.modules.desktop.fonts.fonts; "${monospace.family}:size=${toString ((monospace.size - 3) * 2)}"; # ?
+          font = with config.modules.desktop.fonts.fonts; "${monospace.family}:size=${toString ((monospace.size - 3) * 2 + 1)}"; # ?
           lines = 20;
           width = 30;
           letter-spacing = 0.5;

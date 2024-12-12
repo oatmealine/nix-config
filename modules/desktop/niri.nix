@@ -22,12 +22,13 @@ in {
       enable = true;
       package = cfg.package;
     };
+    systemd.user.services.niri-flake-polkit.enable = false;
     hm.programs.niri = {
       settings = {
         spawn-at-startup = [
           { command = [ "${lib.getExe pkgs.xwayland-satellite-unstable}" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
-          { command = [ "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent" ]; }   # authentication prompts
+          { command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist} --clipboard primary" ]; } # to fix wl clipboards disappearing
         ]
           ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart)
@@ -168,9 +169,17 @@ in {
           {
             matches = [
               { app-id = "^clipse$"; }
+              { app-id = "^dde-polkit-agent$"; }
               #{ app-id = "^rofi-rbw$"; }
             ];
             block-out-from = "screen-capture";
+            focus-ring = {
+              # fog of war type effect
+              enable = true;
+              width = 4000;
+              active.color = "#00000065";
+              inactive.color = "#00000065";
+            };
           }
         ];
 
@@ -311,6 +320,17 @@ in {
           "XF86MonBrightnessUp".allow-when-locked = true;
           "XF86MonBrightnessDown".action = sh "${lib.getExe pkgs.brightnessctl} s 5%- && ${lib.getExe pkgs.brightnessctl} -m | awk -F, '{ print $4 }' | sed 's/.$//' > ${wobSock}";
           "XF86MonBrightnessDown".allow-when-locked = true;
+        } else (if config.modules.desktop.mako.osd then {
+          "XF86AudioRaiseVolume".action = sh "${lib.getExe config.modules.desktop.mako.volumeScript} up";
+          "XF86AudioRaiseVolume".allow-when-locked = true;
+          "XF86AudioLowerVolume".action = sh "${lib.getExe config.modules.desktop.mako.volumeScript} down";
+          "XF86AudioLowerVolume".allow-when-locked = true;
+          "XF86AudioMute".action        = sh "${lib.getExe config.modules.desktop.mako.volumeScript} mute";
+          "XF86AudioMute".allow-when-locked = true;
+          "XF86MonBrightnessUp".action = sh "${lib.getExe config.modules.desktop.mako.backlightScript} up";
+          "XF86MonBrightnessUp".allow-when-locked = true;
+          "XF86MonBrightnessDown".action = sh "${lib.getExe config.modules.desktop.mako.backlightScript} down";
+          "XF86MonBrightnessDown".allow-when-locked = true;
         } else {
           "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
           "XF86AudioRaiseVolume".allow-when-locked = true;
@@ -322,7 +342,7 @@ in {
           "XF86MonBrightnessUp".allow-when-locked = true;
           "XF86MonBrightnessDown".action = spawn (lib.getExe pkgs.brightnessctl) "s" "5%-";
           "XF86MonBrightnessDown".allow-when-locked = true;
-        }) // (if config.modules.desktop.hyprlock.enable then {
+        })) // (if config.modules.desktop.hyprlock.enable then {
           "XF86ScreenSaver".action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
         } else {});
       };

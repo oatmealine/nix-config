@@ -88,6 +88,13 @@ in {
         barColor = "${base05}FF";
       };
 
+      mako = with colorScheme.palette; {
+        backgroundColor = "#${base00}FF";
+        borderColor = "#${base00}FF";
+        textColor = "#${base05}FF";
+        progressColor = "#${base02}FF";
+      };
+
       rofi = ./rofi.rasi;
       fuzzel = "${inputs.fuzzel-catppuccin}/themes/catppuccin-${variant}/${accent}.ini";
 

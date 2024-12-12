@@ -35,9 +35,6 @@
     nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
   ]);
 
-  # usually you don't need to do this, but this is a workaround for https://github.com/flameshot-org/flameshot/issues/3328
-  #hm.services.flameshot.enable = true;
-
   musnix.enable = true;
   musnix.rtcqs.enable = true;
 
@@ -67,64 +64,26 @@
     };
     desktop = {
       envProto = "wayland";
-      
-      /*gnome.enable = true;
-      gnome.keybinds.shell = {
-        # disable defaults
-        "screenshot" = [];
-        "screenshot-window" = [];
-        "show-screenshot-ui" = [];
-      };
-      gnome.keybinds.custom = {
-        "take-screenshot" = {
-          binding = "Print";
-          command = let
-            screenshotScript = pkgs.writeScript "screenshot" "XDG_SESSION_TYPE=wayland ${lib.getExe pkgs.flameshot} gui -c";
-          in ''${screenshotScript}'';
-        };
-        "take-screen-recording" = {
-          binding = "<Shift>Print";
-          command = "${lib.getExe pkgs.peek}";
-        };
-        "grab-password" = let
-          grabScript = pkgs.writeScript "grab-password" ''
-            ${lib.getExe pkgs.rbw} get $(${lib.getExe pkgs.gnome.zenity} --entry --text="" --title="") | ${lib.getExe pkgs.xclip} -selection clipboard
-          '';
-        in {
-          binding = "Launch1";
-          command = ''${grabScript}'';
-        };
-      };*/
 
-      #xfce.enable = true;
-
-      # in my mind they're a lesbian polycule
-      #hyprland.enable = true;
       niri.enable = true;
-      #hyprlock.enable = true;
-      #hyprpaper.enable = true;
       swww.enable = true;
       hypridle.enable = true;
       hypridle.desktop = true;
 
-      dunst.enable = true;
+      mako.enable = true;
+      mako.osd = true;
       waybar.enable = true;
       waybar.hostname = "five-pebbles";
       rofi.enable = true;
-      wob.enable = true;
       clipse.enable = true;
-      #batsignal.enable = true;
       fuzzel.enable = true;
 
       sddm.enable = true;
-
-      #gammastep.enable = true;
 
       themes.active = "catppuccin";
     };
     software = {
       # system
-      #system.alacritty.enable = true;
       system.amnezia.enable = true;
       system.audiorelay.enable = true;
       system.wezterm.enable = true;

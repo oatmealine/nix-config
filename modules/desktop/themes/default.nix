@@ -38,6 +38,13 @@ in {
       };
     };
 
+    mako = {
+      backgroundColor = mkOpt str "#285577FF";
+      borderColor = mkOpt str "#4C7899FF";
+      textColor = mkOpt str "#FFFFFFFF";
+      progressColor = mkOpt str "#5588AAFF";
+    };
+
     hyprland = {
       source = mkOpt (nullOr str) null;
       extraConfig = mkOpt (nullOr str) null;
@@ -94,6 +101,14 @@ in {
     hm.services.dunst.iconTheme = {
       name = cfg.iconTheme.name;
       package = cfg.iconTheme.package;
+    };
+
+    hm.services.mako = {
+      iconPath = "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
+      backgroundColor = cfg.mako.backgroundColor;
+      borderColor = cfg.mako.borderColor;
+      textColor = cfg.mako.textColor;
+      progressColor = cfg.mako.progressColor;
     };
 
     hm.programs.vscode = {

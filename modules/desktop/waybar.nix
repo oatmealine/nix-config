@@ -27,7 +27,7 @@ in {
         window = {
           format = "{}";
           icon = true;
-          max-length = 64;
+          max-length = 96;
           icon-size = 16;
           rewrite = {
             "(.*) - Vivaldi" = "$1";

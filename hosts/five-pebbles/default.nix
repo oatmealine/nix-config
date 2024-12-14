@@ -20,11 +20,11 @@
     # debug
     strace ltrace lsof helvum
     # apps
-    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc
+    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive
     # compatilibility
     wine winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio
     # games
     unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [

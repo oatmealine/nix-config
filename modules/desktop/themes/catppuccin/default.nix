@@ -24,6 +24,15 @@ in {
         };
       };
 
+      qtTheme = {
+        enable = true;
+        name = "catppuccin-${variant}-${accent}";
+        package = (pkgs.catppuccin-kvantum.override {
+          variant = variant;
+          accent = accent;
+        });
+      };
+
       iconTheme = {
         name = "WhiteSur-dark";
         package = pkgs.whitesur-icon-theme;

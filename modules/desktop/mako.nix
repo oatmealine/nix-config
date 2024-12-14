@@ -44,7 +44,7 @@ in {
       enable = true;
       anchor = "top-right";
       borderRadius = 6;
-      borderSize = 1;
+      borderSize = 2;
       defaultTimeout = 4000;
       font = with config.modules.desktop.fonts.fonts.sans; "${family} ${toString (size - 1)}";
       width = 300;

@@ -19,10 +19,10 @@ in {
 
   config = mkMerge [
     {
-      qt = {
+      hm.qt = {
         enable = true;
-        platformTheme = "gnome";
-        style = "adwaita";
+        platformTheme.name = lib.mkDefault "gnome";
+        style.name = lib.mkDefault "adwaita-dark";
       };
 
       modules.desktop.fonts.enable = true;

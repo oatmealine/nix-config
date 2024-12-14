@@ -244,6 +244,34 @@ window#waybar.floating #window {
   color: @text;
 }
 
+box#playback {
+  background-color: transparent;
+  margin: 0 0;
+  padding: 0 0;
+}
+#mpris {
+  background-color: @surface0;
+  margin: 0 0.25em;
+  padding: 0.15em 0.5em;
+  border-radius: 1em;
+}
+
+#mpris.playing {
+  /*background: @accent;
+  color: @surface0;*/
+  color: @accent;
+  background: @surface0;
+  /* maybe another day */
+  /*color: @accent;
+  background: url('/home/oatmealine/cover.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;*/
+}
+#mpris.paused, #mpris.stopped {
+  color: @overlay1;
+}
+
 window decoration {
   box-shadow: none;
 }

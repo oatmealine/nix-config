@@ -42,7 +42,7 @@ in {
 
           keyboard.xkb = {
             layout = "us,us,ru";
-            variant = "workman,,";
+            variant = ",workman,";
             options = "grp:win_space_toggle";
           };
 

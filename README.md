@@ -1,8 +1,8 @@
 # nix-config
 
-hello!! welcome to my little nix cave, home to `seven-red-suns` and potentially more hosts to come.
+hello!! welcome to my little nix cave, home to `five-pebbles` and `seven-red-suns`
 
-this is a nix flake managing my nixos systems. it isn't really ready for other peoples' use, but you are free to look around.
+this is a nix flake managing my nixos systems. it isn't (and won't ever be) ready for other peoples' use, but you are free to look around.
 
 a lot of the base flake and module design was taken from [Icy-Thought's snowflake](https://github.com/Icy-Thought/snowflake) repo. thank you very much!!
 
@@ -28,4 +28,4 @@ these are sorted by `theme - de`. credit for wallpapers and other assets can be 
 
 ### Catppuccin - Niri
 
-![](./docs/assets/2024-10-10_05-03.png)
+![](./docs/assets/2024-12-14_04-51.png)

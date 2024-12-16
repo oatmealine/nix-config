@@ -16,6 +16,11 @@ in {
       type = types.nullOr types.str;
       default = null;
     };
+    style = mkOption {
+      description = "Content of the CSS style file";
+      type = types.str;
+      default = "";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -23,6 +28,7 @@ in {
     hm.programs.waybar = {
       enable = true;
       package = cfg.package;
+      style = cfg.style;
       settings = let
         window = {
           format = "{}";

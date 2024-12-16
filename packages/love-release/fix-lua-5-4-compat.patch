@@ -1,0 +1,27 @@
+From c54a83735b53eb9f67deb9152992a682198051c6 Mon Sep 17 00:00:00 2001
+From: "Jill \"oatmealine\" Monoids" <oatmealine@disroot.org>
+Date: Sat, 14 Dec 2024 12:42:52 +0300
+Subject: [PATCH] fix lua 5.4 compatibility (?)
+
+---
+ src/utils.lua | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/utils.lua b/src/utils.lua
+index 102f195..1141c62 100644
+--- a/src/utils.lua
++++ b/src/utils.lua
+@@ -59,6 +59,10 @@ function ver:__lt(other)
+   return false
+ end
+ 
++function ver:__le(other)
++  return self:__eq(other) or self:__lt(other)
++end
++
+ function ver:__tostring()
+   local buffer = { ("%d.%d"):format(self.major, self.minor) }
+   if self.patch then table.insert(buffer, "." .. self.patch) end
+-- 
+2.47.0
+

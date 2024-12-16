@@ -136,7 +136,9 @@ in {
         extraConfig = mkIf (cfg.hyprland.extraConfig != null) cfg.hyprland.extraConfig;
       };
 
-      hm.programs.waybar.style = cfg.waybar;
+      # moved to waybar module
+      #hm.programs.waybar.style = cfg.waybar;
+      modules.desktop.waybar.style = cfg.waybar;
 
       hm.services.wob.settings."" = {
         border_color = cfg.wob.borderColor;

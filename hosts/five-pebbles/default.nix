@@ -25,6 +25,8 @@
     wine winetricks
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio
+    # love2d (to be moved elsewhere)
+    love my.love-js my.love-release
     # games
     unstable.ringracers prismlauncher
   ] ++ (with pkgs.my; [

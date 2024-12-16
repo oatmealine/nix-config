@@ -85,11 +85,11 @@ in {
         '';
       };
 
-      waybar = builtins.concatStringsSep "\n" [
+      waybarTop = builtins.concatStringsSep "\n" [
         "@import \"${inputs.waybar-catppuccin}/themes/${variant}.css\";"
         "@define-color accent @${accent};"
-        (lib.readFile ./waybar.css)
       ];
+      waybar = lib.readFile ./waybar.css;
 
       wob = with colorScheme.palette; {
         borderColor = "${base04}FF";

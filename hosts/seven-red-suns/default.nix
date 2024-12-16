@@ -91,11 +91,12 @@
       swww.enable = true;
       hypridle.enable = true;
 
-      dunst.enable = true;
+      mako.enable = true;
+      mako.osd = true;
       waybar.enable = true;
       waybar.hostname = "seven-red-suns";
+      waybar.fontSize = 13;
       rofi.enable = true;
-      wob.enable = true;
       clipse.enable = true;
       batsignal.enable = true;
       fuzzel.enable = true;
@@ -108,7 +109,7 @@
     };
     software = {
       # system
-      #system.alacritty.enable = true;
+      system.amnezia.enable = true;
       system.wezterm.enable = true;
       system.fish.enable = true;
       system.syncthing.enable = true;

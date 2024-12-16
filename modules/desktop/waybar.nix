@@ -21,6 +21,16 @@ in {
       type = types.str;
       default = "";
     };
+    styleTop = mkOption {
+      description = "CSS to add at the top, like import statements";
+      type = types.str;
+      default = "";
+    };
+    fontSize = mkOption {
+      description = "Temporary option while I figure out what's wrong with the GTK font handling";
+      type = types.number;
+      default = 12;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -28,7 +38,11 @@ in {
     hm.programs.waybar = {
       enable = true;
       package = cfg.package;
-      style = cfg.style;
+      style = builtins.concatStringsSep "\n" [
+        cfg.styleTop
+        "window, tooltip, window.popup menu {\n  font-size: ${toString cfg.fontSize}px;\n}"
+        cfg.style
+      ];
       settings = let
         window = {
           format = "{}";

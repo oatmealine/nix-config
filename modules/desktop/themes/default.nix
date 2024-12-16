@@ -61,6 +61,7 @@ in {
     };
 
     waybar = mkOpt str "";
+    waybarTop = mkOpt str "";
 
     wob = {
       borderColor = mkOpt (nullOr str) null;
@@ -139,6 +140,7 @@ in {
       # moved to waybar module
       #hm.programs.waybar.style = cfg.waybar;
       modules.desktop.waybar.style = cfg.waybar;
+      modules.desktop.waybar.styleTop = cfg.waybarTop;
 
       hm.services.wob.settings."" = {
         border_color = cfg.wob.borderColor;

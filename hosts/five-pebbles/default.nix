@@ -92,6 +92,7 @@
       system.fish.enable = true;
       system.syncthing.enable = true;
       system.flatpak.enable = true;
+      system.virt-manager.enable = true;
       # dev
       dev.git.enable = true;
       # editors

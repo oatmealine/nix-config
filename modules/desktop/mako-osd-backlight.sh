@@ -7,13 +7,14 @@ esac
 
 brightness=$(brightnessctl -m | awk -F, '{ print $4 }' | sed 's/.$//')
 
-if [ $brightness -lt 30 ]; then
-  icon='display-brightness-low-symbolic'
-elif [ $brightness -lt 70 ]; then
-  icon='display-brightness-medium-symbolic'
-else
-  icon='display-brightness-high-symbolic'
-fi
+#if [ $brightness -lt 30 ]; then
+#  icon='display-brightness-low-symbolic'
+#elif [ $brightness -lt 70 ]; then
+#  icon='display-brightness-medium-symbolic'
+#else
+#  icon='display-brightness-high-symbolic'
+#fi
+icon='notification-display-brightness'
 
 notify-send \
   "$brightness%" \

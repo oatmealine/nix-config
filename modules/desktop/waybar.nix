@@ -144,6 +144,7 @@ in {
               "battery"
               "custom/weather"
               "privacy"
+              "custom/vpn"
               "custom/wallpaper"
               #"network"
             ];

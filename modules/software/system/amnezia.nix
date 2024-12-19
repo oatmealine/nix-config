@@ -20,5 +20,44 @@ in {
     boot.extraModulePackages = with config.boot.kernelPackages; [
       amneziawg
     ];
+
+    hm.programs.waybar.settings.mainBar."custom/vpn" = let
+      interface = "wg0";
+      awg = "${pkgs.unstable.amneziawg-tools}/bin/awg";
+      awg-quick = "${pkgs.unstable.amneziawg-tools}/bin/awg-quick";
+      script = pkgs.writeScript "awg-ctl" ''
+        set -euo pipefail
+
+        status=$(sudo ${awg} show | grep -q '${interface}' && echo "up" || echo "down")
+
+        case "''${1:-}" in
+          show)
+            echo "{\"text\": \"󰌆\", \"tooltip\": \"${interface}: $status\", \"class\": \"$status\"}"
+            ;;
+          toggle)
+            if [ "$status" = "up" ]; then
+              sudo ${awg-quick} down ${interface}
+              status="down"
+              bool="false"
+            else
+              sudo ${awg-quick} up ${interface}
+              status="up"
+              bool="true"
+            fi
+            notify-send \
+              "${interface}" \
+              "$status" \
+              -i "network-vpn-symbolic"
+            ;;
+        esac
+      '';
+    in {
+      format = "{}";
+      tooltip = true;
+      interval = 1;
+      exec = "${script} show";
+      on-click = "${script} toggle";
+      return-type = "json";
+    };
   };
 }

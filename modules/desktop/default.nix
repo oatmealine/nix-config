@@ -60,6 +60,12 @@ in {
 
       programs.adb.enable = true;
       user.extraGroups = [ "adbusers" ];
+
+      environment.systemPackages = [ pkgs.brightnessctl ];
+      # fix for permission issues
+      services.udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
+      '';
     }
     (mkIf (cfg.envProto == "wayland") {
       environment.sessionVariables = {

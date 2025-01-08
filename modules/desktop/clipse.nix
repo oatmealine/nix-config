@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     modules.desktop.execOnStart = [
-      "${lib.getExe cfg.package} -listen-shell"
+      "${lib.getExe cfg.package} --listen-shell"
     ];
     hm.wayland.windowManager.hyprland.settings = let
       class = "clipse";

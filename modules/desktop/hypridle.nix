@@ -21,7 +21,8 @@ in {
       package = cfg.package;
       settings = {
         general = {
-          lock_cmd = "${lib.getExe config.modules.desktop.hyprlock.package}";
+          # what this shit even do ?
+          #lock_cmd = "${lib.getExe config.modules.desktop.hyprlock.package}";
           #after_sleep_cmd = "pkill -USR1 hyprlock";
         };
 

@@ -81,6 +81,13 @@ in {
         CLUTTER_BACKEND = "wayland";
       };
       programs.xwayland.enable = true;
+      # temporary fix for https://github.com/nix-community/home-manager/issues/2064
+      hm.systemd.user.targets.tray = {
+        Unit = {
+          Description = "Home Manager System Tray";
+          Requires = [ "graphical-session-pre.target" ];
+        };
+      };
     })
     (mkIf (cfg.envProto == "x11") {
       services.xserver.excludePackages = [ pkgs.xterm ];

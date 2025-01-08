@@ -27,10 +27,7 @@ in {
       qtTheme = {
         enable = true;
         name = "catppuccin-${variant}-${accent}";
-        package = (pkgs.catppuccin-kvantum.override {
-          variant = variant;
-          accent = accent;
-        });
+        package = pkgs.catppuccin-qt5ct;
       };
 
       iconTheme = {

@@ -83,6 +83,9 @@ in {
     };
 
     environment.systemPackages = [ pkgs.usbguard ];
+
+    # firmware updates
+    services.fwupd.enable = true;
   } // (mkIf cfg.useDoas {
     security.sudo.enable = false;
     security.doas.enable = true;

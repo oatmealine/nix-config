@@ -1,7 +1,12 @@
-{ lib, pkgs, inputs, config, ... }:
+{ lib, pkgs, inputs, config, system, ... }:
 let
   nixpkgs = inputs.nixpkgs;
 in {
+  programs.nix-ld.enable = true;
+  environment.systemPackages = with pkgs; [
+    inputs.nix-alien.packages.${system}.nix-alien
+  ];
+
   nix.registry.nixpkgs = {
     from = {
       id = "nixpkgs";
@@ -69,8 +74,4 @@ in {
   environment.extraInit = ''
     export NIX_PATH="nixpkgs=${nixpkgs}"
   '';
-
-  environment.systemPackages = with pkgs; [
-    nixos-option
-  ];
 }

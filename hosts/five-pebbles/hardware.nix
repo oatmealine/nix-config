@@ -49,6 +49,7 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/aa177751-fcc0-4a16-9902-11f75a73172c";
       fsType = "ext4";
+      options = [ "noatime" "nodiratime" "discard" ];
     };
 
   fileSystems."/home" =

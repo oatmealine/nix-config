@@ -10,7 +10,7 @@
     # archives
     zip xz unzip p7zip
     # utils
-    ripgrep jq libqalculate
+    ripgrep jq libqalculate ffmpeg imagemagick
     # nix
     nix-output-monitor
     # dev
@@ -22,13 +22,13 @@
     # apps
     vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive
     # compatilibility
-    wine winetricks
+    wineWowPackages.waylandFull winetricks
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio
     # love2d (to be moved elsewhere)
     love my.love-js my.love-release
     # games
-    unstable.ringracers prismlauncher
+    unstable.ringracers prismlauncher unstable.r2modman
   ] ++ (with pkgs.my; [
     iterator-icons mxlrc-go sdfgen
   ]) ++ (with pkgs.gnome; [
@@ -39,6 +39,8 @@
 
   musnix.enable = true;
   musnix.rtcqs.enable = true;
+
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   fileSystems."/home/oatmealine/downloads" = {
     device = "none";
@@ -103,6 +105,7 @@
       tools.noisetorch.enable = true;
       # distractions
       distractions.steam.enable = true;
+      distractions.steam.useGamescope = true;
       distractions.discord.enable = true;
       distractions.discord.vesktop = true;
     };

@@ -8,7 +8,7 @@ in {
     enable = mkEnableOption "Enable Waybar, a highly customizable Wayland bar";
     package = mkOption {
       type = types.package;
-      default = inputs.waybar.packages.${system}.default;
+      default = pkgs.unstable.waybar;
       example = "pkgs.waybar";
     };
     hostname = mkOption {
@@ -156,7 +156,12 @@ in {
             ];
           };
           "custom/power" = let
-            closeCmd = "${config.modules.desktop.hyprland.package}/bin/hyprctl dispatch exit}";
+            closeCmd = 
+              if config.modules.desktop.hyprland.enable then "${config.modules.desktop.hyprland.package}/bin/hyprctl dispatch exit}"
+              else (if config.modules.desktop.niri.enable then "${lib.getExe config.modules.desktop.niri.package} msg action quit" else "");
+            lockCmd = if config.modules.desktop.hyprlock.enable
+              then "${lib.getExe config.modules.desktop.hyprlock.package}"
+              else "${pkgs.libnotify}/bin/notify-send 'no lock screen configured' -i 'error'";
             powerSelect = pkgs.writeScript "power-menu" ''
               cmd=$(echo 'shutdown|reboot|suspend|lock|exit' | rofi -dmenu -sep '|' -i -p 'what to do ?' -theme-str 'window { height: 148px; }')
               case "$cmd" in
@@ -170,7 +175,7 @@ in {
                   systemctl suspend
                   ;;
                 lock)
-                  ${lib.getExe config.modules.desktop.hyprlock.package}
+                  ${lockCmd}
                   ;;
                 "exit")
                   ${closeCmd}

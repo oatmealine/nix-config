@@ -36,6 +36,8 @@
 
     nixpkgs-amneziawg.url = "github:averyanalex/nixpkgs/init-linuxpackages-amneziawg";
 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90.0";
       flake = false;

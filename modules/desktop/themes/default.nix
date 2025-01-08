@@ -158,16 +158,8 @@ in {
       hm.qt = {
         enable = true;
         platformTheme.name = "qtct";
-        style.name = "kvantum";
       };
-      hm.xdg.configFile = {
-        "Kvantum/kvantum.kvconfig".text = ''
-          [General]
-          theme=${cfg.qtTheme.name}
-        '';
-
-        "Kvantum/${cfg.qtTheme.name}".source = "${cfg.qtTheme.package}/share/Kvantum/${cfg.qtTheme.name}";
-      };
+      hm.home.packages = [ cfg.qtTheme.package ];
     })
   ]);
 }

@@ -6,6 +6,7 @@ let
 in {
   options.modules.software.distractions.steam = {
     enable = mkEnableOption "Enable Steam, the game distribution software";
+    gamemode = mkEnableOption "Use gamemode, an on-demand Linux system performance optimizer";
     useGamescope = mkEnableOption "Use gamescope, a mini-compositor for game performance";
   };
 
@@ -32,7 +33,7 @@ in {
       protontricks.enable = true;
     };
     # https://github.com/FeralInteractive/gamemode
-    programs.gamemode = {
+    programs.gamemode = mkIf cfg.gamemode {
       enable = true;
       enableRenice = true;
       settings = {};

@@ -89,6 +89,7 @@
     software = {
       # system
       system.amnezia.enable = true;
+      system.ananicy.enable = true;
       system.audiorelay.enable = true;
       system.wezterm.enable = true;
       system.fish.enable = true;

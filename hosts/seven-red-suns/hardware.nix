@@ -21,11 +21,13 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/9d6f59a0-ba40-4033-a417-d0fceb5954a3";
       fsType = "ext4";
+      options = [ "noatime" "nodiratime" "discard" ];
     };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/6369-C5A5";
       fsType = "vfat";
+      options = [ "umask=0077" ];
     };
 
   swapDevices =
@@ -42,4 +44,15 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  hardware.bluetooth.enable = true; # enables support for Bluetooth
+  hardware.bluetooth.powerOnBoot = false; # powers up the default Bluetooth controller on boot
+  # allows viewing device battery charge
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+    };
+  };
+
+  services.blueman.enable = true;
 }

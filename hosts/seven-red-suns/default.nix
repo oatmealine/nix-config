@@ -124,6 +124,7 @@
       tools.noisetorch.enable = true;
       # distractions
       distractions.steam.enable = true;
+      distractions.steam.gamemode = true;
       distractions.discord.enable = true;
       distractions.discord.vesktop = true;
     };

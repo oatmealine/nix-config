@@ -12,7 +12,8 @@ in {
     hm.programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland-unwrapped;
-      font = with config.modules.desktop.fonts.fonts.monospace; "${family} ${toString (size - 1)}";
+      font = "Recursive 12";
+      #font = with config.modules.desktop.fonts.fonts.monospace; "${family} ${toString (size - 1)}";
       extraConfig = {
         show-icons = true;
       };

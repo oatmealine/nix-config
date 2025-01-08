@@ -3,9 +3,9 @@
   bg-col-light: #313244;
   border-col: #363a4f;
   selected-col: #45475a;
-  pink: #f5c2e7;
+  rosewater: #f5e0dc;
   fg-col: #cdd6f4;
-  fg-col2: @pink;
+  fg-col2: @rosewater;
   grey: #bac2de;
 
   width: 450px;
@@ -18,9 +18,9 @@ element-text, element-icon , mode-switcher {
 
 window {
   height: 500px;
-  border: 2px;
+  border: 1px;
   border-radius: 1em;
-  border-color: @pink;
+  border-color: @rosewater;
   background-color: @bg-col;
 }
 
@@ -94,5 +94,5 @@ button {
 
 button.selected {
   background-color: @bg-col;
-  text-color: @pink;
+  text-color: @rosewater;
 }

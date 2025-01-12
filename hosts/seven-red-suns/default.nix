@@ -18,7 +18,7 @@
     # apps
     vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc
     # compatilibility
-    wine winetricks
+    wineWowPackages.waylandFull winetricks
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev
     # games

@@ -2,15 +2,13 @@
 {
   imports = [
     ./hardware.nix
-
-    inputs.musnix.nixosModules.musnix
   ];
 
   hm.home.packages = with pkgs; [
     # archives
     zip xz unzip p7zip
     # utils
-    ripgrep jq libqalculate ffmpeg imagemagick
+    ripgrep jq libqalculate ffmpeg imagemagick binutils
     # nix
     nix-output-monitor
     # dev
@@ -24,11 +22,11 @@
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio soulseekqt
     # love2d (to be moved elsewhere)
     love my.love-js my.love-release
     # games
-    unstable.ringracers prismlauncher unstable.r2modman
+    unstable.ringracers prismlauncher unstable.r2modman my.ryujinx
   ] ++ (with pkgs.my; [
     iterator-icons mxlrc-go sdfgen
   ]) ++ (with pkgs.gnome; [
@@ -37,9 +35,6 @@
     nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
   ]);
 
-  musnix.enable = true;
-  musnix.rtcqs.enable = true;
-
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
 
   fileSystems."/home/oatmealine/downloads" = {
@@ -47,6 +42,10 @@
     fsType = "tmpfs";
     options = [ "size=2G" "mode=777" ];
   };
+
+  # work around a really annoying systemd issue
+  systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+  systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
 
   modules = {
     #ssh.enable = true;
@@ -89,7 +88,6 @@
     software = {
       # system
       system.amnezia.enable = true;
-      system.ananicy.enable = true;
       system.audiorelay.enable = true;
       system.wezterm.enable = true;
       system.fish.enable = true;

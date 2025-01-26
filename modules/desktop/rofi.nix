@@ -6,12 +6,16 @@ let
 in {
   options.modules.desktop.rofi = {
     enable = mkEnableOption "Enable rofi, a window switcher, run dialog and dmenu replacement";
+    package = mkOption {
+      type = types.package;
+      default = pkgs.rofi-wayland-unwrapped;
+    };
   };
 
   config = mkIf cfg.enable {
     hm.programs.rofi = {
       enable = true;
-      package = pkgs.rofi-wayland-unwrapped;
+      package = cfg.package;
       font = "Recursive 12";
       #font = with config.modules.desktop.fonts.fonts.monospace; "${family} ${toString (size - 1)}";
       extraConfig = {

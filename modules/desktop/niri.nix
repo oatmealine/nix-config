@@ -175,7 +175,7 @@ in {
               { app-id = "^dde-polkit-agent$"; }
               #{ app-id = "^rofi-rbw$"; }
             ];
-            #open-floating = true;
+            open-floating = true;
             block-out-from = "screen-capture";
             focus-ring = {
               # fog of war type effect
@@ -192,13 +192,12 @@ in {
               { app-id = "vivaldi";  title = "^Picture in picture$"; }
               { title = "^Discord Popout$"; }
             ];
-            # not yet implemented in niri-flake
-            #open-floating = true;
-            #default-floating-position = {
-            #  x = 32;
-            #  y = 32;
-            #  relative-to = "top-right";
-            #};
+            open-floating = true;
+            default-floating-position = {
+              x = 32;
+              y = 32;
+              relative-to = "top-right";
+            };
           }
           # popups, dialogs, etc
           {
@@ -211,17 +210,33 @@ in {
               { app-id = "^zenity$"; }
               { app-id = "^dde-polkit-agent$"; }
             ];
-            # not yet implemented in niri-flake
-            #open-floating = true;
+            open-floating = true;
             default-column-width.proportion = 0.6;
-            #default-window-height.proportion = 0.8;
+            default-window-height.proportion = 0.8;
           }
           {
             matches = [{ app-id = "^notitg-"; }];
+            open-floating = true;
             min-width = 1280;
             max-width = 1280;
             min-height = 720;
             max-height = 720;
+          }
+          {
+            matches = [{ app-id = "^notitg-"; title = "Loading..."; }];
+            open-floating = true;
+            min-width = 499;
+            max-width = 499;
+            min-height = 178;
+            max-height = 178;
+          }
+          {
+            matches = [{ app-id = "^notitg-"; title = "Whoops! NotITG Has Crashed!"; }];
+            open-floating = true;
+            min-width = 600;
+            max-width = 600;
+            min-height = 460;
+            max-height = 460;
           }
         ];
 
@@ -350,7 +365,8 @@ in {
           "XF86AudioPlay".action = sh "${lib.getExe pkgs.playerctl} play-pause";
           "XF86AudioNext".action = sh "${lib.getExe pkgs.playerctl} next";
 
-          "Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
+          #"Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
+          "Mod+V".action = sh config.modules.desktop.cliphist.summonCmd;
 
           "Mod+T".action = spawn "wezterm";
           "Mod+E".action = spawn "nautilus";

@@ -24,7 +24,9 @@ in {
     };
     systemd.user.services.niri-flake-polkit.enable = false;
     hm.programs.niri = {
-      settings = {
+      settings = let
+        allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
+      in {
         spawn-at-startup = [
           { command = [ "${lib.getExe pkgs.xwayland-satellite-unstable}" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
@@ -78,6 +80,10 @@ in {
             active.color = config.modules.desktop.themes.niri.accent;
             inactive.color = config.modules.desktop.themes.niri.inactive;
           };
+
+          /*shadow = {
+            enable = true;
+          };*/
         };
 
         hotkey-overlay.skip-at-startup = true;
@@ -163,20 +169,21 @@ in {
             ];
             default-column-width = {};
           }
-          (let
-            allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
-          in {
+          {
             geometry-corner-radius = allCorners 10.0;
             clip-to-geometry = true;
-          })
+          }
           {
             matches = [
               { app-id = "^clipse$"; }
               { app-id = "^dde-polkit-agent$"; }
+              { app-id = "^org\.gnome\.Loupe$"; }
+              { title = "^Open Folder$"; }
+              { title = "^Open File$"; }
+              { title = "^Open$"; }
               #{ app-id = "^rofi-rbw$"; }
             ];
             open-floating = true;
-            block-out-from = "screen-capture";
             focus-ring = {
               # fog of war type effect
               enable = true;
@@ -185,11 +192,19 @@ in {
               inactive.color = "#00000065";
             };
           }
+          {
+            matches = [
+              { app-id = "^clipse$"; }
+              { app-id = "^dde-polkit-agent$"; }
+              #{ app-id = "^rofi-rbw$"; }
+            ];
+            block-out-from = "screen-capture";
+          }
           # pip type stuff
           {
             matches = [
               { app-id = "firefox$"; title = "^Picture-in-Picture$"; }
-              { app-id = "vivaldi";  title = "^Picture in picture$"; }
+              { title = "^Picture in picture$"; }
               { title = "^Discord Popout$"; }
             ];
             open-floating = true;
@@ -203,16 +218,22 @@ in {
           {
             matches = [
               { app-id = "^file-roller$"; }
+              { app-id = "^org\.gnome\.FileRoller$"; }
               { app-id = "^org\.gnome\.Loupe$"; }
               { title = "^Open Folder$"; }
               { title = "^Open File$"; }
-              { app-id = "^Open$"; }
-              { app-id = "^zenity$"; }
+              { title = "^Open$"; }
               { app-id = "^dde-polkit-agent$"; }
             ];
             open-floating = true;
             default-column-width.proportion = 0.6;
             default-window-height.proportion = 0.8;
+          }
+          {
+            matches = [
+              { app-id = "^zenity$"; }
+            ];
+            open-floating = true;
           }
           {
             matches = [{ app-id = "^notitg-"; }];
@@ -237,6 +258,33 @@ in {
             max-width = 600;
             min-height = 460;
             max-height = 460;
+          }
+        ];
+
+        layer-rules = [
+          {
+            matches = [
+              { namespace = "^notifications$"; }
+            ];
+            block-out-from = "screencast";
+          }
+          {
+            matches = [
+              { namespace = "^launcher$"; }
+            ];
+            #shadow = {
+            #  on = true;
+            #};
+            #geometry-corner-radius = allCorners 10.0;
+          }
+          {
+            matches = [
+              { namespace = "waybar"; }
+            ];
+            #shadow = {
+            #  on = true;
+            #};
+            #geometry-corner-radius = allCorners 10.0;
           }
         ];
 

@@ -14,7 +14,7 @@
     # dev
     sqlitebrowser sqlite-interactive nil
     # system
-    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
+    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset gparted
     # debug
     strace ltrace lsof helvum
     # apps
@@ -22,11 +22,11 @@
     # compatilibility
     wineWowPackages.waylandFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio soulseekqt
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-js my.love-release
     # games
-    unstable.ringracers prismlauncher unstable.r2modman my.ryujinx
+    unstable.ringracers prismlauncher unstable.r2modman my.ryujinx my.olympus
   ] ++ (with pkgs.my; [
     iterator-icons mxlrc-go sdfgen
   ]) ++ (with pkgs.gnome; [
@@ -70,8 +70,8 @@
 
       niri.enable = true;
       swww.enable = true;
-      hypridle.enable = true;
-      hypridle.desktop = true;
+      #hypridle.enable = true;
+      #hypridle.desktop = true;
 
       mako.enable = true;
       mako.osd = true;

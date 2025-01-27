@@ -34,6 +34,8 @@ with lib.my;
     in {
       trusted-users = users;
       allowed-users = users;
+  
+      warn-dirty = false;
     };
 
     users.users.root = {

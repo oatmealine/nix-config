@@ -22,6 +22,7 @@ in {
         paths = with pkgs; [ script brightnessctl libnotify gnused gawk ];
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = "wrapProgram $out/bin/mako-osd-backlight --prefix PATH : $out/bin";
+        meta.mainProgram = "mako-osd-backlight";
       });
     };
     volumeScript = mkOption {
@@ -35,6 +36,7 @@ in {
         paths = with pkgs; [ script wireplumber libnotify gnused ];
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = "wrapProgram $out/bin/mako-osd-volume --prefix PATH : $out/bin";
+        meta.mainProgram = "mako-osd-volume";
       });
     };
   };

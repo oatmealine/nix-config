@@ -1,15 +1,15 @@
 # Borrowed from https://raw.githubusercontent.com/VergeDX/config-nixpkgs/341684da8ccb6699fad399b998aa0caad723d882/packages/gui/olympus.nix
 
-{ pkgs, makeDesktopItem }:
+{ pkgs, makeDesktopItem, lib }:
 let
   olympus = pkgs.stdenv.mkDerivation rec {
     pname = "olympus";
-    version = "3813";
+    version = "4571";
 
     # https://everestapi.github.io/
     src = pkgs.fetchzip {
-      url = "https://dev.azure.com/EverestAPI/Olympus/_apis/build/builds/${version}/artifacts?artifactName=linux.main&$format=zip#linux.main.zip";
-      hash = "sha256-thnHPPsuUne0zX1Fx+BjQiOoKseXDDUIvrczhOdSZmY=";
+      url = "https://dev.azure.com/EverestAPI/Olympus/_apis/build/builds/${version}/artifacts?artifactName=linux.main&api-version=5.0&%24format=zip#linux.main.zip";
+      hash = "sha256-+sXymH0CST9+FvGyi3ImEv+FtvMrLjkmisSvMQp3Cqc=";
     };
 
     buildInputs = [ pkgs.unzip pkgs.makeWrapper ];

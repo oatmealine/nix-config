@@ -74,4 +74,22 @@ in {
   environment.extraInit = ''
     export NIX_PATH="nixpkgs=${nixpkgs}"
   '';
+
+  programs.command-not-found.enable = false;
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
+  nix.optimise.automatic = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 }

@@ -44,15 +44,17 @@ in {
       keep-derivations = true;
       substituters = [
         "https://nix-community.cachix.org"
-        "https://nixpkgs-wayland.cachix.org"
+        #"https://nixpkgs-wayland.cachix.org"
         "https://hyprland.cachix.org"
         #"https://cache.lix.systems"
+        "https://oatmealine.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        #"nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         #"cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        "oatmealine.cachix.org-1:Ee3e/VVuXZgcF3u8UxMoK9EVhRtwadNU8MxN3+61Ds0="
       ];
     };
   };

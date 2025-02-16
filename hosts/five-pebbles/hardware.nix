@@ -56,6 +56,11 @@
     { device = "/dev/disk/by-uuid/d893f835-0dcd-47a6-97b1-25bbf0203164";
       fsType = "ext4";
     };
+  fileSystems."/run/media/oatmealine/8014a2d1-7458-4ad8-a9bc-fa018042a411" =
+    { device = "/dev/disk/by-uuid/8014a2d1-7458-4ad8-a9bc-fa018042a411";
+      fsType = "ext4";
+      options = [ "noatime" "nodiratime" "discard" ];
+    };
 
   swapDevices = [ ];
   # this isn't actually necessary as systemd will auto-detect swap partitions

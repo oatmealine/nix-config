@@ -6,6 +6,7 @@ let
 in {
   options.modules.desktop.sddm = {
     enable = mkEnableOption "Enable SDDM, a display manager for X11 and Wayland windowing systems";
+    autologin = mkEnableOption "Enable autologin";
   };
 
   config = mkIf cfg.enable {
@@ -25,6 +26,10 @@ in {
           CursorTheme = config.modules.desktop.themes.cursor.name;
         };
       };
+    };
+    services.displayManager.autoLogin = {
+      enable = cfg.autologin;
+      user = config.user.name;
     };
   };
 }

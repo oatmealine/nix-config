@@ -27,6 +27,17 @@
     love my.love-js my.love-release
     # games
     unstable.ringracers prismlauncher unstable.r2modman my.ryujinx my.olympus
+
+    # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
+    (symlinkJoin {
+      name = "idea-community";
+      paths = [ jetbrains.idea-community ];
+      buildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/idea-community \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib xorg.libX11 xorg.libXcursor]}"
+      '';
+    })
   ] ++ (with pkgs.my; [
     iterator-icons mxlrc-go sdfgen
   ]) ++ (with pkgs.gnome; [
@@ -78,10 +89,12 @@
       waybar.enable = true;
       waybar.hostname = "five-pebbles";
       rofi.enable = true;
-      clipse.enable = true;
+      cliphist.enable = true;
+      #clipse.enable = true;
       fuzzel.enable = true;
 
       sddm.enable = true;
+      sddm.autologin = true;
 
       themes.active = "catppuccin";
     };
@@ -104,6 +117,7 @@
       tools.noisetorch.enable = true;
       # distractions
       distractions.steam.enable = true;
+      distractions.steam.gamemode = true;
       distractions.steam.useGamescope = true;
       distractions.discord.enable = true;
       distractions.discord.vesktop = true;

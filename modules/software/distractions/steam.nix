@@ -41,6 +41,28 @@ in {
     programs.gamescope = {
       enable = true;
       #capSysNice = true; # breaks with steam https://github.com/NixOS/nixpkgs/issues/351516
+      env = {
+        WLR_RENDERER = "vulkan";
+        #DXVK_HDR = "1";
+        ENABLE_GAMESCOPE_WSI = "1";
+        #WINE_FULLSCREEN_FSR = "1";
+        # Games allegedly prefer X11
+        SDL_VIDEODRIVER = "x11";
+      };
+      args = [
+        "--expose-wayland"
+
+        "-e" # Enable steam integration
+        "--steam"
+
+        "--adaptive-sync"
+        #"--hdr-enabled"
+        #"--hdr-itm-enable"
+
+        "--output-width 1920"
+        "--output-height 1080"
+        "-r 75"
+      ];
     };
     user.packages = with pkgs; [ protontricks steam-run ];
   };

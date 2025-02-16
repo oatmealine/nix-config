@@ -418,6 +418,9 @@ in {
 
           "Mod+T".action = spawn "wezterm";
           "Mod+E".action = spawn "nautilus";
+
+          "Mod+Shift+S".action = sh "${lib.getExe pkgs.wtype} Kjdf8314jlfssf";
+          "Mod+Shift+D".action = sh "${lib.getExe pkgs.wtype} Ykds1479ymdppr";
         } // (if config.modules.desktop.wob.enable then let
           wobSock = config.modules.desktop.wob.sockPath;
         in {

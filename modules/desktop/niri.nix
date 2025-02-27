@@ -81,9 +81,9 @@ in {
             inactive.color = config.modules.desktop.themes.niri.inactive;
           };
 
-          /*shadow = {
+          shadow = {
             enable = true;
-          };*/
+          };
         };
 
         hotkey-overlay.skip-at-startup = true;
@@ -272,19 +272,10 @@ in {
             matches = [
               { namespace = "^launcher$"; }
             ];
-            #shadow = {
-            #  on = true;
-            #};
-            #geometry-corner-radius = allCorners 10.0;
-          }
-          {
-            matches = [
-              { namespace = "waybar"; }
-            ];
-            #shadow = {
-            #  on = true;
-            #};
-            #geometry-corner-radius = allCorners 10.0;
+            shadow = {
+              enable = true;
+            };
+            geometry-corner-radius = allCorners 10.0;
           }
         ];
 
@@ -388,7 +379,9 @@ in {
           "Mod+R".action = switch-preset-column-width;
           "Mod+Shift+R".action = switch-preset-window-height;
           "Mod+Ctrl+R".action = reset-window-height;
+          "Mod+J".action = toggle-column-tabbed-display;
           "Mod+F".action = maximize-column;
+          "Mod+U".action = expand-column-to-available-width;
           "Mod+Shift+F".action = fullscreen-window;
           "Mod+C".action = center-column;
 

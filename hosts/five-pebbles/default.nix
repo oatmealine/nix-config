@@ -20,9 +20,9 @@
     # apps
     vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive
     # compatilibility
-    wineWowPackages.waylandFull winetricks
+    unstable.wineWowPackages.unstableFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon obs-studio soulseekqt transmission_4-gtk
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-js my.love-release
     # games
@@ -57,6 +57,16 @@
   # work around a really annoying systemd issue
   systemd.extraConfig = "DefaultTimeoutStopSec=10s";
   systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
+
+  hm.programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-vkcapture
+      obs-pipewire-audio-capture
+      input-overlay
+    ];
+  };
 
   modules = {
     #ssh.enable = true;

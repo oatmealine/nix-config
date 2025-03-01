@@ -52,6 +52,20 @@
     };
     desktop = {
       envProto = "wayland";
+
+      fonts.fonts = {
+        # atkinson hyperlegible has mysteriously stopped rendering
+        sans = {
+          package = pkgs.inter;
+          family = "Inter";
+          size = 11;
+        };
+        sansSerif = {
+          package = pkgs.inter;
+          family = "Inter";
+          size = 11;
+        };
+      };
       
       /*gnome.enable = true;
       gnome.keybinds.shell = {

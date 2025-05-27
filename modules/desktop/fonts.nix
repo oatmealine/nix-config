@@ -109,7 +109,7 @@ in {
       noto-fonts-monochrome-emoji
       font-awesome
       recursive
-      vistafonts
+      vista-fonts
       arkpandora_ttf
       inter
       cascadia-code

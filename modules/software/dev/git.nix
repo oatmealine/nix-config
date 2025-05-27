@@ -59,6 +59,7 @@ in {
         push.autoSetupRemote = true;
         pull.rebase = true;
         init.defaultBranch = "main";
+        credential.helper = "libsecret";
       };
     };
     hm.programs.gh.enable = true;

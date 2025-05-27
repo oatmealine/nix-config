@@ -2,10 +2,10 @@
   description = "pornussy";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs.url = "nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
@@ -33,8 +33,6 @@
 
     vigiland.url = "github:jappie3/vigiland";
     vigiland.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixpkgs-amneziawg.url = "github:averyanalex/nixpkgs/init-linuxpackages-amneziawg";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 

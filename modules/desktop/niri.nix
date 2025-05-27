@@ -55,6 +55,24 @@ in {
           };
         };
 
+        outputs = {
+          "HDMI-A-1" = {
+            mode.width = 1920;
+            mode.height = 1080;
+            mode.refresh = 120.000;
+            #focus-at-startup = true;
+            position.x = 0;
+            position.y = 0;
+            variable-refresh-rate = "on-demand";
+          };
+          "DP-1" = {
+            mode.width = 1920;
+            mode.height = 1080;
+            mode.refresh = 74.973;
+            variable-refresh-rate = "on-demand";
+          };
+        };
+
         environment = {
           DISPLAY = ":0";
         };
@@ -79,6 +97,7 @@ in {
             width = 1;
             active.color = config.modules.desktop.themes.niri.accent;
             inactive.color = config.modules.desktop.themes.niri.inactive;
+            #urgent.color = config.modules.desktop.themes.niri.alert;
           };
 
           shadow = {
@@ -173,6 +192,24 @@ in {
             geometry-corner-radius = allCorners 10.0;
             clip-to-geometry = true;
           }
+          # colors
+          {
+            matches = [
+              { is-window-cast-target = true; }
+            ];
+            border = {
+              inactive.color = config.modules.desktop.themes.niri.highlight;
+            };
+          }
+          {
+            matches = [
+              { is-window-cast-target = true; }
+            ];
+            border = {
+              inactive.color = config.modules.desktop.themes.niri.highlight;
+            };
+          }
+          # highlight
           {
             matches = [
               { app-id = "^clipse$"; }
@@ -351,25 +388,6 @@ in {
           #"Mod+Shift+U".action         = move-workspace-down;
           #"Mod+Shift+I".action         = move-workspace-up;
 
-          "Mod+1".action = focus-workspace 1;
-          "Mod+2".action = focus-workspace 2;
-          "Mod+3".action = focus-workspace 3;
-          "Mod+4".action = focus-workspace 4;
-          "Mod+5".action = focus-workspace 5;
-          "Mod+6".action = focus-workspace 6;
-          "Mod+7".action = focus-workspace 7;
-          "Mod+8".action = focus-workspace 8;
-          "Mod+9".action = focus-workspace 9;
-          "Mod+Shift+1".action = move-column-to-workspace 1;
-          "Mod+Shift+2".action = move-column-to-workspace 2;
-          "Mod+Shift+3".action = move-column-to-workspace 3;
-          "Mod+Shift+4".action = move-column-to-workspace 4;
-          "Mod+Shift+5".action = move-column-to-workspace 5;
-          "Mod+Shift+6".action = move-column-to-workspace 6;
-          "Mod+Shift+7".action = move-column-to-workspace 7;
-          "Mod+Shift+8".action = move-column-to-workspace 8;
-          "Mod+Shift+9".action = move-column-to-workspace 9;
-
           "Mod+Comma".action  = consume-window-into-column;
           "Mod+Period".action = expel-window-from-column;
 
@@ -383,7 +401,11 @@ in {
           "Mod+F".action = maximize-column;
           "Mod+U".action = expand-column-to-available-width;
           "Mod+Shift+F".action = fullscreen-window;
+          "Mod+Ctrl+Shift+F".action = toggle-windowed-fullscreen;
           "Mod+C".action = center-column;
+
+          "Mod+W".action = set-dynamic-cast-window;
+          "Mod+Ctrl+W".action = set-dynamic-cast-window;
 
           "Mod+Minus".action = set-column-width "-10%";
           "Mod+Equal".action = set-column-width "+10%";
@@ -392,7 +414,7 @@ in {
           "Mod+Shift+Equal".action = set-window-height "+10%";
 
           "Print".action = screenshot;
-          "Ctrl+Print".action = screenshot-screen;
+          #"Ctrl+Print".action = screenshot-screen;
           "Alt+Print".action = screenshot-window;
 
           "Mod+Shift+E".action = quit;
@@ -414,7 +436,20 @@ in {
 
           "Mod+Shift+S".action = sh "${lib.getExe pkgs.wtype} Kjdf8314jlfssf";
           "Mod+Shift+D".action = sh "${lib.getExe pkgs.wtype} Ykds1479ymdppr";
-        } // (if config.modules.desktop.wob.enable then let
+
+          "Mod+Escape".action = toggle-keyboard-shortcuts-inhibit;
+        } // (lib.attrsets.listToAttrs (builtins.concatMap (i: with config.hm.lib.niri.actions; [
+          {
+            name = "Mod+${toString i}";
+            value.action = focus-workspace i;
+          }
+          # FIXME: use the action directly once sodiboo/niri-flake#1018 is fixed.
+          {
+            name = "Mod+Shift+${toString i}";
+            value.action = spawn [ (lib.getExe cfg.package) "msg" "action" "move-column-to-workspace" (toString i) ];
+          }
+        ]) (lib.range 1 9)))
+        // (if config.modules.desktop.wob.enable then let
           wobSock = config.modules.desktop.wob.sockPath;
         in {
           "XF86AudioRaiseVolume".action = sh "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}";

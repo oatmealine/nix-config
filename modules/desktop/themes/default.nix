@@ -58,6 +58,8 @@ in {
     niri = {
       accent = mkOpt str "#7fc8ff";
       inactive = mkOpt str "#505050";
+      alert = mkOpt str "#9b0000";
+      highlight = mkOpt str "#9b0000";
     };
 
     waybar = mkOpt str "";

@@ -28,6 +28,8 @@ in {
       modules.desktop.fonts.enable = true;
       modules.desktop.fonts.baseFonts = true;
 
+      modules.desktop.thumbnailers.enable = true;
+
       #xdg.portal = {
       #  enable = true;
       #  extraPortals = [pkgs.xdg-desktop-portal-gtk];

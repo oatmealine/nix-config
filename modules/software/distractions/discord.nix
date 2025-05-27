@@ -21,7 +21,7 @@ let
       "--ozone-platform=wayland" # armcord specific
     ];
   vanillaDiscordPackage = pkgs.unstable.discord-canary.override {
-    withOpenASAR = false;
+    withOpenASAR = cfg.openasar;
     withVencord = true;
   };
   package = if cfg.armcord then pkgs.unstable.armcord else (if cfg.vesktop then pkgs.unstable.vesktop else vanillaDiscordPackage);
@@ -30,6 +30,7 @@ in {
     enable = mkEnableOption "Enable Discord, a social messaging app";
     armcord = mkEnableOption "Use Armcord, an alternative Electron client";
     vesktop = mkEnableOption "Use Vesktop, an alternative Electron client with Vencord pre-installed";
+    openasar = mkEnableOption "Enable OpenASAR, an alternative ASAR file for the official Discord client";
   };
 
   config = mkIf cfg.enable {

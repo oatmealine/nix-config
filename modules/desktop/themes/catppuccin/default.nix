@@ -112,6 +112,8 @@ in {
         # this sucks but i'd need to get a nix version of the colorscheme to fix this
         accent = "#${base06}";
         inactive = "#${base02}";
+        alert = "#${base08}";
+        highlight = "#${base0C}";
       };
     };
   };

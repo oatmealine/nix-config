@@ -14,19 +14,20 @@
     # dev
     sqlitebrowser sqlite-interactive nil
     # system
-    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset gparted
+    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset gparted seahorse
     # debug
     strace ltrace lsof helvum
     # apps
-    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive
+    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
     # compatilibility
     unstable.wineWowPackages.unstableFull winetricks
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
-    love my.love-js my.love-release
+    love my.love-release
+    #my.love-js
     # games
-    unstable.ringracers prismlauncher unstable.r2modman my.ryujinx my.olympus
+    unstable.ringracers unstable.prismlauncher unstable.r2modman my.ryujinx my.olympus
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
@@ -130,7 +131,8 @@
       distractions.steam.gamemode = true;
       distractions.steam.useGamescope = true;
       distractions.discord.enable = true;
-      distractions.discord.vesktop = true;
+      #distractions.discord.vesktop = true;
+      #distractions.discord.openasar = true;
     };
   };
 }

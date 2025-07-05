@@ -75,7 +75,7 @@ in {
         NIXOS_OZONE_WL = "1";
         # the rest are borrowed from https://github.com/NotAShelf/nyx/blob/9fbba55f565c630469a971bc71e5957dc228703b/modules/core/common/system/os/display/wayland/environment.nix#L18
         _JAVA_AWT_WM_NONEREPARENTING = "1";
-        GDK_BACKEND = "wayland,x11";
+        GDK_BACKEND = "wayland";
         ANKI_WAYLAND = "1";
         MOZ_ENABLE_WAYLAND = "1";
         XDG_SESSION_TYPE = "wayland";

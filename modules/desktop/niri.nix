@@ -317,6 +317,13 @@ in {
             };
             geometry-corner-radius = allCorners 10.0;
           }
+          # for swaybg
+          {
+            matches = [
+              { namespace = "^wallpaper$"; }
+            ];
+            place-within-backdrop = true;
+          }
         ];
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings

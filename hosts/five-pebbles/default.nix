@@ -95,6 +95,7 @@
 
       niri.enable = true;
       swww.enable = true;
+      swww.blurredDuplicate = true;
       #hypridle.enable = true;
       #hypridle.desktop = true;
 

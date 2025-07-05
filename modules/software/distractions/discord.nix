@@ -20,7 +20,7 @@ let
       "--enable-features=WebRTCPipeWireCapturer"
       "--ozone-platform=wayland" # armcord specific
     ];
-  vanillaDiscordPackage = pkgs.unstable.discord-canary.override {
+  vanillaDiscordPackage = pkgs.unstable.discord.override {
     withOpenASAR = cfg.openasar;
     withVencord = true;
   };

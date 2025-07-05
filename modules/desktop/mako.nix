@@ -44,17 +44,19 @@ in {
   config = mkIf cfg.enable {
     hm.services.mako = {
       enable = true;
-      anchor = "top-right";
-      borderRadius = 6;
-      borderSize = 2;
-      defaultTimeout = 4000;
-      font = with config.modules.desktop.fonts.fonts.sans; "${family} ${toString (size - 1)}";
-      width = 300;
-      height = 200;
-      margin = "8";
-      padding = "12";
-      maxIconSize = 48;
-      layer = "overlay";
+      settings = {
+        anchor = "top-right";
+        border-radius = 6;
+        border-size = 2;
+        default-timeout = 4000;
+        font = with config.modules.desktop.fonts.fonts.sans; "${family} ${toString (size - 1)}";
+        width = 300;
+        height = 200;
+        margin = "8";
+        padding = "12";
+        max-icon-size = 48;
+        layer = "overlay";
+      };
     };
     modules.desktop.execOnStart = [ "${lib.getExe cfg.package}" ];
   };

@@ -16,6 +16,7 @@ buildNpmPackage rec {
   };
 
   dontNpmBuild = true;
+  dontCheckForBrokenSymlinks = true;
 
   npmDepsHash = "sha256-MqQM2beiakNuhGgkOzlPSlTqg8oltGWLgG8D+KyIkmU=";
 }

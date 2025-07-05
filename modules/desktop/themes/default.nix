@@ -112,16 +112,16 @@ in {
         package = cfg.iconTheme.package;
       };
 
-      hm.services.mako = {
-        iconPath = "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
-        backgroundColor = cfg.mako.backgroundColor;
-        borderColor = cfg.mako.borderColor;
-        textColor = cfg.mako.textColor;
-        progressColor = cfg.mako.progressColor;
+      hm.services.mako.settings = {
+        icon-path = "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
+        background-color = cfg.mako.backgroundColor;
+        border-color = cfg.mako.borderColor;
+        text-color = cfg.mako.textColor;
+        progress-color = cfg.mako.progressColor;
       };
 
       hm.programs.vscode = {
-        extensions = [ cfg.editor.vscode.extension ];
+        profiles.default.extensions = [ cfg.editor.vscode.extension ];
         #userSettings = {
         #  "workbench.colorTheme" = cfg.editor.vscode.name;
         #};

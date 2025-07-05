@@ -1,0 +1,216 @@
+i'll make some sense of this later i don't have the energy for this currently
+
+ipv4 rutracker.org curl_test_http : tpws --split-pos=method+2 --oob
+ipv4 rutracker.org curl_test_http : tpws --methodeol
+ipv4 rutracker.org curl_test_http : nfqws --methodeol
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=10 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=midsld
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=midsld --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 rutracker.org curl_test_http : nfqws --dpi-desync=syndata,multidisorder --dpi-desync-split-pos=method+2
+ipv4 rutracker.org curl_test_https_tls12 : tpws not working
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_http : tpws --split-pos=midsld --oob
+ipv6 rutracker.org curl_test_http : tpws --methodeol
+ipv6 rutracker.org curl_test_http : nfqws --methodeol
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=9 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=hopbyhop2 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakedsplit --orig-autottl=+1 --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 rutracker.org curl_test_http : nfqws --dpi-desync=syndata,multidisorder --dpi-desync-split-pos=midsld
+ipv6 rutracker.org curl_test_https_tls12 : tpws not working
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1,midsld
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=hopbyhop2 --dpi-desync-split-pos=1,midsld
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=hopbyhop2 --dpi-desync-split-pos=1
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 rutracker.org curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_http : tpws --split-pos=method+2 --oob
+ipv4 ntc.party curl_test_http : tpws --methodeol
+ipv4 ntc.party curl_test_http : nfqws --methodeol
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=midsld
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=midsld
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=midsld
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=midsld --dpi-desync-fake-http=0x00000000
+ipv4 ntc.party curl_test_http : nfqws --dpi-desync=syndata,multidisorder --dpi-desync-split-pos=method+2
+ipv4 ntc.party curl_test_https_tls12 : tpws --split-pos=2 --oob --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --split-pos=1,midsld --fix-seg --disorder --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --split-pos=2 --oob --disorder --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --oob --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --disorder --mss=88
+ipv4 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --oob --disorder --mss=88
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=6 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv4 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_http : tpws --split-pos=method+2 --oob
+ipv6 ntc.party curl_test_http : tpws --methodeol
+ipv6 ntc.party curl_test_http : nfqws --methodeol
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=9 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=midsld
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-fooling=hopbyhop2 --dpi-desync-split-pos=midsld
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=method+2 --dpi-desync-fake-http=0x00000000
+ipv6 ntc.party curl_test_http : nfqws --dpi-desync=syndata,multidisorder --dpi-desync-split-pos=method+2
+ipv6 ntc.party curl_test_https_tls12 : tpws --split-pos=2 --oob --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --split-pos=1 --disorder --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --split-pos=2 --oob --disorder --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --oob --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --disorder --mss=88
+ipv6 ntc.party curl_test_https_tls12 : tpws --tlsrec=midsld --oob --disorder --mss=88
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=3 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=md5sig --dup=1 --dup-cutoff=n2 --dup-fooling=md5sig --dpi-desync-split-pos=1,midsld
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=1,midsld
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-fooling=hopbyhop2 --dpi-desync-split-pos=1
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=badseq --dpi-desync-split-pos=1
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=md5sig --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-fooling=hopbyhop --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multisplit --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1,midsld --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakedsplit --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-3 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,multidisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-5 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-1 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-2 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid
+ipv6 ntc.party curl_test_https_tls12 : nfqws --dpi-desync=fake,fakeddisorder --dpi-desync-ttl=1 --dpi-desync-autottl=-4 --dpi-desync-split-pos=1 --dpi-desync-fake-tls=0x00000000 --dpi-desync-fake-tls=! --dpi-desync-fake-tls-mod=rnd,rndsni,dupsid

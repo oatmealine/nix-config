@@ -24,10 +24,11 @@
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
-    love my.love-release
-    #my.love-js
+    love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.prismlauncher unstable.r2modman my.ryujinx my.olympus
+    unstable.ringracers unstable.prismlauncher unstable.r2modman my.olympus
+    my.casual-pre-loader vtfedit
+    # my.ryujinx # takes a decade to open
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
@@ -48,6 +49,8 @@
   ]);
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+  # supposedly helps with a couple of realtime-related issues
+  boot.kernelParams = [ "preempt=full" ];
 
   fileSystems."/home/oatmealine/downloads" = {
     device = "none";
@@ -118,6 +121,11 @@
       system.syncthing.enable = true;
       system.flatpak.enable = true;
       system.virt-manager.enable = true;
+      system.zapret.enable = true;
+      system.zapret.params = [
+        "--hostspell=hoSt"
+        "--dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=midsld"
+      ];
       # dev
       dev.git.enable = true;
       # editors

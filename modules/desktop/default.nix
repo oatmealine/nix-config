@@ -37,6 +37,10 @@ in {
       #};
 
       services.gnome.gnome-keyring.enable = true;
+      # in 25.11 presumably
+      # https://github.com/NixOS/nixpkgs/pull/379731
+      #services.gnome.gcr-ssh-agent.enable = true;
+      programs.ssh.startAgent = true;
 
       # Enable networking
       networking.networkmanager.enable = true;
@@ -82,7 +86,7 @@ in {
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";
       };
-      programs.xwayland.enable = true;
+      #programs.xwayland.enable = true;
       # temporary fix for https://github.com/nix-community/home-manager/issues/2064
       hm.systemd.user.targets.tray = {
         Unit = {

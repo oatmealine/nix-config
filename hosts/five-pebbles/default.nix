@@ -1,4 +1,4 @@
-{ pkgs, lib, config, inputs, ... }:
+{ pkgs, lib, config, inputs, system, ... }:
 {
   imports = [
     ./hardware.nix
@@ -14,21 +14,29 @@
     # dev
     sqlitebrowser sqlite-interactive nil
     # system
-    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset gparted seahorse
+    btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
+    gparted seahorse baobab piper
     # debug
     strace ltrace lsof helvum
     # apps
-    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
+    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
+    inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
+    jetbrains.rider
     # compatilibility
     unstable.wineWowPackages.unstableFull winetricks
     # misc
-    cowsay file which tree gnused yt-dlp libnotify font-manager wev tauon soulseekqt transmission_4-gtk
+    cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
+    tauon soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.prismlauncher unstable.r2modman my.olympus
+    unstable.ringracers unstable.r2modman my.olympus
+    (unstable.prismlauncher.override {
+      additionalPrograms = [ vlc ];
+      additionalLibs = [ vlc ];
+    })
     my.casual-pre-loader vtfedit
-    # my.ryujinx # takes a decade to open
+    # my.ryujinx # takes a decade to build
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
@@ -47,6 +55,8 @@
     # however gnome apps are my beloved so i'm just adding them back
     nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
   ]);
+
+  services.ratbagd.enable = true;
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
   # supposedly helps with a couple of realtime-related issues
@@ -75,7 +85,7 @@
   modules = {
     #ssh.enable = true;
 
-    security.useDoas = true;
+    security.useDoas = false; # required for xray ?!?
     os-release = {
       enable = true;
       logo = "color-five-pebbles";

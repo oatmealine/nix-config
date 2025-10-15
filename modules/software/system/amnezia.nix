@@ -13,9 +13,14 @@ in {
 
   config = mkIf cfg.enable {
     hm.home.packages = with pkgs; [
-      unstable.amneziawg-tools
-      unstable.amnezia-vpn
+      amneziawg-tools
+      amnezia-vpn
     ];
+
+    programs.amnezia-vpn = {
+      enable = true;
+      package = pkgs.amnezia-vpn;
+    };
 
     boot.extraModulePackages = with config.boot.kernelPackages; [
       amneziawg

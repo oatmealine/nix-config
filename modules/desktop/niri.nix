@@ -11,12 +11,17 @@ in {
       default = pkgs.niri-unstable;
       example = "pkgs.niri";
     };
+    xwaylandPackage = mkOption {
+      type = types.package;
+      default = pkgs.xwayland-satellite;
+      example = "pkgs.xwayland-satellite";
+    };
   };
 
   imports = [ inputs.niri.nixosModules.niri ];
 
   config = mkIf cfg.enable {
-    hm.home.packages = [ pkgs.xwayland-satellite-unstable ];
+    hm.home.packages = [ cfg.xwaylandPackage ];
     nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri = {
       enable = true;
@@ -29,7 +34,7 @@ in {
         allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
       in {
         spawn-at-startup = [
-          { command = [ "${lib.getExe pkgs.xwayland-satellite-unstable}" ]; }
+          { command = [ "${lib.getExe cfg.xwaylandPackage}" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
           { command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing

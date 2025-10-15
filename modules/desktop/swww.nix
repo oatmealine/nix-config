@@ -33,7 +33,9 @@ in {
         wallpaper=$(cat "${lastWallpaperPath}")
         ${lib.getExe cfg.package} img "$wallpaper" --transition-type none
       '' + (if cfg.blurredDuplicate then ''
-        ${lib.getExe cfg.swaybgPackage} -i "${blurredWallpapersFolder}"/$(basename $wallpaper) &
+        blurWallpaper="${blurredWallpapersFolder}"/$(basename "$wallpaper")
+        [ ! -f "$blurWallpaper" ] && exit 0
+        ${lib.getExe cfg.swaybgPackage} -i "$blurWallpaper" &
       '' else ""));
     };
     swapScript = mkOption {
@@ -52,7 +54,7 @@ in {
         blurWallpaper="${blurredWallpapersFolder}"/$(basename "$wallpaper")
         [ ! -f "$blurWallpaper" ] \
           && ${lib.getExe cfg.vipsPackage} gaussblur "$wallpaper" "$blurWallpaper".v 35 \
-          && ${lib.getExe cfg.vipsPackage} gamma "$blurWallpaper".v "$blurWallpaper" --exponent 0.7
+          && ${lib.getExe cfg.vipsPackage} gamma "$blurWallpaper".v "$blurWallpaper" --exponent 0.65 \
           && rm "$blurWallpaper".v
 
         killall .swaybg-wrapped

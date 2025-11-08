@@ -14,7 +14,7 @@ in {
       enable = true;
       package = pkgs.gitFull;
 
-      userName = ''Jill "oatmealine" Monoids'';
+      userName = ''Jade "oatmealine" Monoids'';
       userEmail = "oatmealine@disroot.org";
 
       ignores = [

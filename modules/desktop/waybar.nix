@@ -51,7 +51,10 @@ in {
           icon-size = 16;
           rewrite = {
             "(.*) - Vivaldi" = "$1";
+            ".*Discord | (.*) | .*" = "$1";
+            "(.*) - Discord" = "$1";
             "(.*) - Visual Studio Code" = "$1";
+            "(.*) - gedit" = "$1";
             #"(.*\\.nix\\s.*)" = "";
             "(\\S+\\.js\\s.*)" = " $1";
             "(\\S+\\.ts\\s.*)" = " $1";
@@ -67,7 +70,6 @@ in {
             "(\\S+\\.c\\s.*)" = " $1";
             "(\\S+\\.cpp\\s.*)" = " $1";
             "(\\S+\\.hs\\s.*)" = " $1";
-            ".*Discord | (.*) | .*" = "$1";
             #"(.*) - ArmCord" = "$1";
           };
           separate-outputs = true;
@@ -138,11 +140,11 @@ in {
               "niri/language"
               "pulseaudio"
               "backlight"
-              "cpu"
+              #"cpu"
               "memory"
               "power-profiles-daemon"
               "battery"
-              "custom/weather"
+              #"custom/weather"
               "privacy"
               "custom/vpn"
               "custom/wallpaper"
@@ -215,9 +217,11 @@ in {
           "niri/language" = language;
           mpris = {
             format = "♫ {dynamic}";
-            title-len = 48;
+            dynamic-len = 64;
+            title-len = 46;
             format-paused = "{status_icon} {dynamic}";
             dynamic-order = [ "artist" "title" ];
+            #dynamic-order = [ "title" ];
             tooltip-format = "{player} | {status_icon} {artist} - {title} from {album} ({position}/{length})";
             interval = 1;
             on-scroll-up = "${lib.getExe pkgs.playerctl} -p tauon volume 0.05+";

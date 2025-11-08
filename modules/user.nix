@@ -12,8 +12,8 @@ with lib.my;
   config = {
     user = rec {
       name = "oatmealine";
-      description = "jill";
-      extraGroups = ["wheel" "input" "audio" "video" "storage"];
+      description = "jade";
+      extraGroups = [ "wheel" "input" "audio" "video" "storage" ];
       isNormalUser = true;
       home = "/home/${name}";
       group = name;
@@ -34,8 +34,6 @@ with lib.my;
     in {
       trusted-users = users;
       allowed-users = users;
-  
-      warn-dirty = false;
     };
 
     users.users.root = {

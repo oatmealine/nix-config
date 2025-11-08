@@ -26,7 +26,7 @@ in {
       amneziawg
     ];
 
-    hm.programs.waybar.settings.mainBar."custom/vpn" = let
+    /*hm.programs.waybar.settings.mainBar."custom/vpn" = let
       interface = "wg0";
       awg = "${pkgs.unstable.amneziawg-tools}/bin/awg";
       awg-quick = "${pkgs.unstable.amneziawg-tools}/bin/awg-quick";
@@ -63,6 +63,6 @@ in {
       exec = "${script} show";
       on-click = "${script} toggle";
       return-type = "json";
-    };
+    };*/
   };
 }

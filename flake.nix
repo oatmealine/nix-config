@@ -34,6 +34,9 @@
     vigiland.url = "github:jappie3/vigiland";
     vigiland.inputs.nixpkgs.follows = "nixpkgs";
 
+    mdrop.url = "github:frahz/mdrop";
+    mdrop.inputs.nixpkgs.follows = "nixpkgs";
+
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     lix = {

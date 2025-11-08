@@ -8,34 +8,38 @@
     # archives
     zip xz unzip p7zip
     # utils
-    ripgrep jq libqalculate ffmpeg imagemagick binutils
+    ripgrep jq libqalculate ffmpeg imagemagick binutils alsa-utils sox
     # nix
-    nix-output-monitor
+    nix-output-monitor nh
     # dev
-    sqlitebrowser sqlite-interactive nil
+    sqlitebrowser sqlite-interactive nil dig python3 openssl
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
-    gparted seahorse baobab piper
+    gparted seahorse baobab scrcpy neofetch zenity
+      # should turn this into a module eventually for waybar and such, but until then..
+      inputs.mdrop.packages.${system}.gui
     # debug
     strace ltrace lsof helvum
     # apps
     vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
     inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
-    jetbrains.rider
+    jetbrains.rider lrcget picard blockbench
+      # i feel like these should just be rider dependencies
+      dotnet-sdk mono
     # compatilibility
     unstable.wineWowPackages.unstableFull winetricks
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
-    tauon soulseekqt transmission_4-gtk
+    lua54Packages.lua tauon soulseekqt transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.r2modman my.olympus
+    unstable.ringracers unstable.r2modman (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn
     (unstable.prismlauncher.override {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
     })
-    my.casual-pre-loader vtfedit
+    my.casual-pre-loader vtfedit my.rust-vpk
     # my.ryujinx # takes a decade to build
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
@@ -81,6 +85,11 @@
       input-overlay
     ];
   };
+
+  programs.kdeconnect.enable = true;
+
+  # moondrop DACs
+  services.udev.extraRules = ''SUBSYSTEM=="usb", ATTRS{idVendor}=="2fc6", MODE="0666"'';
 
   modules = {
     #ssh.enable = true;

@@ -28,13 +28,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "casual-pre-loader";
-  version = "1.6.6";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "cueki";
     repo = "casual-pre-loader";
-    rev = "11993ea06f07be6b3345094bfdd2565a0fb7db1f";
-    hash = "sha256-DIt8Z6DatBwIIfQ+48BRCboF30SuQaSp89x1mO1GJio=";
+    rev = "v1.7.0";
+    hash = "sha256-nU5s/9RAFkMTU/cLKqBZ+hsm7D29CrEWENgmWwLBf/4=";
   };
 
   nativeBuildInputs = [

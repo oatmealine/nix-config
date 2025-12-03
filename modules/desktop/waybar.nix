@@ -138,7 +138,7 @@ in {
             modules = [
               "hyprland/language"
               "niri/language"
-              "pulseaudio"
+              (if config.modules.hardware.mdrop.enable then "custom/mdrop" else "pulseaudio")
               "backlight"
               #"cpu"
               "memory"

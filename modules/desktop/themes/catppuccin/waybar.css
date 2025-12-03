@@ -221,10 +221,10 @@ window#waybar.floating #window {
   color: @yellow;
 }
 
-#pulseaudio {
+#pulseaudio, #custom-mdrop {
   color: @pink;
 }
-#pulseaudio.muted {
+#pulseaudio.muted, #custom-drop.muted {
   color: @overlay1;
 }
 

@@ -50,6 +50,8 @@
     };
 
     stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
+
+    millennium.url = "git+https://github.com/SteamClientHomebrew/Millennium?submodules=1";
   };
 
   outputs = inputs @ {
@@ -68,7 +70,11 @@
         config.allowAliases = false;
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
-    pkgs = mkPkgs nixpkgs [ self.overlays.default inputs.catppuccin-vsc.overlays.default ];
+    pkgs = mkPkgs nixpkgs [
+      self.overlays.default
+      inputs.catppuccin-vsc.overlays.default
+      inputs.millennium.overlays.default
+    ];
     pkgs-unstable = mkPkgs nixpkgs-unstable [];
 
     lib = nixpkgs.lib.extend (final: prev: {

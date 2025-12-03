@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, system, ... }:
 
 with lib;
 let
@@ -7,14 +7,19 @@ in {
   options.modules.software.distractions.steam = {
     enable = mkEnableOption "Enable Steam, the game distribution software";
     gamemode = mkEnableOption "Use gamemode, an on-demand Linux system performance optimizer";
-    useGamescope = mkEnableOption "Use gamescope, a mini-compositor for game performance";
+    gamescope = mkEnableOption "Use gamescope, a mini-compositor for game performance";
+    millennium = mkEnableOption "Use Millennium, a Steam clientmod";
   };
 
   config = mkIf cfg.enable {
-    programs.steam = {
+    programs.steam = let
+      steam = if !cfg.millennium
+        then pkgs.unstable.steam
+        else pkgs.steam-millennium;
+    in {
       enable = true;
-      package = pkgs.unstable.steam.override {
-        extraPkgs = (pkgs: (optional cfg.useGamescope pkgs.gamescope) ++ (with pkgs; [
+      package = steam.override {
+        extraPkgs = (pkgs: (optional cfg.gamescope pkgs.gamescope) ++ (with pkgs; [
           xorg.libXcursor
           xorg.libXi
           xorg.libXinerama
@@ -28,7 +33,8 @@ in {
         ]));
       };
       extraCompatPackages = with pkgs.unstable; [
-        proton-ge-bin
+        (proton-ge-bin.override { steamDisplayName = proton-ge-bin.version; })
+        pkgs.my.proton-cachyos
       ];
       protontricks.enable = true;
     };

@@ -41,6 +41,7 @@ in stdenv.mkDerivation rec {
     makeWrapper ${lib.getExe love} $out/bin/loenn \
       --prefix LUA_CPATH ";" "${lua_cpath}" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ pkgs.curl ]}" \
+      --set SDL_VIDEODRIVER x11 \
       --add-flags $out/lib/loenn/ \
       --add-flags "--fused"
 

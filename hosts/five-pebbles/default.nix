@@ -1,5 +1,18 @@
 { pkgs, lib, config, inputs, system, ... }:
-{
+let 
+  bridgewebhook = (let
+    discordWebhookPath = "/etc/bridge-webhook";
+  in (pkgs.writeScriptBin "bridgewebhook" ''
+    [ -f "${discordWebhookPath}" ] || exit 0
+    discordWebhookURL=$(cat "${discordWebhookPath}")
+    payload=$(${lib.getExe pkgs.jq} -cn --arg content "$1" '{"content":$content}')
+
+    ${lib.getExe pkgs.curl} "$discordWebhookURL" \
+      -X POST \
+      -H 'content-type: application/json' \
+      -d "$payload"
+  ''));
+in {
   imports = [
     ./hardware.nix
   ];
@@ -16,8 +29,6 @@
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
     gparted seahorse baobab scrcpy neofetch zenity
-      # should turn this into a module eventually for waybar and such, but until then..
-      inputs.mdrop.packages.${system}.gui
     # debug
     strace ltrace lsof helvum
     # apps
@@ -34,7 +45,7 @@
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.r2modman (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn
+    unstable.ringracers unstable.r2modman (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn my.tetrio-desktop
     (unstable.prismlauncher.override {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
@@ -59,6 +70,11 @@
     # however gnome apps are my beloved so i'm just adding them back
     nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
   ]);
+
+  environment.systemPackages = [
+    # make this globally available for silly bullshit
+    bridgewebhook
+  ];
 
   services.ratbagd.enable = true;
 
@@ -88,8 +104,8 @@
 
   programs.kdeconnect.enable = true;
 
-  # moondrop DACs
-  services.udev.extraRules = ''SUBSYSTEM=="usb", ATTRS{idVendor}=="2fc6", MODE="0666"'';
+  services.earlyoom.enable = true;
+  services.earlyoom.freeMemThreshold = 5;
 
   modules = {
     #ssh.enable = true;
@@ -101,6 +117,7 @@
     };
 
     hardware = {
+      mdrop.enable = true;
       pipewire.enable = true;
       # seems a little Freaky right now
       #pipewire.lowLatency = true;
@@ -157,7 +174,8 @@
       # distractions
       distractions.steam.enable = true;
       distractions.steam.gamemode = true;
-      distractions.steam.useGamescope = true;
+      distractions.steam.gamescope = true;
+      distractions.steam.millennium = true;
       distractions.discord.enable = true;
       #distractions.discord.vesktop = true;
       #distractions.discord.openasar = true;

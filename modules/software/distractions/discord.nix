@@ -22,7 +22,7 @@ let
     ];
   vanillaDiscordPackage = pkgs.unstable.discord.override {
     withOpenASAR = cfg.openasar;
-    withVencord = true;
+    withEquicord = true;
   };
   package = if cfg.armcord then pkgs.unstable.armcord else (if cfg.vesktop then pkgs.unstable.vesktop else vanillaDiscordPackage);
 in {

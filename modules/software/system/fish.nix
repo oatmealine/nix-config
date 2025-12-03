@@ -14,12 +14,13 @@ in {
   };
 
   config = mkIf cfg.enable {
-    user.packages = [ pkgs.grc ];
+    user.packages = with pkgs; [ grc fzf ];
 
     environment.systemPackages = with pkgs.fishPlugins; [ fzf-fish tide done ];
 
     users.defaultUserShell = cfg.package;
     programs.fish.enable = true;
+    programs.fish.generateCompletions = false; # TODO temp fix for some stupid unknown issue
     programs.fish.package = cfg.package;
     hm.programs.fish = let
       colorScript = nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; };

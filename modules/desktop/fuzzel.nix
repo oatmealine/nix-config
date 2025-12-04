@@ -25,7 +25,7 @@ in {
           #dpi-aware = "no";
           lines = 20;
           width = 28;
-          letter-spacing = 0.5;
+          #letter-spacing = 0.5;
           horizontal-pad = 32;
           vertical-pad = 8;
         };

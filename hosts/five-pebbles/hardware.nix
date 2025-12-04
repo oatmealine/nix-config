@@ -30,14 +30,22 @@
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
   '';
 
+  hardware.amdgpu.initrd.enable = true;
+
+  hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-  hardware.graphics.extraPackages = with pkgs; [
-    amdvlk
-  ];
+
+  # amdvlk is deprecated and ass and bad and etc. byebye
+  #hardware.graphics.extraPackages = with pkgs; [
+  #  amdvlk
+  #];
   # For 32 bit applications 
-  hardware.graphics.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
+  #hardware.graphics.extraPackages32 = with pkgs; [
+  #  driversi686Linux.amdvlk
+  #];
+
+  # always prefer radv over amdvlk
+  environment.variables.AMD_VULKAN_ICD = "RADV";
 
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";

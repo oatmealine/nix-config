@@ -37,10 +37,8 @@ in {
       #};
 
       services.gnome.gnome-keyring.enable = true;
-      # in 25.11 presumably
-      # https://github.com/NixOS/nixpkgs/pull/379731
-      #services.gnome.gcr-ssh-agent.enable = true;
-      programs.ssh.startAgent = true;
+      services.gnome.gcr-ssh-agent.enable = true;
+      #programs.ssh.startAgent = true;
 
       # Enable networking
       networking.networkmanager.enable = true;

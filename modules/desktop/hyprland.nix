@@ -77,7 +77,7 @@ in {
         ];
         bind =
           [
-            "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show run"
+            "$mod, R, exec, ${lib.getExe config.modules.desktop.rofi.package} -show run"
             ", Print, exec, ${lib.getExe pkgs.grimblast} --freeze copy area"
             #"$mod, T, exec, [float] ${lib.getExe pkgs.wezterm}"
             "$mod, T, exec, ${lib.getExe pkgs.wezterm}" # this does not work
@@ -105,7 +105,7 @@ in {
             ", XF86Launch1, exec, ${lib.getExe pkgs.rofi-rbw-wayland} -a copy -t password --clear-after 20"
             ", XF86ScreenSaver, exec, ${lib.getExe config.modules.desktop.hyprlock.package}"
 
-            "ALT, Tab, exec, ${lib.getExe pkgs.rofi-wayland} -show window"
+            "ALT, Tab, exec, ${lib.getExe config.modules.desktop.rofi.package} -show window"
           ]
           ++ (
             # workspaces

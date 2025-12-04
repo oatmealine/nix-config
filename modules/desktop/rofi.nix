@@ -8,7 +8,7 @@ in {
     enable = mkEnableOption "Enable rofi, a window switcher, run dialog and dmenu replacement";
     package = mkOption {
       type = types.package;
-      default = pkgs.rofi-wayland-unwrapped;
+      default = pkgs.rofi;
     };
   };
 

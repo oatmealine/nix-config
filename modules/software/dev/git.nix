@@ -14,48 +14,48 @@ in {
       enable = true;
       package = pkgs.gitFull;
 
-      userName = ''Jade "oatmealine" Monoids'';
-      userEmail = "oatmealine@disroot.org";
+      settings = {
+        user.name = ''Jade "oatmealine" Monoids'';
+        user.email = "oatmealine@disroot.org";
 
-      ignores = [
-        # General:
-        "*.bloop"
-        "*.bsp"
-        "*.metals"
-        "*.metals.sbt"
-        "*metals.sbt"
-        "*.direnv"
-        "*.envrc"
-        "*hie.yaml"
-        "*.mill-version"
-        "*.jvmopts"
+        /*ignores = [
+          # General:
+          "*.bloop"
+          "*.bsp"
+          "*.metals"
+          "*.metals.sbt"
+          "*metals.sbt"
+          "*.direnv"
+          "*.envrc"
+          "*hie.yaml"
+          "*.mill-version"
+          "*.jvmopts"
 
-        # OS-related:
-        ".DS_Store?"
-        ".DS_Store"
-        ".CFUserTextEncoding"
-        ".Trash"
-        ".Xauthority"
-        "thumbs.db"
-        "Thumbs.db"
-        "Icon?"
-      ];
+          # OS-related:
+          ".DS_Store?"
+          ".DS_Store"
+          ".CFUserTextEncoding"
+          ".Trash"
+          ".Xauthority"
+          "thumbs.db"
+          "Thumbs.db"
+          "Icon?"
+        ];*/
 
-      aliases = {
-        # Data Analysis:
-        ranked-authors = "!git authors | sort | uniq -c | sort -n";
-        emails = ''
-          !git log --format="%aE" | sort -u
-        '';
-        email-domains = ''
-          !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
-        '';
-        graph = ''
-          log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
-        '';
-      };
-      
-      extraConfig = {
+        alias = {
+          # Data Analysis:
+          ranked-authors = "!git authors | sort | uniq -c | sort -n";
+          emails = ''
+            !git log --format="%aE" | sort -u
+          '';
+          email-domains = ''
+            !git log --format="%aE" | awk -F'@' '{print $2}' | sort -u
+          '';
+          graph = ''
+            log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+          '';
+        };
+
         push.autoSetupRemote = true;
         pull.rebase = true;
         init.defaultBranch = "main";

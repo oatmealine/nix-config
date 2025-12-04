@@ -13,7 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     hm.home.packages = with pkgs; [
-      amneziawg-tools
+      #amneziawg-tools
       amnezia-vpn
     ];
 

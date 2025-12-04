@@ -41,7 +41,7 @@ in {
     unstable.wineWowPackages.unstableFull winetricks
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
-    lua54Packages.lua tauon soulseekqt transmission_4-gtk
+    lua54Packages.lua tauon nicotine-plus transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
@@ -89,8 +89,8 @@ in {
   };
 
   # work around a really annoying systemd issue
-  systemd.extraConfig = "DefaultTimeoutStopSec=10s";
-  systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
+  #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+  #systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
 
   hm.programs.obs-studio = {
     enable = true;
@@ -106,6 +106,8 @@ in {
 
   services.earlyoom.enable = true;
   services.earlyoom.freeMemThreshold = 5;
+
+  services.mullvad-vpn.enable = true;
 
   modules = {
     #ssh.enable = true;
@@ -171,6 +173,11 @@ in {
       # tools
       tools.rbw.enable = true;
       tools.noisetorch.enable = true;
+      tools.noisetorch.autostart = {
+        enable = true;
+        device.name = "alsa_input.usb-3142_fifine_Microphone-00.analog-stereo";
+        device.unit = "sys-devices-pci0000:00-0000:00:14.0-usb1-1\\x2d2-1\\x2d2.1-1\\x2d2.1:1.0-sound-card0-controlC0.device";
+      };
       # distractions
       distractions.steam.enable = true;
       distractions.steam.gamemode = true;

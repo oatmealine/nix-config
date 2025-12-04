@@ -26,7 +26,7 @@ in {
       enable = true;
       package = cfg.package;
     };
-    systemd.user.services.niri-flake-polkit.enable = false;
+    #systemd.user.services.niri-flake-polkit.enable = false;
 
     hm.programs.niri = {
       settings = let
@@ -34,7 +34,8 @@ in {
       in {
         spawn-at-startup = [
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
-          { command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
+          # deepin is unmaintained now yayyyyyyy thanksssss
+          #{ command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing
           #{ command = [ "${lib.getExe cfg.xwaylandPackage}" ]; }
         ]

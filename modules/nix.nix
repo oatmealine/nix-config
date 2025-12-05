@@ -43,10 +43,11 @@ in {
   '';
 
   programs.command-not-found.enable = false;
-  programs.nix-index = {
+  /*programs.nix-index = {
     enable = true;
     enableFishIntegration = true;
-  };
+  };*/
+  hm.programs.nix-index.enable = true;
 
   programs.appimage = {
     enable = true;

@@ -38,6 +38,7 @@
     mdrop.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien.inputs.nix-index-database.follows = "nix-index-database";
 
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90.0";
@@ -52,6 +53,9 @@
     stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
 
     millennium.url = "git+https://github.com/SteamClientHomebrew/Millennium?submodules=1";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {

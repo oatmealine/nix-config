@@ -23,6 +23,7 @@ in {
     ++ (mapModulesRec' (toString ./modules) import);
 
   hm.imports = [
+    inputs.nix-index-database.homeModules.nix-index
     #inputs.hyprland.homeManagerModules.default
   ];
 

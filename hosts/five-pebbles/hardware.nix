@@ -21,6 +21,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "amdgpu" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -80,4 +81,15 @@
   #swapDevices =
   #  [ { device = "/dev/disk/by-uuid/d5b2d890-dbbf-4ab9-90cc-944bc3538b56"; }
   #  ];
+
+  # fix suspend not working
+  services.udev.extraRules = lib.concatStringsSep ", " [
+    ''ACTION=="add"''
+
+    ''SUBSYSTEM=="pci"''
+    ''ATTR{vendor}=="0x8086"'' 
+    ''ATTR{device}=="0x43ed"''
+
+    ''ATTR{power/wakeup}="disabled"''
+  ];
 }

@@ -15,7 +15,7 @@ in {
     programs.steam = let
       steam = if !cfg.millennium
         then pkgs.unstable.steam
-        else pkgs.steam-millennium;
+        else inputs.millennium.packages.${system}.default;
     in {
       enable = true;
       package = steam.override {

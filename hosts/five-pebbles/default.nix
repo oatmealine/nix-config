@@ -32,16 +32,16 @@ in {
     # debug
     strace ltrace lsof helvum
     # apps
-    vivaldi telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
+    (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
     inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
     jetbrains.rider lrcget picard blockbench
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
-    unstable.wineWowPackages.unstableFull winetricks
+    unstable.wineWow64Packages.unstableFull winetricks
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
-    lua54Packages.lua tauon nicotine-plus transmission_4-gtk
+    lua54Packages.lua unstable.tauon nicotine-plus transmission_4-gtk
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
@@ -50,16 +50,16 @@ in {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
     })
+    unstable.vintagestory unstable.ryubing
     my.casual-pre-loader vtfedit my.rust-vpk
-    # my.ryujinx # takes a decade to build
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
-      name = "idea-community";
-      paths = [ jetbrains.idea-community ];
+      name = "idea-oss";
+      paths = [ jetbrains.idea-oss ];
       buildInputs = [ makeWrapper ];
       postBuild = ''
-        wrapProgram $out/bin/idea-community \
+        wrapProgram $out/bin/idea-oss \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib xorg.libX11 xorg.libXcursor]}"
       '';
     })
@@ -102,7 +102,8 @@ in {
     ];
   };
 
-  programs.kdeconnect.enable = true;
+  hm.services.kdeconnect.enable = true;
+  hm.services.kdeconnect.indicator = true;
 
   services.earlyoom.enable = true;
   services.earlyoom.freeMemThreshold = 5;
@@ -112,7 +113,8 @@ in {
   modules = {
     #ssh.enable = true;
 
-    security.useDoas = false; # required for xray ?!?
+    security.useDoas = true;
+    #security.useDoas = false; # required for xray ?!? (solved: no longer using xray :))
     os-release = {
       enable = true;
       logo = "color-five-pebbles";
@@ -142,9 +144,10 @@ in {
       waybar.enable = true;
       waybar.hostname = "five-pebbles";
       rofi.enable = true;
-      cliphist.enable = true;
+      #cliphist.enable = true;
       #clipse.enable = true;
-      fuzzel.enable = true;
+      #fuzzel.enable = true;
+      vicinae.enable = true;
 
       sddm.enable = true;
       sddm.autologin = true;
@@ -160,11 +163,11 @@ in {
       system.syncthing.enable = true;
       system.flatpak.enable = true;
       system.virt-manager.enable = true;
-      system.zapret.enable = true;
-      system.zapret.params = [
-        "--hostspell=hoSt"
-        "--dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=midsld"
-      ];
+      #system.zapret.enable = true;
+      #system.zapret.params = [
+      #  "--hostspell=hoSt"
+      #  "--dpi-desync=fakeddisorder --dpi-desync-ttl=2 --dpi-desync-split-pos=midsld"
+      #];
       # dev
       dev.git.enable = true;
       # editors
@@ -184,6 +187,8 @@ in {
       distractions.steam.gamescope = true;
       distractions.steam.millennium = true;
       distractions.discord.enable = true;
+      distractions.discord.vencord.enable = true;
+      distractions.discord.openasar.enable = true;
       #distractions.discord.vesktop = true;
       #distractions.discord.openasar = true;
     };

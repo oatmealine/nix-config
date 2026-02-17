@@ -15,12 +15,10 @@
 
     crystal-flake.url = "github:manveru/crystal-flake";
     
-    waybar.url = "github:Alexays/Waybar";
-
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprlock.url = "github:hyprwm/hyprlock";
     hypridle.url = "github:hyprwm/hypridle";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
+    #hyprpaper.url = "github:hyprwm/hyprpaper";
 
     niri.url = "github:sodiboo/niri-flake";
 
@@ -52,10 +50,17 @@
 
     stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
 
-    millennium.url = "git+https://github.com/SteamClientHomebrew/Millennium?submodules=1";
+    millennium.url = "github:Trivaris/Millennium?dir=packages/nix";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
+    vicinae.url = "github:vicinaehq/vicinae";
+
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -77,7 +82,6 @@
     pkgs = mkPkgs nixpkgs [
       self.overlays.default
       inputs.catppuccin-vsc.overlays.default
-      inputs.millennium.overlays.default
     ];
     pkgs-unstable = mkPkgs nixpkgs-unstable [];
 

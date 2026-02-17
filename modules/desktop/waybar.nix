@@ -8,7 +8,7 @@ in {
     enable = mkEnableOption "Enable Waybar, a highly customizable Wayland bar";
     package = mkOption {
       type = types.package;
-      default = pkgs.unstable.waybar;
+      default = pkgs.waybar;
       example = "pkgs.waybar";
     };
     hostname = mkOption {

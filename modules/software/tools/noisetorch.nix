@@ -28,10 +28,10 @@ in {
   config = mkIf cfg.enable {
     programs.noisetorch.enable = true;
 
-    systemd.user.services.noisetorch = mkIf cfg.autostart.enable {
+    /*systemd.user.services.noisetorch = mkIf cfg.autostart.enable {
       description = "Noisetorch noise cancelling";
       wantedBy = [ "graphical-session.target" ];
-      after = [ cfg.autostart.device.unit ];
+      after = [ "graphical-session-pre.target" ];
       requires = [ cfg.autostart.device.unit ];
 
       serviceConfig = {
@@ -41,6 +41,8 @@ in {
         Restart = "on-failure";
         RestartSec = 3;
       };
-    };
+    };*/
+
+    modules.desktop.execOnStart = mkIf cfg.autostart.enable [ "${lib.getExe cfg.package} -i -s ${cfg.autostart.device.name} -t 95" ];
   };
 }

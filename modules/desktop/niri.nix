@@ -13,7 +13,7 @@ in {
     };
     xwaylandPackage = mkOption {
       type = types.package;
-      default = pkgs.xwayland-satellite;
+      default = pkgs.xwayland-satellite-unstable;
       example = "pkgs.xwayland-satellite";
     };
   };
@@ -38,6 +38,7 @@ in {
           #{ command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing
           #{ command = [ "${lib.getExe cfg.xwaylandPackage}" ]; }
+          { command = [ "niri" "msg" "action" "switch-layout" "1" ]; } # default to workman
         ]
           ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart)
           ++ (optional (config.modules.desktop.hypridle.enable) ({
@@ -57,7 +58,7 @@ in {
           keyboard.xkb = {
             layout = "us,us,ru";
             variant = ",workman,";
-            options = "grp:win_space_toggle";
+            options = "grp:win_space_toggle,caps:capslock";
           };
 
           touchpad = {
@@ -117,6 +118,8 @@ in {
           shadow = {
             enable = true;
           };
+
+          #insert-hint.color = config.modules.desktop.themes.niri.insert-hint;
         };
 
         hotkey-overlay.skip-at-startup = true;
@@ -198,15 +201,16 @@ in {
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
         window-rules = [
           {
+            geometry-corner-radius = allCorners 10.0;
+            clip-to-geometry = true;
+            draw-border-with-background = false;
+          }
+          {
             matches = [
               { app-id = "^org\.wezfurlong\.wezterm$"; }
               { app-id = "^clipse$"; }
             ];
             default-column-width = {};
-          }
-          {
-            geometry-corner-radius = allCorners 10.0;
-            clip-to-geometry = true;
           }
           # colors
           {
@@ -230,7 +234,7 @@ in {
             matches = [
               { app-id = "^clipse$"; }
               { app-id = "^dde-polkit-agent$"; }
-              { app-id = "^org\.gnome\.Loupe$"; }
+              { app-id = "^org\\.gnome\\.Loupe$"; }
               { title = "^Open Folder$"; }
               { title = "^Open File$"; }
               { title = "^Open$"; }
@@ -271,8 +275,8 @@ in {
           {
             matches = [
               { app-id = "^file-roller$"; }
-              { app-id = "^org\.gnome\.FileRoller$"; }
-              { app-id = "^org\.gnome\.Loupe$"; }
+              { app-id = "^org\\.gnome\\.FileRoller$"; }
+              { app-id = "^org\\.gnome\\.Loupe$"; }
               { title = "^Open Folder$"; }
               { title = "^Open File$"; }
               { title = "^Open$"; }
@@ -312,6 +316,10 @@ in {
             min-height = 460;
             max-height = 460;
           }
+          {
+            matches = [{ app-id = "org\\.telegram\\.desktop"; }];
+            block-out-from = "screencast";
+          }
         ];
 
         layer-rules = [
@@ -324,6 +332,7 @@ in {
           {
             matches = [
               { namespace = "^launcher$"; }
+              { namespace = "^vicinae$"; }
             ];
             shadow = {
               enable = true;
@@ -343,13 +352,22 @@ in {
           lid-close.action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
         });
 
+        /*recent-windows = {
+          open-delay-ms = 0;
+          highlight = {
+            active-color = config.modules.desktop.themes.niri.insert-hint;
+            corner-radius = 10;
+          };
+        };*/
+
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
         binds = with config.hm.lib.niri.actions; let
           sh = spawn "sh" "-c";
         in {
           "Mod+Shift+Slash".action = show-hotkey-overlay;
 
-          "Mod+D".action = spawn "fuzzel";
+          #"Mod+D".action = spawn "fuzzel";
+          "Mod+D".action = spawn "vicinae" "vicinae://toggle";
 
           "Mod+Q".action = close-window;
 
@@ -464,7 +482,8 @@ in {
           "XF86AudioMute".action        = sh "${lib.getExe pkgs.playerctl} play-pause";
 
           #"Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
-          "Mod+V".action = sh config.modules.desktop.cliphist.summonCmd;
+          #"Mod+V".action = sh config.modules.desktop.cliphist.summonCmd;
+          "Mod+V".action = spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history";
 
           "Mod+T".action = spawn "wezterm";
           "Mod+E".action = spawn "nautilus";

@@ -15,6 +15,7 @@ in {
   config = mkIf cfg.enable {
     hm.programs.fuzzel = {
       enable = true;
+      package = cfg.package;
       settings = {
         main = {
           terminal = "wezterm start";

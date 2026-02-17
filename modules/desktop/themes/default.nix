@@ -7,7 +7,7 @@ let
 in {
   options.modules.desktop.themes = with types; {
     active = mkOption {
-      type = types.nullOr types.str;
+      type = nullOr str;
       default = null;
       description = "Name of the theme to apply; see modules/desktop/themes for a list of valid options";
     };
@@ -15,31 +15,31 @@ in {
     dark = mkOpt bool false;
 
     gtkTheme = {
-      name = mkOpt str "";
-      package = mkPackageOption pkgs "gtk" {};
+      name = mkOpt (nullOr str) null;
+      package = mkOpt (nullOr package) null;
     };
     qtTheme = {
       enable = mkEnableOption "Set the qt5ct theme";
-      name = mkOpt str "";
-      package = mkPackageOption pkgs "qt" {};
+      name = mkOpt (nullOr str) null;
+      package = mkOpt (nullOr package) null;
     };
     iconTheme = {
-      name = mkOpt str "";
-      package = mkPackageOption pkgs "icon" {};
+      name = mkOpt (nullOr str) null;
+      package = mkOpt (nullOr package) null;
     };
     cursor = {
-      name = mkOpt str "";
-      package = mkPackageOption pkgs "cursor" {};
+      name = mkOpt (nullOr str) null;
+      package = mkOpt (nullOr package) null;
     };
     sddmTheme = {
-      name = mkOpt str "";
-      package = mkPackageOption pkgs "catppuccin-sddm-corners" {};
+      name = mkOpt (nullOr str) null;
+      package = mkOpt (nullOr package) null;
     };
 
     editor = {
       vscode = {
-        name = mkOpt str "";
-        extension = mkPackageOption pkgs "extension" {};
+        name = mkOpt (nullOr str) null;
+        extension = mkOpt (nullOr package) null;
       };
     };
 
@@ -60,6 +60,7 @@ in {
       inactive = mkOpt str "#505050";
       alert = mkOpt str "#9b0000";
       highlight = mkOpt str "#9b0000";
+      insert-hint = mkOpt str "#ffc87f80";
     };
 
     waybar = mkOpt str "";
@@ -75,6 +76,11 @@ in {
     fuzzel = mkOpt (nullOr str) null;
 
     wezterm = mkOpt (nullOr str) null;
+
+    vicinae = {
+      name = mkOpt (nullOr str) null;
+      iconTheme = mkOpt (nullOr str) null;
+    };
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
@@ -84,36 +90,36 @@ in {
       hm.dconf = {
         enable = true;
         settings."org/gnome/desktop/interface".color-scheme = mkIf cfg.dark "prefer-dark";
-        settings."org/gnome/desktop/interface".gtk-theme = cfg.gtkTheme.name;
-        settings."org/gnome/desktop/interface".icon-theme = cfg.iconTheme.name;
-        settings."org/gnome/desktop/interface".cursor-theme = cfg.cursor.name;
+        settings."org/gnome/desktop/interface".gtk-theme = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme.name;
+        settings."org/gnome/desktop/interface".icon-theme = mkIf (cfg.iconTheme.name != null) cfg.iconTheme.name;
+        settings."org/gnome/desktop/interface".cursor-theme = mkIf (cfg.cursor.name != null) cfg.cursor.name;
 
-        settings."org/gnome/shell/extensions/user-theme".name = cfg.gtkTheme.name;
+        settings."org/gnome/shell/extensions/user-theme".name = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme.name;
       };
 
       hm.gtk = {
         enable = true;
-        cursorTheme = cfg.cursor;
-        iconTheme = cfg.iconTheme;
-        theme = cfg.gtkTheme;
+        cursorTheme = mkIf (cfg.cursor.name != null) cfg.cursor;
+        iconTheme = mkIf (cfg.iconTheme.name != null) cfg.iconTheme;
+        theme = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme;
         gtk3.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
         gtk4.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
       };
 
-      hm.home.pointerCursor = {
+      hm.home.pointerCursor = mkIf (cfg.cursor.name != null) {
         gtk.enable = true;
         x11.enable = true;
         name = cfg.cursor.name;
         package = cfg.cursor.package;
       };
 
-      hm.services.dunst.iconTheme = {
+      hm.services.dunst.iconTheme = mkIf (cfg.iconTheme.name != null) {
         name = cfg.iconTheme.name;
         package = cfg.iconTheme.package;
       };
 
       hm.services.mako.settings = {
-        icon-path = "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
+        icon-path = mkIf (cfg.iconTheme.name != null) "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
         background-color = cfg.mako.backgroundColor;
         border-color = cfg.mako.borderColor;
         text-color = cfg.mako.textColor;
@@ -154,6 +160,16 @@ in {
       hm.programs.fuzzel.settings.main = {
         include = cfg.fuzzel;
         icon-theme = cfg.iconTheme.name;
+      };
+
+      hm.services.vicinae.settings.theme = let
+        themeConf = {
+          name = cfg.vicinae.name;
+          iconTheme = cfg.vicinae.iconTheme;
+        };
+      in {
+        light = themeConf;
+        dark = themeConf;
       };
     }
     (mkIf cfg.qtTheme.enable {

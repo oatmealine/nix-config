@@ -25,6 +25,7 @@ in {
   hm.imports = [
     inputs.nix-index-database.homeModules.nix-index
     #inputs.hyprland.homeManagerModules.default
+    inputs.vicinae.homeManagerModules.default
   ];
 
   # Common config for all nixos machines;
@@ -49,7 +50,8 @@ in {
         #"https://nixpkgs-wayland.cachix.org"
         "https://hyprland.cachix.org"
         #"https://cache.lix.systems"
-        #"https://oatmealine.cachix.org"
+        #"https://oatmealine.cachix.org
+        "https://vicinae.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -57,6 +59,7 @@ in {
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         #"cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         #"oatmealine.cachix.org-1:Ee3e/VVuXZgcF3u8UxMoK9EVhRtwadNU8MxN3+61Ds0="
+        "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       ];
     };
   };

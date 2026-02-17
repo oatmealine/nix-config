@@ -114,6 +114,12 @@ in {
         inactive = "#${base02}";
         alert = "#${base08}";
         highlight = "#${base0C}";
+        insert-hint = "#${base06}80";
+      };
+
+      vicinae = {
+        name = "catppuccin-${variant}";
+        iconTheme = "${config.modules.desktop.themes.iconTheme.name}";
       };
     };
   };

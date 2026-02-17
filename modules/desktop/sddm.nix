@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     services.xserver.enable = true; # oouhhuuhuuhuuuruuhuhuhu
     environment.systemPackages = with pkgs; [
-      config.modules.desktop.themes.sddmTheme.package
+      #config.modules.desktop.themes.sddmTheme.package
       libsForQt5.qt5.qtsvg
       libsForQt5.qt5.qtgraphicaleffects
       libsForQt5.qt5.qtquickcontrols2
@@ -20,7 +20,8 @@ in {
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
-      theme = config.modules.desktop.themes.sddmTheme.name;
+      # for some reason always rebuilds itself. also i never see this anyways so
+      #theme = config.modules.desktop.themes.sddmTheme.name;
       settings = {
         Theme = {
           CursorTheme = config.modules.desktop.themes.cursor.name;

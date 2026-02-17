@@ -31,8 +31,9 @@ in {
 
         -- https://www.reddit.com/r/wezterm/comments/1eze6zt/comment/ljncdct/
         config.front_end = 'WebGpu'
-        config.font = wezterm.font '${fonts.monospaceBitmap.family}'
-        config.font_size = ${toString fonts.monospaceBitmap.size}
+        config.font = wezterm.font('${fonts.monospaceBitmap.family}', { style = 'Normal', weight = 'Medium' })
+        config.font_size = ${toString (fonts.monospaceBitmap.size - 1)}
+        config.cell_width = 0.8
         config.freetype_load_flags = 'MONOCHROME'
         --config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
         config.enable_wayland = ${if (!config.modules.desktop.hyprland.enable) then "true" else "false"}

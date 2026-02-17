@@ -26,7 +26,6 @@ in {
       enable = true;
       package = cfg.package;
     };
-    #systemd.user.services.niri-flake-polkit.enable = false;
 
     hm.programs.niri = {
       settings = let
@@ -34,22 +33,10 @@ in {
       in {
         spawn-at-startup = [
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
-          # deepin is unmaintained now yayyyyyyy thanksssss
-          #{ command = [ "${pkgs.deepin.dde-polkit-agent}/lib/polkit-1-dde/dde-polkit-agent" ]; }   # authentication prompts
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing
-          #{ command = [ "${lib.getExe cfg.xwaylandPackage}" ]; }
           { command = [ "niri" "msg" "action" "switch-layout" "1" ]; } # default to workman
         ]
-          ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart)
-          ++ (optional (config.modules.desktop.hypridle.enable) ({
-            command = [ "${lib.getExe config.modules.desktop.hypridle.package}" ];
-          }))
-          ++ (optional (config.programs.kdeconnect.enable) ({
-            command = [ "${config.programs.kdeconnect.package}/libexec/kdeconnectd" ];
-          }))
-          ++ (optional (config.programs.kdeconnect.enable) ({
-            command = [ "${config.programs.kdeconnect.package}/bin/kdeconnect-indicator" ];
-          }));
+          ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart);
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Input
         input = {
@@ -208,7 +195,6 @@ in {
           {
             matches = [
               { app-id = "^org\.wezfurlong\.wezterm$"; }
-              { app-id = "^clipse$"; }
             ];
             default-column-width = {};
           }
@@ -232,7 +218,6 @@ in {
           # highlight
           {
             matches = [
-              { app-id = "^clipse$"; }
               { app-id = "^dde-polkit-agent$"; }
               { app-id = "^org\\.gnome\\.Loupe$"; }
               { title = "^Open Folder$"; }
@@ -251,7 +236,6 @@ in {
           }
           {
             matches = [
-              { app-id = "^clipse$"; }
               { app-id = "^dde-polkit-agent$"; }
               #{ app-id = "^rofi-rbw$"; }
             ];

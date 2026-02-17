@@ -111,7 +111,7 @@
       waybar.hostname = "seven-red-suns";
       waybar.fontSize = 13;
       rofi.enable = true;
-      clipse.enable = true;
+      #clipse.enable = true;
       batsignal.enable = true;
       fuzzel.enable = true;
 

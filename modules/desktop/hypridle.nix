@@ -15,7 +15,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.home.packages = [ cfg.package inputs.vigiland.packages.${system}.vigiland ];
+    hm.home.packages = [ cfg.package ];
     hm.services.hypridle = {
       enable = true;
       package = cfg.package;
@@ -53,5 +53,6 @@ in {
         };
       };
     };
+    modules.desktop.execOnStart = [ "${lib.getExe config.modules.desktop.hypridle.package}" ];
   };
 }

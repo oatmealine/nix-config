@@ -29,9 +29,6 @@
     fuzzel-catppuccin.url = "github:catppuccin/fuzzel";
     fuzzel-catppuccin.flake = false;
 
-    vigiland.url = "github:jappie3/vigiland";
-    vigiland.inputs.nixpkgs.follows = "nixpkgs";
-
     mdrop.url = "github:frahz/mdrop";
     mdrop.inputs.nixpkgs.follows = "nixpkgs";
 

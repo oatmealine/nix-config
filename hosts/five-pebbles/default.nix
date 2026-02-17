@@ -102,9 +102,6 @@ in {
     ];
   };
 
-  hm.services.kdeconnect.enable = true;
-  hm.services.kdeconnect.indicator = true;
-
   services.earlyoom.enable = true;
   services.earlyoom.freeMemThreshold = 5;
 
@@ -158,6 +155,7 @@ in {
       # system
       system.amnezia.enable = true;
       system.audiorelay.enable = true;
+      system.kdeconnect.enable = true;
       system.wezterm.enable = true;
       system.fish.enable = true;
       system.syncthing.enable = true;

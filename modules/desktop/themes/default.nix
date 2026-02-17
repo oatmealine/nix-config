@@ -113,11 +113,6 @@ in {
         package = cfg.cursor.package;
       };
 
-      hm.services.dunst.iconTheme = mkIf (cfg.iconTheme.name != null) {
-        name = cfg.iconTheme.name;
-        package = cfg.iconTheme.package;
-      };
-
       hm.services.mako.settings = {
         icon-path = mkIf (cfg.iconTheme.name != null) "${cfg.iconTheme.package}/share/icons/${cfg.iconTheme.name}/";
         background-color = cfg.mako.backgroundColor;

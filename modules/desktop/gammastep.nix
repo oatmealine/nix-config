@@ -9,7 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.wayland.windowManager.hyprland.settings.exec-once = [ "${pkgs.gammastep}/bin/gammastep-indicator" ];
+    modules.desktop.execOnStart = [ "${pkgs.gammastep}/bin/gammastep-indicator" ];
     hm.services.gammastep = {
       enable = true;
       # moscow, russia

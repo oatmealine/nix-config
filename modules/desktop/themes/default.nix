@@ -92,7 +92,8 @@ in {
         settings."org/gnome/desktop/interface".color-scheme = mkIf cfg.dark "prefer-dark";
         settings."org/gnome/desktop/interface".gtk-theme = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme.name;
         settings."org/gnome/desktop/interface".icon-theme = mkIf (cfg.iconTheme.name != null) cfg.iconTheme.name;
-        settings."org/gnome/desktop/interface".cursor-theme = mkIf (cfg.cursor.name != null) cfg.cursor.name;
+        # redundant with hm.home.pointerCursor.gtk.enable
+        #settings."org/gnome/desktop/interface".cursor-theme = mkIf (cfg.cursor.name != null) cfg.cursor.name;
 
         settings."org/gnome/shell/extensions/user-theme".name = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme.name;
       };
@@ -109,8 +110,10 @@ in {
       hm.home.pointerCursor = mkIf (cfg.cursor.name != null) {
         gtk.enable = true;
         x11.enable = true;
+        dotIcons.enable = true;
         name = cfg.cursor.name;
         package = cfg.cursor.package;
+        size = 24;
       };
 
       hm.services.mako.settings = {

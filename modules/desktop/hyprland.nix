@@ -160,8 +160,8 @@ in {
 
         # Some default env vars.
         env = [
-          "XCURSOR_THEME,${config.modules.desktop.themes.cursor.name}"
-          "XCURSOR_SIZE,24"
+          #"XCURSOR_THEME,${config.modules.desktop.themes.cursor.name}"
+          #"XCURSOR_SIZE,24"
         ];
 
         general = {

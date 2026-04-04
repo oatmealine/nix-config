@@ -29,21 +29,11 @@
     fuzzel-catppuccin.url = "github:catppuccin/fuzzel";
     fuzzel-catppuccin.flake = false;
 
-    mdrop.url = "github:frahz/mdrop";
+    mdrop.url = "github:frahz/mdrop/7b2eb5c385ec3e1dc3b1d48b1e75137b8a4e125b";
     mdrop.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-alien.inputs.nix-index-database.follows = "nix-index-database";
-
-    lix = {
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90.0";
-      flake = false;
-    };
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
-      inputs.lix.follows = "lix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
 
@@ -57,6 +47,19 @@
     vicinae-extensions = {
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    lix = {
+      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      flake = false;
+    };
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.lix.follows = "lix";
     };
   };
 
@@ -79,6 +82,7 @@
     pkgs = mkPkgs nixpkgs [
       self.overlays.default
       inputs.catppuccin-vsc.overlays.default
+      inputs.nix-cachyos-kernel.overlays.pinned
     ];
     pkgs-unstable = mkPkgs nixpkgs-unstable [];
 

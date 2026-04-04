@@ -18,7 +18,7 @@ in {
       (mkAliasOptionModule ["hm"] ["home-manager" "users" config.user.name])
   	  inputs.nix-colors.homeManagerModules.default
       #inputs.hyprland.nixosModules.default
-      #inputs.lix-module.nixosModules.default
+      inputs.lix-module.nixosModules.default
     ]
     ++ (mapModulesRec' (toString ./modules) import);
 
@@ -46,20 +46,24 @@ in {
       keep-derivations = true;
       warn-dirty = false;
       substituters = [
-        "https://nix-community.cachix.org"
+        #"https://nix-community.cachix.org"
         #"https://nixpkgs-wayland.cachix.org"
-        "https://hyprland.cachix.org"
+        #"https://hyprland.cachix.org"
         #"https://cache.lix.systems"
         #"https://oatmealine.cachix.org
         "https://vicinae.cachix.org"
+        "https://attic.xuyh0120.win/lantian"
+        "https://cache.garnix.io"
       ];
       trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        #"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         #"nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        #"hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         #"cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         #"oatmealine.cachix.org-1:Ee3e/VVuXZgcF3u8UxMoK9EVhRtwadNU8MxN3+61Ds0="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
   };

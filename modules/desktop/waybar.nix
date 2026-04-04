@@ -136,6 +136,7 @@ in {
           "group/status" = {
             orientation = "inherit";
             modules = [
+              "custom/uni"
               "hyprland/language"
               "niri/language"
               (if config.modules.hardware.mdrop.enable then "custom/mdrop" else "pulseaudio")
@@ -347,6 +348,13 @@ in {
             tooltip = true;
             interval = 3600;
             exec = "${lib.getExe pkgs.wttrbar} --location 'Moscow, Russia' --hide-conditions";
+            return-type = "json";
+          };
+          "custom/uni" = {
+            format = " {}";
+            tooltip = true;
+            interval = 60 * 60;
+            exec = "${lib.getExe pkgs.nodejs} ~/projects/uniscraper/index.js";
             return-type = "json";
           };
         };

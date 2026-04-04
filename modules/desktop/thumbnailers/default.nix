@@ -89,6 +89,8 @@ in {
       })
       # > note: apparently xcftools is unmaintained since 2019 and nixpkgs' version has multiple code-execution vulnerabilities, so let's not use xcf2png
       (mkMagickThumbnailer { format = "xcf"; mime = "image/x-xcf"; })
+      # exe embedded icons
+      pkgs.icoextract
       # for embbedded cover art
       (mkThumbnailer {
         name = "audio";

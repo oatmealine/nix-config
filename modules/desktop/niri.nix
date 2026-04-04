@@ -73,8 +73,10 @@ in {
           };
         };
 
-        environment = {
-          #DISPLAY = ":0";
+        cursor = {
+          theme = config.modules.desktop.themes.cursor.name;
+          size = config.hm.home.pointerCursor.size;
+          hide-when-typing = true;
         };
 
         xwayland-satellite.path = "${lib.getExe cfg.xwaylandPackage}";
@@ -279,26 +281,26 @@ in {
           {
             matches = [{ app-id = "^notitg-"; }];
             open-floating = true;
-            min-width = 1280;
-            max-width = 1280;
-            min-height = 720;
-            max-height = 720;
+            #min-width = 1280;
+            #max-width = 1280;
+            #min-height = 720;
+            #max-height = 720;
           }
           {
             matches = [{ app-id = "^notitg-"; title = "Loading..."; }];
             open-floating = true;
-            min-width = 499;
-            max-width = 499;
-            min-height = 178;
-            max-height = 178;
+            #min-width = 499;
+            #max-width = 499;
+            #min-height = 178;
+            #max-height = 178;
           }
           {
             matches = [{ app-id = "^notitg-"; title = "Whoops! NotITG Has Crashed!"; }];
             open-floating = true;
-            min-width = 600;
-            max-width = 600;
-            min-height = 460;
-            max-height = 460;
+            #min-width = 600;
+            #max-width = 600;
+            #min-height = 460;
+            #max-height = 460;
           }
           {
             matches = [{ app-id = "org\\.telegram\\.desktop"; }];

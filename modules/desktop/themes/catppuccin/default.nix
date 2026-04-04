@@ -36,8 +36,10 @@ in {
       };
 
       cursor = {
-        package = pkgs.graphite-cursors;
-        name = "graphite-dark";
+        #package = pkgs.graphite-cursors;
+        #name = "graphite-dark";
+        package = pkgs.apple-cursor;
+        name = "macOS";
       };
 
       sddmTheme = {

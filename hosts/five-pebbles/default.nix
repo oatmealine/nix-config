@@ -28,24 +28,26 @@ in {
     sqlitebrowser sqlite-interactive nil dig python3 openssl
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
-    gparted seahorse baobab scrcpy neofetch zenity
+    gparted seahorse baobab scrcpy neofetch zenity mullvad-vpn
     # debug
     strace ltrace lsof helvum
     # apps
-    (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
+    (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop
+    onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita
     inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
-    jetbrains.rider lrcget picard blockbench
+    jetbrains.rider lrcget picard blockbench unstable.archipelago
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
-    unstable.wineWow64Packages.unstableFull winetricks
+    unstable.wineWow64Packages.waylandFull unstable.winetricks
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
     lua54Packages.lua unstable.tauon nicotine-plus transmission_4-gtk
+    nodePackages.nodejs
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.r2modman (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn my.tetrio-desktop
+    unstable.ringracers unstable.gale (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn my.tetrio-desktop
     (unstable.prismlauncher.override {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
@@ -78,9 +80,9 @@ in {
 
   services.ratbagd.enable = true;
 
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
   # supposedly helps with a couple of realtime-related issues
-  boot.kernelParams = [ "preempt=full" ];
+  #boot.kernelParams = [ "preempt=full" ];
 
   fileSystems."/home/oatmealine/downloads" = {
     device = "none";
@@ -153,7 +155,7 @@ in {
     };
     software = {
       # system
-      system.amnezia.enable = true;
+      #system.amnezia.enable = true;
       system.audiorelay.enable = true;
       system.kdeconnect.enable = true;
       system.wezterm.enable = true;
@@ -186,9 +188,7 @@ in {
       distractions.steam.millennium = true;
       distractions.discord.enable = true;
       distractions.discord.vencord.enable = true;
-      distractions.discord.openasar.enable = true;
-      #distractions.discord.vesktop = true;
-      #distractions.discord.openasar = true;
+      #distractions.discord.openasar.enable = true;
     };
   };
 }

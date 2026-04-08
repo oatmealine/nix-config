@@ -16,13 +16,13 @@ let
     ];
 in stdenv.mkDerivation rec {
   pname = "loenn";
-  version = "1.0.5";
+  version = "1.0.9";
 
   src = fetchFromGitHub {
     owner = "CelestialCartographers";
     repo = "Loenn";
     rev = "v${version}";
-    hash = "sha256-1srNPJ6xaOWQM18RwTzajWPm/xfUTS/qV/NNYGeeHss=";
+    hash = "sha256-DZBMZoIF9YQpFYVWrnmxAzBCX6wbk0GRZTdW9HuOJ+4=";
     fetchSubmodules = true;
   };
 
@@ -54,7 +54,7 @@ in stdenv.mkDerivation rec {
   loveArchive = fetchzip {
     name = "Loenn-v${version}.love";
     url = "https://github.com/CelestialCartographers/Loenn/releases/download/v${version}/Loenn-v${version}.love";
-    hash = "sha256-cY/GbrHDEbVuNc4pnuFJn71ko3aY38jXglSK7VUdHkw=";
+    hash = "sha256-o3zuWn2wa0/LQaAk1cJluadxQhBfCE4R8fMDAfRFRE8=";
     extension = "zip";
     stripRoot = false;
   };

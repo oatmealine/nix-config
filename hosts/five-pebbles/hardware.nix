@@ -24,17 +24,17 @@
   
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "amdgpu" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-  '';
 
   hardware.amdgpu.initrd.enable = true;
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
+
+  # opencl
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa.opencl # Enables Rusticl (OpenCL) support
+  ];
+  environment.variables.RUSTICL_ENABLE = "radeonsi";
 
   # amdvlk is deprecated and ass and bad and etc. byebye
   #hardware.graphics.extraPackages = with pkgs; [

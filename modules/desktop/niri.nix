@@ -32,6 +32,7 @@ in {
         allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
       in {
         spawn-at-startup = [
+          { command = [ "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing
           { command = [ "niri" "msg" "action" "switch-layout" "1" ]; } # default to workman

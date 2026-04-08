@@ -32,7 +32,7 @@ in {
         
         launcher_window = {
           opacity = 0.95;
-          client_side_decorations.enabled = false;
+          #client_side_decorations.enabled = false;
 
           layer_shell = {
             enabled = true;
@@ -51,6 +51,11 @@ in {
         ];
 
         providers = {
+          core = {
+            entrypoints = {
+              sponsor.enable = false;
+            };
+          };
           applications = {
             preferences = {
               defaultAction = "launch";
@@ -59,12 +64,14 @@ in {
           files.enabled = false;
         };
 
+        telemetry.system_info = false;
+
         escape_key_behavior = "close_window";
 
         font = {
           normal = {
             family = "Recursive";
-            size = 10.5;
+            size = 10;
           };
         };
       };

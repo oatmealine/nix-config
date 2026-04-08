@@ -163,7 +163,7 @@ in {
       hm.services.vicinae.settings.theme = let
         themeConf = {
           name = cfg.vicinae.name;
-          iconTheme = cfg.vicinae.iconTheme;
+          icon_theme = cfg.vicinae.iconTheme;
         };
       in {
         light = themeConf;

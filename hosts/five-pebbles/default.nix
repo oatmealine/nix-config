@@ -34,12 +34,12 @@ in {
     # apps
     (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop
     onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita
-    inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
+    inkscape obsidian vlc unstable.kdePackages.kdenlive audacity aseprite imhex
     jetbrains.rider lrcget picard blockbench unstable.archipelago
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
-    unstable.wineWow64Packages.waylandFull unstable.winetricks
+    wineWow64Packages.stable unstable.winetricks
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
     lua54Packages.lua unstable.tauon nicotine-plus transmission_4-gtk
@@ -94,7 +94,7 @@ in {
   #systemd.extraConfig = "DefaultTimeoutStopSec=10s";
   #systemd.user.extraConfig = "DefaultTimeoutStopSec=10s";
 
-  hm.programs.obs-studio = {
+  programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
@@ -102,6 +102,7 @@ in {
       obs-pipewire-audio-capture
       input-overlay
     ];
+    enableVirtualCamera = true;
   };
 
   services.earlyoom.enable = true;

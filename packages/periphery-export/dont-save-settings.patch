@@ -1,0 +1,47 @@
+--- a/Source/AssetRipper.Export/Configuration/SerializedSettings.cs
++++ b/Source/AssetRipper.Export/Configuration/SerializedSettings.cs
+@@ -19,20 +19,20 @@
+ 
+ 	public static bool TryLoadFromDefaultPath(out SerializedSettings settings)
+ 	{
+-		string path = DefaultFilePath;
+-		if (File.Exists(path))
+-		{
+-			settings = Load(path);
+-			return true;
+-		}
++		//string path = DefaultFilePath;
++		//if (File.Exists(path))
++		//{
++		//	settings = Load(path);
++		//	return true;
++		//}
+ 		settings = default;
+ 		return false;
+ 	}
+ 
+ 	public void Save(string path)
+ 	{
+-		using FileStream fileStream = File.Create(path);
+-		JsonSerializer.Serialize(fileStream, this, SerializedSettingsContext.Default.SerializedSettings);
++		//using FileStream fileStream = File.Create(path);
++		//JsonSerializer.Serialize(fileStream, this, SerializedSettingsContext.Default.SerializedSettings);
+ 	}
+ 
+ 	public void SaveToDefaultPath()
+@@ -42,10 +42,10 @@
+ 
+ 	public static void DeleteDefaultPath()
+ 	{
+-		string path = DefaultFilePath;
+-		if (File.Exists(path))
+-		{
+-			File.Delete(path);
+-		}
++		//string path = DefaultFilePath;
++		//if (File.Exists(path))
++		//{
++		//	File.Delete(path);
++		//}
+ 	}
+ }

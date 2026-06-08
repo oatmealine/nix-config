@@ -5,6 +5,7 @@
     hm.xdg.userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
 
       desktop = "$HOME/desktop";
       documents = "$HOME/documents";

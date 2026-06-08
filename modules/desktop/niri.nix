@@ -3,17 +3,18 @@
 with lib;
 let
   cfg = config.modules.desktop.niri;
+  niriPkgs = inputs.niri-pkgs.packages.${system};
 in {
   options.modules.desktop.niri = {
     enable = mkEnableOption "Enable niri, a scrollable-tiling Wayland compositor.";
     package = mkOption {
       type = types.package;
-      default = pkgs.niri-unstable;
+      default = niriPkgs.niri-unstable;
       example = "pkgs.niri";
     };
     xwaylandPackage = mkOption {
       type = types.package;
-      default = pkgs.xwayland-satellite-unstable;
+      default = niriPkgs.xwayland-satellite-unstable;
       example = "pkgs.xwayland-satellite";
     };
   };
@@ -27,10 +28,34 @@ in {
       package = cfg.package;
     };
 
+    # unsure of where else to put this
+    hm.gtk.gtk4.extraCss = ''
+      popover > *,
+      window,
+      .view,
+      window.print .dialog-action-box,
+      textview > text,
+      dialog-host > dialog.view sheet,
+      window.print dialog-host > dialog.dialog-action-box sheet,
+      iconview,
+      tooltip {
+        background: alpha(@window_bg_color, 0.75);
+      }
+      gridview.view,
+      statuspage {
+        background: transparent;
+      }
+    '';
+
     hm.programs.niri = {
       settings = let
         allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
       in {
+        # https://github.com/sodiboo/niri-flake/issues/1721#issuecomment-4293888762
+        includes = lib.mkAfter [
+          (./blur.kdl)
+        ];
+      
         spawn-at-startup = [
           { command = [ "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
@@ -186,34 +211,42 @@ in {
               }
             '';
           };
+
+          window-movement = {
+            kind.spring = {
+              damping-ratio = 0.85;
+              stiffness = 800;
+              epsilon = 0.0001;
+            };
+          };
+          workspace-switch = {
+            kind.spring = {
+              damping-ratio = 1.0;
+              stiffness = 1000;
+              epsilon = 0.0001;
+            };
+          };
         };
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-        window-rules = [
+        window-rules = let
+          mainMonitor = "HDMI-A-1";
+          sideMonitor = "DP-1";
+        in [
+          # rounded corners
           {
             geometry-corner-radius = allCorners 10.0;
             clip-to-geometry = true;
             draw-border-with-background = false;
           }
+          # wezterm fix ( is this needed? )
           {
-            matches = [
-              { app-id = "^org\.wezfurlong\.wezterm$"; }
-            ];
+            matches = [ { app-id = ''^org\.wezfurlong\.wezterm$''; } ];
             default-column-width = {};
           }
           # colors
           {
-            matches = [
-              { is-window-cast-target = true; }
-            ];
-            border = {
-              inactive.color = config.modules.desktop.themes.niri.highlight;
-            };
-          }
-          {
-            matches = [
-              { is-window-cast-target = true; }
-            ];
+            matches = [ { is-window-cast-target = true; } ];
             border = {
               inactive.color = config.modules.desktop.themes.niri.highlight;
             };
@@ -222,9 +255,10 @@ in {
           {
             matches = [
               { app-id = "^dde-polkit-agent$"; }
-              { app-id = "^org\\.gnome\\.Loupe$"; }
+              { app-id = ''^org\.gnome\.Loupe$''; }
               { title = "^Open Folder$"; }
               { title = "^Open File$"; }
+              { title = "^Open Files$"; }
               { title = "^Open$"; }
               #{ app-id = "^rofi-rbw$"; }
             ];
@@ -237,10 +271,20 @@ in {
               inactive.color = "#00000065";
             };
           }
+          # blur
+          /*{
+            matches = [
+              { app-id = ''^org\.wezfurlong\.wezterm$''; }
+            ];
+            background-effect.blur = true;
+            background-effect.noise = 0.5;
+          }*/
+          # my evil secrets
           {
             matches = [
               { app-id = "^dde-polkit-agent$"; }
               #{ app-id = "^rofi-rbw$"; }
+              { app-id = ''^org\.telegram\.desktop$''; }
             ];
             block-out-from = "screen-capture";
           }
@@ -262,12 +306,16 @@ in {
           {
             matches = [
               { app-id = "^file-roller$"; }
-              { app-id = "^org\\.gnome\\.FileRoller$"; }
-              { app-id = "^org\\.gnome\\.Loupe$"; }
+              { app-id = ''^org\.gnome\.FileRoller$''; }
+              { app-id = ''^org\.gnome\.Loupe$''; }
               { title = "^Open Folder$"; }
               { title = "^Open File$"; }
+              { title = "^Open Files$"; }
               { title = "^Open$"; }
               { app-id = "^dde-polkit-agent$"; }
+            ];
+            excludes = [
+              { app-id = "^file-roller$"; title="^File Roller$"; }
             ];
             open-floating = true;
             default-column-width.proportion = 0.6;
@@ -279,6 +327,30 @@ in {
             ];
             open-floating = true;
           }
+          # annoying popups
+          {
+            matches = [
+              { app-id = "^steam$"; title = ''^Launching\.\.\.$''; }
+              { app-id = "^steam$"; title = "^Steam$"; } # it keeps fucking opening for no reason
+              { app-id = "^steam$"; title = "^Sign in to Steam$"; }
+              #{ app-id = "^krita$"; is-floating = true; } # no way to match for this i think
+              { app-id = "^discord$"; title = "^Discord Updater$"; }
+              { app-id = "^vesktop$"; title = "^vesktop$"; }
+            ];
+            open-focused = false;
+          }
+          # steam notifs
+          {
+            matches = [
+              { app-id = "^steam$"; title = ''^notificationtoasts_\d+_desktop$''; }
+            ];
+            default-floating-position = {
+              x = 0;
+              y = 0;
+              relative-to = "bottom-right";
+            };
+          }
+          # notitg (todo)
           {
             matches = [{ app-id = "^notitg-"; }];
             open-floating = true;
@@ -288,24 +360,39 @@ in {
             #max-height = 720;
           }
           {
-            matches = [{ app-id = "^notitg-"; title = "Loading..."; }];
+            matches = [{ app-id = "^notitg-"; title = ''Loading\.\.\.''; }];
             open-floating = true;
-            #min-width = 499;
-            #max-width = 499;
-            #min-height = 178;
-            #max-height = 178;
+            min-width = 499;
+            max-width = 499;
+            min-height = 178;
+            max-height = 178;
           }
           {
             matches = [{ app-id = "^notitg-"; title = "Whoops! NotITG Has Crashed!"; }];
             open-floating = true;
-            #min-width = 600;
-            #max-width = 600;
-            #min-height = 460;
-            #max-height = 460;
+            min-width = 600;
+            max-width = 600;
+            min-height = 460;
+            max-height = 460;
+          }
+
+          # monitor defaults
+          {
+            matches = [
+              { app-id = "^steam_app_"; }
+              { app-id = "^vivaldi-"; }
+              { app-id = "^tf_linux64$"; }
+            ];
+            open-on-output = mainMonitor;
           }
           {
-            matches = [{ app-id = "org\\.telegram\\.desktop"; }];
-            block-out-from = "screencast";
+            matches = [
+              { app-id = "^vesktop$"; }
+              { app-id = "^equibop$"; }
+              { app-id = "^discord"; }
+              { app-id = "^tauonmb$"; }
+            ];
+            open-on-output = sideMonitor;
           }
         ];
 
@@ -320,10 +407,17 @@ in {
             matches = [
               { namespace = "^launcher$"; }
               { namespace = "^vicinae$"; }
+              { namespace = "^rofi$"; }
             ];
             shadow = {
               enable = true;
             };
+            geometry-corner-radius = allCorners 10.0;
+          }
+          {
+            matches = [
+              { namespace = "^waybar$"; }
+            ];
             geometry-corner-radius = allCorners 10.0;
           }
           # for swaybg
@@ -470,7 +564,7 @@ in {
 
           #"Mod+V".action = sh "${lib.getExe pkgs.wezterm} start --class 'clipse' -e '${lib.getExe config.modules.desktop.clipse.package}'";
           #"Mod+V".action = sh config.modules.desktop.cliphist.summonCmd;
-          "Mod+V".action = spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history";
+          "Mod+V".action = spawn "vicinae" "vicinae://launch/clipboard/history";
 
           "Mod+T".action = spawn "wezterm";
           "Mod+E".action = spawn "nautilus";

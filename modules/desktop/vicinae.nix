@@ -31,8 +31,8 @@ in {
         pop_to_root_on_close = true;
         
         launcher_window = {
-          opacity = 0.95;
-          #client_side_decorations.enabled = false;
+          opacity = 0.7;
+          client_side_decorations.enabled = false;
 
           layer_shell = {
             enabled = true;
@@ -61,7 +61,13 @@ in {
               defaultAction = "launch";
             };
           };
-          files.enabled = false;
+          files = {
+            enabled = false;
+            preferences.autoIndexing = false;
+          };
+          clipboard = {
+            eraseOnStartup = true;
+          };
         };
 
         telemetry.system_info = false;
@@ -71,7 +77,7 @@ in {
         font = {
           normal = {
             family = "Recursive";
-            size = 10;
+            size = 10.5;
           };
         };
       };

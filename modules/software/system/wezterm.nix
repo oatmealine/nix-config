@@ -41,7 +41,7 @@ in {
         config.use_resize_increments = true
         config.initial_cols = 120
         config.initial_rows = 40
-        config.window_background_opacity = 0.8
+        config.window_background_opacity = 0.7
         ${config.modules.desktop.themes.wezterm or ""}
 
         config.window_frame = {

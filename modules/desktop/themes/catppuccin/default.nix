@@ -15,12 +15,18 @@ in {
       dark = variant != "latte";
 
       gtkTheme = {
-        name = "Catppuccin-${pascalCase variant}-Compact-${pascalCase accent}-Dark";
+        /*name = "Catppuccin-${pascalCase variant}-Compact-${pascalCase accent}-Dark";
         package = pkgs.catppuccin-gtk.override {
           variant = variant;
           accents = [ accent ];
           tweaks = ["rimless"];
           size = "compact";
+        };*/
+        name = "Colloid-Dark-Catppuccin";
+        package = pkgs.colloid-gtk-theme.override {
+          #themeVariants = [ "pink" ];
+          #sizeVariants = [ "compact" ];
+          tweaks = [ "catppuccin" "rimless" "normal" ];
         };
       };
 

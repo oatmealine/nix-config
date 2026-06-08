@@ -1,5 +1,5 @@
 * {
-  bg-col: #24273a;
+  bg-col: #24273a77;
   bg-col-light: #313244;
   border-col: #363a4f;
   selected-col: #45475a;
@@ -18,18 +18,21 @@ element-text, element-icon , mode-switcher {
 
 window {
   height: 500px;
+  border-radius: 10px;
   border: 1px;
-  border-radius: 1em;
-  border-color: @rosewater;
+  border-color: @bg-col-light;
   background-color: @bg-col;
 }
 
-mainbox {background-color: @bg-col;}
+mainbox {
+  background-color: @bg-col;
+}
 
 inputbar {
   margin: 10px 5px 5px 5px;
   children: [prompt, entry];
-  background-color: @bg-col;
+  /*background-color: @bg-col;*/
+  background-color: transparent;
   padding: 1px;
 }
 
@@ -49,7 +52,8 @@ entry {
   padding: 1px;
   margin: 0px;
   text-color: @fg-col;
-  background-color: @bg-col;
+  /*background-color: @bg-col;*/
+  background-color: transparent;
 }
 
 listview {
@@ -57,12 +61,14 @@ listview {
   margin: 5px 0px 0px 10px;
   columns: 1;
   lines: 10;
-  background-color: @bg-col;
+  /*background-color: @bg-col;*/
+  background-color: transparent;
 }
 
 element {
   padding: 1px;
-  background-color: @bg-col;
+  /*background-color: @bg-col;*/
+  background-color: transparent;
   text-color: @fg-col;
 }
 
@@ -93,6 +99,7 @@ button {
 }
 
 button.selected {
-  background-color: @bg-col;
+  /*background-color: @bg-col;*/
+  background-color: transparent;
   text-color: @rosewater;
 }

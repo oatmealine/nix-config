@@ -56,8 +56,8 @@ in {
         bindel = (if config.modules.desktop.wob.enable then [
           ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"
           ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | sed 's/[^0-9]//g' > ${wobSock}"
-          ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} s +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > ${wobSock}"
-          ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} s 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > ${wobSock}"
+          ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} s +5% | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > ${wobSock}"
+          ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} s 5%- | sed -En 's/.*\\(([0-9]+)%\\).*/\\1/p' > ${wobSock}"
         ] else [
           ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+"
           ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%-"
@@ -204,9 +204,9 @@ in {
           "suppressevent fullscreen, class:notitg-v4.3.0.exe"
 
           # generic wine stuff
-          "float, class:\.exe$"
+          ''float, class:\.exe$''
           # doesn't look great w/ wine's window decorations
-          "rounding 0, class:\.exe$"
+          ''rounding 0, class:\.exe$''
 
           # steam notifs
           "rounding 0, title:^notificationtoasts_"

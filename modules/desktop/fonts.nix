@@ -31,13 +31,13 @@ in {
         
     fonts = {
       sans = mkFontOption "sans" {
-        package = pkgs.my.atkinson-hyperlegible-pro;
-        family = "Atkinson Hyperlegible Pro";
+        package = pkgs.atkinson-hyperlegible-next;
+        family = "Atkinson Hyperlegible Next";
         size = 11;
       };
       sansSerif = mkFontOption "sans-serif" {
-        package = pkgs.my.atkinson-hyperlegible-pro;
-        family = "Atkinson Hyperlegible Pro";
+        package = pkgs.atkinson-hyperlegible-next;
+        family = "Atkinson Hyperlegible Next";
         size = 11;
       };
       monospace = mkFontOption "monospace" {
@@ -51,8 +51,8 @@ in {
         size = 10;
       };
       emoji = mkFontOption "emoji" {
-        package = pkgs.unstable.twitter-color-emoji;
-        family = "Twitter Color Emoji";
+        package = pkgs.my.twemoji-colr;
+        family = "Twemoji COLR";
         size = 10; # not applicable, but whatever
       };
     };
@@ -103,6 +103,8 @@ in {
       dina-font
       proggyfonts
       atkinson-hyperlegible
+      atkinson-hyperlegible-next
+      atkinson-hyperlegible-mono
       cozette
       twemoji-color-font
       noto-fonts-color-emoji
@@ -116,6 +118,7 @@ in {
 
       pkgs.my.rain-world-menu-font
       pkgs.my.apple-otf
+      pkgs.my.twemoji-colr
     ];
   });
 }

@@ -2,10 +2,10 @@
   description = "pornussy";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.11";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
@@ -20,7 +20,11 @@
     hypridle.url = "github:hyprwm/hypridle";
     #hyprpaper.url = "github:hyprwm/hyprpaper";
 
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "github:sodiboo/niri-flake/very-refactor";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    niri-pkgs.url = "github:sodiboo/niri-flake";
+    niri-pkgs.inputs.nixpkgs.follows = "nixpkgs";
 
     waybar-catppuccin.url = "github:catppuccin/waybar";
     waybar-catppuccin.flake = false;
@@ -61,6 +65,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.lix.follows = "lix";
     };
+
+    system76-scheduler-niri.url = "github:Kirottu/system76-scheduler-niri";
+    system76-scheduler-niri.inputs.nixpkgs.follows = "nixpkgs";
+
+    pond.url = "gitlab:Morgenkaff/flake-for-pond";
+    pond.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {

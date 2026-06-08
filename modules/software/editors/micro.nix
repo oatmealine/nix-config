@@ -32,6 +32,7 @@ in {
       };
     };
 
+    # todo this is broken now ?
     hm.home.file.".config/micro/colorschemes/${schemeName}.micro".text = with config.colorScheme.palette; ''
       color-link default "#${base05},#${base00}"
       color-link comment "#${base03},#${base00}"

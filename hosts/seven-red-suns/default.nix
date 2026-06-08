@@ -102,7 +102,7 @@
       niri.enable = true;
       hyprlock.enable = true;
       #hyprpaper.enable = true;
-      swww.enable = true;
+      awww.enable = true;
       hypridle.enable = true;
 
       mako.enable = true;

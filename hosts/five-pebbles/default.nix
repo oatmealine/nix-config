@@ -21,21 +21,24 @@ in {
     # archives
     zip xz unzip p7zip
     # utils
-    ripgrep jq libqalculate ffmpeg imagemagick binutils alsa-utils sox
+    ripgrep jq libqalculate ffmpeg imagemagick binutils alsa-utils sox wl-clipboard
     # nix
     nix-output-monitor nh
     # dev
-    sqlitebrowser sqlite-interactive nil dig python3 openssl
+    sqlitebrowser sqlite-interactive nil dig python3 openssl unstable.assetripper
+    patdiff glslang
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
-    gparted seahorse baobab scrcpy neofetch zenity mullvad-vpn
+    gparted seahorse baobab scrcpy fastfetch zenity mullvad-vpn easyeffects
+    pavucontrol
     # debug
-    strace ltrace lsof helvum
+    strace ltrace lsof unstable.helvum
     # apps
     (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop
-    onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita
-    inkscape obsidian vlc unstable.kdePackages.kdenlive audacity aseprite imhex
-    jetbrains.rider lrcget picard blockbench unstable.archipelago
+    onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita inkscape obsidian
+    vlc unstable.kdePackages.kdenlive audacity aseprite imhex jetbrains.rider
+    lrcget picard blockbench unstable.archipelago signal-desktop
+    (blender.override { rocmSupport = true; }) unstable.poptracker
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
@@ -43,17 +46,26 @@ in {
     # misc
     cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
     lua54Packages.lua unstable.tauon nicotine-plus transmission_4-gtk
-    nodePackages.nodejs
+    nodejs_latest inputs.pond.packages.${system}.pond
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.ringracers unstable.gale (unstable.olympus.override { celesteWrapper = "steam-run"; }) my.loenn my.tetrio-desktop
+    unstable.gale (unstable.olympus.override { celesteWrapper = "steam-run"; })
+    my.loenn my.tetrio-desktop easyrpg-player
     (unstable.prismlauncher.override {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
     })
-    unstable.vintagestory unstable.ryubing
-    my.casual-pre-loader vtfedit my.rust-vpk
+    (unstable.ringracers.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "Superstarxalien";
+        repo = "RadioRacers";
+        rev = "c52f3e332c57d4c8c58e0b014aede8e02d8bb7a7";
+        hash = "sha256-u69DCQGoLO6R2rd3JGo+l1L60cQZKcPVx5rpWqwGUaQ=";
+      };
+    })
+    unstable.vintagestory my.ryubing my.casual-pre-loader vtfedit my.rust-vpk
+    my.tomodachi-texture-tool my.living-the-dream-save-editor
 
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
@@ -62,7 +74,7 @@ in {
       buildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/idea-oss \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib xorg.libX11 xorg.libXcursor]}"
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib libx11 libxcursor]}"
       '';
     })
   ] ++ (with pkgs.my; [
@@ -70,19 +82,14 @@ in {
   ]) ++ (with pkgs.gnome; [
     # these are usually defaults, but are missing when non-gnome DEs are used
     # however gnome apps are my beloved so i'm just adding them back
-    nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit file-roller
+    nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit
+    file-roller
   ]);
 
   environment.systemPackages = [
     # make this globally available for silly bullshit
     bridgewebhook
   ];
-
-  services.ratbagd.enable = true;
-
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
-  # supposedly helps with a couple of realtime-related issues
-  #boot.kernelParams = [ "preempt=full" ];
 
   fileSystems."/home/oatmealine/downloads" = {
     device = "none";
@@ -107,8 +114,31 @@ in {
 
   services.earlyoom.enable = true;
   services.earlyoom.freeMemThreshold = 5;
+  services.earlyoom.enableNotifications = true;
+  services.earlyoom.extraArgs = [
+    "--avoid"
+    ''^(nix|wezterm-gui|Xwayland|niri|pipewire-pulse|pipewire|wireplumber)$''
+    "--prefer"
+    ''^(steam|steamwebhelper|\.Discord-wrappe|vivaldi-bin)$''
+  ];
 
   services.mullvad-vpn.enable = true;
+
+  hm.services.podman.enable = true;
+
+  # reeeeally gotta move these out at this point
+  hm.programs.atuin.enable = true;
+  hm.programs.atuin.enableFishIntegration = true;
+  hm.programs.atuin.daemon.enable = true;
+  hm.programs.atuin.flags = [
+    "--disable-up-arrow"
+  ];
+
+  #services.dbus.implementation = "dbus"; # broker seems to misbehave w/ waybar for now?
+  # nvm
+
+  # move this out aswell i think
+  hm.services.easyeffects.enable = true;
 
   modules = {
     #ssh.enable = true;
@@ -123,8 +153,6 @@ in {
     hardware = {
       mdrop.enable = true;
       pipewire.enable = true;
-      # seems a little Freaky right now
-      #pipewire.lowLatency = true;
     };
     dev = {
       enable = true;
@@ -134,8 +162,8 @@ in {
       envProto = "wayland";
 
       niri.enable = true;
-      swww.enable = true;
-      swww.blurredDuplicate = true;
+      awww.enable = true;
+      awww.blurredDuplicate = true;
       #hypridle.enable = true;
       #hypridle.desktop = true;
 
@@ -162,6 +190,7 @@ in {
       system.wezterm.enable = true;
       system.fish.enable = true;
       system.syncthing.enable = true;
+      #system.system76-scheduler.enable = true;
       system.flatpak.enable = true;
       system.virt-manager.enable = true;
       #system.zapret.enable = true;
@@ -176,19 +205,20 @@ in {
       editors.micro.enable = true;
       # tools
       tools.rbw.enable = true;
-      tools.noisetorch.enable = true;
-      tools.noisetorch.autostart = {
-        enable = true;
-        device.name = "alsa_input.usb-3142_fifine_Microphone-00.analog-stereo";
-        device.unit = "sys-devices-pci0000:00-0000:00:14.0-usb1-1\\x2d2-1\\x2d2.1-1\\x2d2.1:1.0-sound-card0-controlC0.device";
-      };
+      #tools.noisetorch.enable = true;
+      #tools.noisetorch.autostart = {
+      #  enable = true;
+      #  device.name = "alsa_input.usb-3142_fifine_Microphone-00.analog-stereo";
+      #  device.unit = "sys-devices-pci0000:00-0000:00:14.0-usb1-1\\x2d2-1\\x2d2.1-1\\x2d2.1:1.0-sound-card0-controlC0.device";
+      #};
       # distractions
       distractions.steam.enable = true;
       distractions.steam.gamemode = true;
       distractions.steam.gamescope = true;
       distractions.steam.millennium = true;
       distractions.discord.enable = true;
-      distractions.discord.vencord.enable = true;
+      #distractions.discord.vencord.enable = true;
+      distractions.discord.vesktop.enable = true;
       #distractions.discord.openasar.enable = true;
     };
   };

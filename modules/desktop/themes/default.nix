@@ -104,6 +104,8 @@ in {
         iconTheme = mkIf (cfg.iconTheme.name != null) cfg.iconTheme;
         theme = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme;
         gtk3.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
+        gtk4.enable = true;
+        gtk4.theme = mkIf (cfg.gtkTheme.name != null) cfg.gtkTheme;
         gtk4.extraConfig.gtk-application-prefer-dark-theme = mkIf cfg.dark "1";
       };
 

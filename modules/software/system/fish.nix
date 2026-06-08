@@ -20,7 +20,7 @@ in {
 
     users.defaultUserShell = cfg.package;
     programs.fish.enable = true;
-    programs.fish.generateCompletions = false; # TODO temp fix for some stupid unknown issue
+    programs.fish.generateCompletions = true;
     programs.fish.package = cfg.package;
     hm.programs.fish = let
       colorScript = nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; };

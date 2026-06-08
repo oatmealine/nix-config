@@ -62,10 +62,10 @@ in {
       # MTP support : https://nixos.wiki/wiki/MTP
       services.gvfs.enable = true;
 
-      programs.adb.enable = true;
+      #programs.adb.enable = true;
       user.extraGroups = [ "adbusers" ];
 
-      environment.systemPackages = [ pkgs.brightnessctl ];
+      environment.systemPackages = [ pkgs.brightnessctl pkgs.android-tools ];
       # fix for permission issues
       services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
@@ -83,6 +83,17 @@ in {
         XDG_SESSION_TYPE = "wayland";
         SDL_VIDEODRIVER = "wayland";
         CLUTTER_BACKEND = "wayland";
+        GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+          pkgs.gst_all_1.gst-plugins-good
+          pkgs.gst_all_1.gst-plugins-bad
+          pkgs.gst_all_1.gst-plugins-ugly
+          pkgs.gst_all_1.gst-libav
+        ];
+        _JAVA_OPTIONS = concatStringsSep " " [
+          "-Dawt.useSystemAAFontSettings=on"
+          "-Dswing.aatext=true"
+          "-Dsun.java2d.xrender=true"
+        ];
       };
       #programs.xwayland.enable = true;
       # temporary fix for https://github.com/nix-community/home-manager/issues/2064

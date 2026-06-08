@@ -194,13 +194,13 @@ in {
           "custom/wallpaper" = {
             format = "";
             tooltip = false;
-            on-click = "${config.modules.desktop.swww.swapScript}";
+            on-click = "${config.modules.desktop.awww.swapScript}";
           };
           "image#logo" = {
             path = if (cfg.hostname != null) then "${pkgs.my.iterator-icons}/share/icons/hicolor/256x256/apps/color-${cfg.hostname}.png" else "";
             size = 20;
             tooltip = false;
-            interval = 0;
+            interval = "once";
           };
           "hyprland/workspaces" = workspaces;
           #"niri/workspaces" = workspaces; # niri workspaces are kind of silly
@@ -225,8 +225,8 @@ in {
             #dynamic-order = [ "title" ];
             tooltip-format = "{player} | {status_icon} {artist} - {title} from {album} ({position}/{length})";
             interval = 1;
-            on-scroll-up = "${lib.getExe pkgs.playerctl} -p tauon volume 0.05+";
-            on-scroll-down = "${lib.getExe pkgs.playerctl} -p tauon volume 0.05-";
+            on-scroll-up = "${lib.getExe pkgs.playerctl} -p tauon volume 0.02+";
+            on-scroll-down = "${lib.getExe pkgs.playerctl} -p tauon volume 0.02-";
             status-icons = {
 		          playing = "▶";
               paused = "⏸";

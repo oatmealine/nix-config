@@ -2,18 +2,18 @@
 
 with lib;
 let
-  cfg = config.modules.desktop.swww;
+  cfg = config.modules.desktop.awww;
   # these should probably be options but oh well
   wallpapersFolder = "$XDG_PICTURES_DIR/wallpapers/";
   blurredWallpapersFolder = "$XDG_PICTURES_DIR/wallpapers/.blurcache";
-  lastWallpaperPath = "$XDG_DATA_HOME/swww-lastwp";
+  lastWallpaperPath = "$XDG_DATA_HOME/awww-lastwp";
 in {
-  options.modules.desktop.swww = {
-    enable = mkEnableOption "Enable swww, a Solution to your Wayland Wallpaper Woes";
+  options.modules.desktop.awww = {
+    enable = mkEnableOption "Enable awww, a Asolution to your Wayland Wallpaper Woes";
     package = mkOption {
       type = types.package;
-      default = pkgs.swww;
-      example = "pkgs.swww";
+      default = pkgs.awww;
+      example = "pkgs.awww";
     };
     blurredDuplicate = mkEnableOption "Run swaybg aswell with a blurred version of the wallpaper, for niri overviews";
     swaybgPackage = mkOption {
@@ -28,8 +28,8 @@ in {
     };
     startScript = mkOption {
       type = types.package;
-      default = pkgs.writeScript "swww-start" (''
-        ${cfg.package}/bin/swww-daemon &
+      default = pkgs.writeScript "awww-start" (''
+        ${cfg.package}/bin/awww-daemon &
         wallpaper=$(cat "${lastWallpaperPath}")
         ${lib.getExe cfg.package} img "$wallpaper" --transition-type none
       '' + (if cfg.blurredDuplicate then ''
@@ -40,7 +40,7 @@ in {
     };
     swapScript = mkOption {
       type = types.package;
-      default = pkgs.writeScript "swww-swap" (''
+      default = pkgs.writeScript "awww-swap" (''
         base="${wallpapersFolder}"
         file=$(ls "$base" | rofi -dmenu -sep '\n' -i -p 'wallpaper select')
         wallpaper="$base/$file"

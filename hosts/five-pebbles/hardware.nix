@@ -20,19 +20,33 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  #boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  boot.kernelParams = [
+    # supposedly helps with a couple of realtime-related issues
+    "preempt=full"
+    # fix for a very specific amdgpu bug, see: https://www.reddit.com/r/linux_gaming/comments/1gspac1/amdgpu_faild_with_error_ring_gfx_000_timeout/
+    #"amdgpu.ppfeaturemask=0xfffd7fff"
+  ];
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "amdgpu" ];
 
+  # fix lower res in boot screen
   hardware.amdgpu.initrd.enable = true;
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
   # opencl
+  hardware.amdgpu.opencl.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
-    mesa.opencl # Enables Rusticl (OpenCL) support
+    #mesa.opencl # Enables Rusticl (OpenCL) support
+    rocmPackages.clr.icd # HIP, OpenCL, ROCclr
   ];
   environment.variables.RUSTICL_ENABLE = "radeonsi";
 
@@ -53,6 +67,7 @@
   boot.loader.grub.useOSProber = false;
 
   systemd.tmpfiles.rules = [
+    "L+    /opt/rocm       -    -    -     -    ${pkgs.rocmPackages.clr}"
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 

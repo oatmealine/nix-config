@@ -9,7 +9,14 @@ in {
     enable = mkEnableOption "Enable niri, a scrollable-tiling Wayland compositor.";
     package = mkOption {
       type = types.package;
-      default = niriPkgs.niri-unstable;
+      # https://github.com/niri-wm/niri/pull/1791
+      default = (niriPkgs.niri-unstable.overrideAttrs (old: {
+        patches = old.patches ++ [(pkgs.fetchpatch {
+          name = "26.04-support-shm-sharing.patch";
+          url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_4~19..tag_support-shm-sharing_4.patch";
+          sha256 = "sha256-mfX0CVJWSFb/Hr1lDvlggphpXc2PI6C5CBa+aGwkVIM=";
+        })];
+      }));
       example = "pkgs.niri";
     };
     xwaylandPackage = mkOption {
@@ -61,6 +68,7 @@ in {
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
           { command = [ "${lib.getExe pkgs.wl-clip-persist}" "-c" "regular" ]; } # to fix wl clipboards disappearing
           { command = [ "niri" "msg" "action" "switch-layout" "1" ]; } # default to workman
+          { command = [ "${lib.getExe pkgs.wayscriber}" "--daemon" ]; }
         ]
           ++ (map (cmd: { command = [ "sh" "-c" cmd ]; }) config.modules.desktop.execOnStart);
 
@@ -545,6 +553,8 @@ in {
           "Print".action.screenshot = [];
           "Ctrl+Print".action.screenshot-screen = [];
           "Alt+Print".action.screenshot-window = [];
+
+          "Pause".action = spawn "${lib.getExe pkgs.wayscriber}" "--daemon-toggle";
 
           "Mod+Shift+E".action = quit;
 

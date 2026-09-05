@@ -3,14 +3,13 @@
 with lib;
 let
   cfg = config.modules.desktop.niri;
-  niriPkgs = inputs.niri-pkgs.packages.${system};
 in {
   options.modules.desktop.niri = {
     enable = mkEnableOption "Enable niri, a scrollable-tiling Wayland compositor.";
     package = mkOption {
       type = types.package;
       # https://github.com/niri-wm/niri/pull/1791
-      default = (niriPkgs.niri-unstable.overrideAttrs (old: {
+      default = (inputs.niri.packages.${system}.niri-unstable.overrideAttrs (old: {
         patches = old.patches ++ [(pkgs.fetchpatch {
           name = "26.04-support-shm-sharing.patch";
           url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_4~19..tag_support-shm-sharing_4.patch";
@@ -21,7 +20,7 @@ in {
     };
     xwaylandPackage = mkOption {
       type = types.package;
-      default = niriPkgs.xwayland-satellite-unstable;
+      default = inputs.niri.packages.${system}.xwayland-satellite-unstable;
       example = "pkgs.xwayland-satellite";
     };
   };
@@ -34,6 +33,8 @@ in {
       enable = true;
       package = cfg.package;
     };
+    
+    systemd.user.services.niri-flake-polkit.enable = false;
 
     # unsure of where else to put this
     hm.gtk.gtk4.extraCss = ''
@@ -58,11 +59,6 @@ in {
       settings = let
         allCorners = r: { bottom-left = r; bottom-right = r; top-left = r; top-right = r; };
       in {
-        # https://github.com/sodiboo/niri-flake/issues/1721#issuecomment-4293888762
-        includes = lib.mkAfter [
-          (./blur.kdl)
-        ];
-      
         spawn-at-startup = [
           { command = [ "${pkgs.hyprpolkitagent}/libexec/hyprpolkitagent" ]; }
           { command = [ "${lib.getExe pkgs.networkmanagerapplet}" ]; }
@@ -280,13 +276,27 @@ in {
             };
           }
           # blur
-          /*{
+          {
             matches = [
               { app-id = ''^org\.wezfurlong\.wezterm$''; }
             ];
             background-effect.blur = true;
-            background-effect.noise = 0.5;
-          }*/
+          }
+          {
+            matches = [
+              # libadwaita
+              { app-id = ''^org\.gnome\.Nautilus$''; }
+              { app-id = ''^org\.gnome\.FileRoller$''; }
+            ];
+
+            geometry-corner-radius = allCorners 15.0;
+            background-effect.blur = true;
+
+            popups = {
+              geometry-corner-radius = allCorners 15.0;
+              background-effect.blur = true;
+            };
+          }
           # my evil secrets
           {
             matches = [
@@ -435,19 +445,40 @@ in {
             ];
             place-within-backdrop = true;
           }
+          {
+            matches = [
+              { namespace = "^vicinae$"; }
+              { namespace = "^rofi$"; }
+              { namespace = "^waybar$"; }
+            ];
+            background-effect.blur = true;
+          }
+          {
+            matches = [
+              { namespace = "^vicinae$"; }
+              { namespace = "^rofi$"; }
+            ];
+            background-effect.xray = true;
+          }
         ];
 
         switch-events = with config.hm.lib.niri.actions; (mkIf config.modules.desktop.hyprlock.enable {
           lid-close.action = spawn "${lib.getExe config.modules.desktop.hyprlock.package}";
         });
 
-        /*recent-windows = {
+        recent-windows = {
           open-delay-ms = 0;
           highlight = {
             active-color = config.modules.desktop.themes.niri.insert-hint;
             corner-radius = 10;
           };
-        };*/
+        };
+
+        blur = {
+          passes = 2;
+          offset = 2.5;
+          noise = 0.14;
+        };
 
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Key-Bindings
         binds = with config.hm.lib.niri.actions; let

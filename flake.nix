@@ -20,11 +20,8 @@
     hypridle.url = "github:hyprwm/hypridle";
     #hyprpaper.url = "github:hyprwm/hyprpaper";
 
-    niri.url = "github:sodiboo/niri-flake/very-refactor";
+    niri.url = "github:epireyn/niri-flake";
     niri.inputs.nixpkgs.follows = "nixpkgs";
-
-    niri-pkgs.url = "github:sodiboo/niri-flake";
-    niri-pkgs.inputs.nixpkgs.follows = "nixpkgs";
 
     waybar-catppuccin.url = "github:catppuccin/waybar";
     waybar-catppuccin.flake = false;

@@ -56,6 +56,7 @@ in {
         "https://attic.xuyh0120.win/lantian"
         #"https://cache.garnix.io"
         "https://fenix.cachix.org"
+        "https://niri-epireyn.cachix.org"
       ];
       trusted-public-keys = [
         #"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -67,6 +68,7 @@ in {
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "fenix.cachix.org-1:ecJhr+RdYEdcVgUkjruiYhjbBloIEGov7bos90cZi0Q="
+        "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
       ];
     };
   };

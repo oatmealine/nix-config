@@ -22,6 +22,8 @@ in {
     enable = mkEnableOption "Enable pipewire, a modern audio server";
     # TODO make this an actual toggle again
     #lowLatency = mkEnableOption "Enable low latency configuration for audio production, rhythm games and similar";
+    # TODO this too
+    #production = mkEnableOption "Enable realtime settings useful for audio production";
   };
 
   config = mkIf cfg.enable {
@@ -33,13 +35,34 @@ in {
     boot.kernelParams = [ "threadirqs" ];
     user.extraGroups = [ "audio" "rtkit" ];
 
-    # allow members of "audio" to set RT priorities up to 90
-    security.pam.loginLimits = [{
-      domain = "@audio";
-      type = "-";
-      item = "rtprio";
-      value = "90";
-    }];
+    security.pam.loginLimits = [
+      # remove the memlock limit https://github.com/robbert-vdh/yabridge#troubleshooting-common-issues
+      {
+        domain = "@audio";
+        item = "memlock";
+        type = "-";
+        value = "unlimited";
+      }
+      # allow members of "audio" to set RT priorities up to 99
+      {
+        domain = "@audio";
+        item = "rtprio";
+        type = "-";
+        value = "99";
+      }
+      {
+        domain = "@audio";
+        item = "nofile";
+        type = "soft";
+        value = "99999";
+      }
+      {
+        domain = "@audio";
+        item = "nofile";
+        type = "hard";
+        value = "524288";
+      }
+    ];
     # expose important timers etc. to "audio"
     services.udev.extraRules = ''
       DEVPATH=="/devices/virtual/misc/cpu_dma_latency", OWNER="root", GROUP="audio", MODE="0660"

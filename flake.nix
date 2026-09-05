@@ -71,6 +71,17 @@
 
     pond.url = "gitlab:Morgenkaff/flake-for-pond";
     pond.inputs.nixpkgs.follows = "nixpkgs";
+    
+    fenix.url = "github:nix-community/fenix";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    ryubing.url = "github:h4rldev/ryubing-flake";
+    ryubing.inputs.nixpkgs.follows = "nixpkgs";
+
+    # https://github.com/NixOS/nixpkgs/pull/542467
+    vivaldi.url = "github:wineee/nixpkgs/vivaldi";
+
+    bitwig.url = "nixpkgs/655e3354167d63919a7f376897aa762d45d595e9";
   };
 
   outputs = inputs @ {
@@ -93,6 +104,7 @@
       self.overlays.default
       inputs.catppuccin-vsc.overlays.default
       inputs.nix-cachyos-kernel.overlays.pinned
+      inputs.fenix.overlays.default
     ];
     pkgs-unstable = mkPkgs nixpkgs-unstable [];
 

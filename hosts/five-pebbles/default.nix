@@ -26,19 +26,30 @@ in {
     nix-output-monitor nh
     # dev
     sqlitebrowser sqlite-interactive nil dig python3 openssl unstable.assetripper
-    patdiff glslang
+    patdiff glslang my.sdfgen
+    # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
+    (symlinkJoin {
+      name = "idea-oss";
+      paths = [ jetbrains.idea-oss ];
+      buildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/idea-oss \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib libx11 libxcursor]}"
+      '';
+    })
     # system
     btop sysstat lm_sensors ethtool pciutils usbutils powertop killall ipset
     gparted seahorse baobab scrcpy fastfetch zenity mullvad-vpn easyeffects
-    pavucontrol
+    pavucontrol my.iterator-icons
     # debug
     strace ltrace lsof unstable.helvum
     # apps
-    (vivaldi.override { proprietaryCodecs = true; }) telegram-desktop
-    onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita inkscape obsidian
-    vlc unstable.kdePackages.kdenlive audacity aseprite imhex jetbrains.rider
-    lrcget picard blockbench unstable.archipelago signal-desktop
-    (blender.override { rocmSupport = true; }) unstable.poptracker
+    (inputs.vivaldi.legacyPackages.${system}.vivaldi.override { proprietaryCodecs = true; })
+    telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita
+    inkscape obsidian vlc unstable.kdePackages.kdenlive audacity aseprite imhex
+    jetbrains.rider lrcget picard blockbench unstable.archipelago signal-desktop
+    (blender.override { rocmSupport = true; }) unstable.poptracker my.mxlrc-go
+    my.arrowvortex
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
@@ -64,22 +75,29 @@ in {
         hash = "sha256-u69DCQGoLO6R2rd3JGo+l1L60cQZKcPVx5rpWqwGUaQ=";
       };
     })
-    unstable.vintagestory my.ryubing my.casual-pre-loader vtfedit my.rust-vpk
-    my.tomodachi-texture-tool my.living-the-dream-save-editor
+    unstable.vintagestory my.casual-pre-loader vtfedit my.rust-vpk
+    # my.tomodachi-texture-tool
+    inputs.ryubing.packages.${system}.default
 
-    # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
-    (symlinkJoin {
-      name = "idea-oss";
-      paths = [ jetbrains.idea-oss ];
-      buildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/idea-oss \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib libx11 libxcursor]}"
+    # plugins & audio
+    unstable.vital unstable.resonarium my.glitch2
+    unstable.yabridge unstable.yabridgectl
+    my.nih-plug
+    # i love pirating software
+    (let
+      bitwigCracked = requireFile {
+        name = "bitwig.jar";
+        url = "https://rutracker.org/forum/viewtopic.php?t=6828832";
+        sha256 = "2ae8d9537875fce96e53c4313d1fd03e5cf6c12d63de54b95b18fccc1bca58b4";
+      };
+    in inputs.bitwig.legacyPackages.${system}.bitwig-studio6.overrideAttrs (final: prev: {
+      postFixup = prev.postFixup + ''
+        cp ${bitwigCracked} "$out"/libexec/bin/bitwig.jar
+        rm -rf "$out"/libexec/lib/jre
+        ln -s ${openjdk25}/lib/openjdk/ "$out"/libexec/lib/jre
       '';
-    })
-  ] ++ (with pkgs.my; [
-    iterator-icons mxlrc-go sdfgen
-  ]) ++ (with pkgs.gnome; [
+    }))
+  ] ++ (with pkgs.gnome; [
     # these are usually defaults, but are missing when non-gnome DEs are used
     # however gnome apps are my beloved so i'm just adding them back
     nautilus gnome-system-monitor pkgs.loupe gnome-disk-utility pkgs.gedit
@@ -112,33 +130,48 @@ in {
     enableVirtualCamera = true;
   };
 
-  services.earlyoom.enable = true;
-  services.earlyoom.freeMemThreshold = 5;
-  services.earlyoom.enableNotifications = true;
-  services.earlyoom.extraArgs = [
-    "--avoid"
-    ''^(nix|wezterm-gui|Xwayland|niri|pipewire-pulse|pipewire|wireplumber)$''
-    "--prefer"
-    ''^(steam|steamwebhelper|\.Discord-wrappe|vivaldi-bin)$''
-  ];
+  programs.ssh = {
+    package = pkgs.openssh_hpn;
+  };
+
+  #services.earlyoom.enable = true;
+  #services.earlyoom.freeMemThreshold = 5;
+  #services.earlyoom.enableNotifications = true;
+  #services.earlyoom.extraArgs = [
+  #  "--avoid"
+  #  ''^(nix|wezterm-gui|Xwayland|niri|pipewire-pulse|pipewire|wireplumber)$''
+  #  "--prefer"
+  #  ''^(steam|steamwebhelper|\.Discord-wrappe|vivaldi-bin)$''
+  #];
 
   services.mullvad-vpn.enable = true;
 
-  hm.services.podman.enable = true;
+  # ideally always off for my own sanity
+  #hm.services.podman.enable = true;
+  # sometimes i enable this for testing
+  #services.postgresql.enable = true;
 
-  # reeeeally gotta move these out at this point
-  hm.programs.atuin.enable = true;
-  hm.programs.atuin.enableFishIntegration = true;
-  hm.programs.atuin.daemon.enable = true;
-  hm.programs.atuin.flags = [
-    "--disable-up-arrow"
-  ];
-
-  #services.dbus.implementation = "dbus"; # broker seems to misbehave w/ waybar for now?
-  # nvm
-
-  # move this out aswell i think
+  # move this out someday aswell i think
   hm.services.easyeffects.enable = true;
+
+  # fix audio plugins (also move this out)
+  # https://nixos.wiki/wiki/Audio_production
+  environment.sessionVariables = let
+    makePluginPath = format:
+      (lib.makeSearchPath format [
+        "$HOME/.nix-profile/lib"
+        "/run/current-system/sw/lib"
+        "/etc/profiles/per-user/$USER/lib"
+      ])
+      + ":$HOME/.${format}";
+  in {
+    DSSI_PATH   = makePluginPath "dssi";
+    LADSPA_PATH = makePluginPath "ladspa";
+    LV2_PATH    = makePluginPath "lv2";
+    LXVST_PATH  = makePluginPath "lxvst";
+    VST_PATH    = makePluginPath "vst";
+    VST3_PATH   = makePluginPath "vst3";
+  };
 
   modules = {
     #ssh.enable = true;
@@ -200,6 +233,7 @@ in {
       #];
       # dev
       dev.git.enable = true;
+      dev.direnv.enable = true;
       # editors
       editors.vscode.enable = true;
       editors.micro.enable = true;
@@ -217,8 +251,8 @@ in {
       distractions.steam.gamescope = true;
       distractions.steam.millennium = true;
       distractions.discord.enable = true;
-      #distractions.discord.vencord.enable = true;
-      distractions.discord.vesktop.enable = true;
+      distractions.discord.vencord.enable = true;
+      #distractions.discord.vesktop.enable = true;
       #distractions.discord.openasar.enable = true;
     };
   };

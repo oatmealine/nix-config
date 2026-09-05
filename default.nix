@@ -54,7 +54,8 @@ in {
         #"https://oatmealine.cachix.org
         "https://vicinae.cachix.org"
         "https://attic.xuyh0120.win/lantian"
-        "https://cache.garnix.io"
+        #"https://cache.garnix.io"
+        "https://fenix.cachix.org"
       ];
       trusted-public-keys = [
         #"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -64,7 +65,8 @@ in {
         #"oatmealine.cachix.org-1:Ee3e/VVuXZgcF3u8UxMoK9EVhRtwadNU8MxN3+61Ds0="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "fenix.cachix.org-1:ecJhr+RdYEdcVgUkjruiYhjbBloIEGov7bos90cZi0Q="
       ];
     };
   };
@@ -79,10 +81,14 @@ in {
 
   boot = {
     kernelPackages = mkDefault pkgs.unstable.linuxPackages_latest;
-    kernelParams = ["pcie_aspm.policy=performance"];
+    kernelParams = [
+      "pcie_aspm.policy=performance"
+      "cpufreq.default_governor=performance"
+    ];
     
-    # last checked with https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20250117.1-1-any.pkg.tar.zst
     kernel.sysctl = {
+      # last checked with https://steamdeck-packages.steamos.cloud/archlinux-mirror/jupiter-main/os/x86_64/steamos-customizations-jupiter-20250117.1-1-any.pkg.tar.zst
+
       # 20-shed.conf
       "kernel.sched_cfs_bandwidth_slice_us" = 3000;
       # 20-net-timeout.conf
@@ -97,6 +103,9 @@ in {
       # USE MAX_INT - MAPCOUNT_ELF_CORE_MARGIN.
       # see comment in include/linux/mm.h in the kernel tree.
       "vm.max_map_count" = 2147483642;
+
+      # generally a good flag for performance
+      "vm.swappiness" = 10;
     };
   };
 

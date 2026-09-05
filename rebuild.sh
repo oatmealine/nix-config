@@ -11,4 +11,4 @@ sudo echo "sudo test OK" || (echo "sudo test FAIL; rerun this outside the FHS en
 #sudo nix-env -p /nix/var/nix/profiles/system --set $deriv
 #sudo $deriv/bin/switch-to-configuration switch
 
-NIXPKGS_ALLOW_UNFREE=1 nh os switch . -- --impure -v --show-trace
+NIXPKGS_ALLOW_INSECURE=1 NIXPKGS_ALLOW_UNFREE=1 nh os switch . -- --impure -v --show-trace

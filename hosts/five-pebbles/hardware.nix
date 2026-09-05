@@ -20,8 +20,8 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  #boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+  #boot.kernelPackages = pkgs.linuxPackages_xanmod;
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   
   boot.kernelParams = [
@@ -98,6 +98,7 @@
   #  ];
 
   # fix suspend not working
+  # TODO i wonder if this is still needed?
   services.udev.extraRules = lib.concatStringsSep ", " [
     ''ACTION=="add"''
 

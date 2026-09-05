@@ -9,7 +9,7 @@ in {
     enable = mkEnableOption "Enable fish, the friendly interpreted shell";
     package = mkOption {
       type = types.package;
-      default = pkgs.unstable.fish;
+      default = pkgs.fish;
     };
   };
 
@@ -21,6 +21,7 @@ in {
     users.defaultUserShell = cfg.package;
     programs.fish.enable = true;
     programs.fish.generateCompletions = true;
+    #programs.fish.generateCompletions = false;
     programs.fish.package = cfg.package;
     hm.programs.fish = let
       colorScript = nix-colors-lib.shellThemeFromScheme { scheme = config.colorScheme; };
@@ -35,5 +36,8 @@ in {
         ${lib.getExe pkgs.fortune} -e ${pkgs.my.scold-fortunes}/share/fortune
       '';
     };
+
+    programs.direnv.enableFishIntegration = true;
+    programs.nix-index.enableFishIntegration = true;
   };
 }

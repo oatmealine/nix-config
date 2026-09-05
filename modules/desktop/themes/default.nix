@@ -162,7 +162,7 @@ in {
         icon-theme = cfg.iconTheme.name;
       };
 
-      hm.services.vicinae.settings.theme = let
+      hm.programs.vicinae.settings.theme = let
         themeConf = {
           name = cfg.vicinae.name;
           icon_theme = cfg.vicinae.iconTheme;

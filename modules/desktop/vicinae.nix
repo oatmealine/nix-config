@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hm.services.vicinae = {
+    hm.programs.vicinae = {
       enable = true;
       package = cfg.package;
       systemd = {

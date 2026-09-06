@@ -82,7 +82,7 @@ in {
   hm.home.enableNixpkgsReleaseCheck = false;
 
   boot = {
-    kernelPackages = mkDefault pkgs.unstable.linuxPackages_latest;
+    kernelPackages = mkDefault pkgs.linuxPackages_latest;
     kernelParams = [
       "pcie_aspm.policy=performance"
       "cpufreq.default_governor=performance"

@@ -2,10 +2,9 @@
   description = "pornussy";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager/release-26.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hardware.url = "github:nixos/nixos-hardware";
@@ -75,16 +74,12 @@
     ryubing.url = "github:h4rldev/ryubing-flake";
     ryubing.inputs.nixpkgs.follows = "nixpkgs";
 
-    # https://github.com/NixOS/nixpkgs/pull/542467
-    vivaldi.url = "github:wineee/nixpkgs/vivaldi";
-
     bitwig.url = "nixpkgs/655e3354167d63919a7f376897aa762d45d595e9";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
-    nixpkgs-unstable,
     ...
   }: let
     inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -103,7 +98,6 @@
       inputs.nix-cachyos-kernel.overlays.pinned
       inputs.fenix.overlays.default
     ];
-    pkgs-unstable = mkPkgs nixpkgs-unstable [];
 
     lib = nixpkgs.lib.extend (final: prev: {
       my = import ./lib {
@@ -118,7 +112,6 @@
       (mapModules ./overlays import)
       // {
         default = final: prev: {
-          unstable = pkgs-unstable;
           my = self.packages.${system};
         };
       };

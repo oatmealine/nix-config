@@ -61,46 +61,46 @@ in {
     enable = mkEnableOption "Enable Discord, a social messaging app";
     package = mkOption {
       type = types.package;
-      default = pkgs.unstable.discord;
+      default = pkgs.discord;
     };
 
     vencord = {
       enable = mkEnableOption "Enable Vencord, a Discord clientmod";
       package = mkOption {
         type = types.package;
-        default = pkgs.unstable.vencord;
+        default = pkgs.vencord;
       };
     };
     legcord = {
       enable = mkEnableOption "Use Legcord, an alternative Electron client";
       package = mkOption {
         type = types.package;
-        default = pkgs.unstable.legcord;
+        default = pkgs.legcord;
       };
     };
     vesktop = {
       enable = mkEnableOption "Use Vesktop, an alternative Electron client with Vencord pre-installed";
       package = mkOption {
         type = types.package;
-        default = pkgs.unstable.vesktop;
+        default = pkgs.vesktop;
       };
     };
     openasar = {
       enable = mkEnableOption "Enable OpenASAR, an alternative ASAR file for the official Discord client";
       package = mkOption {
         type = types.package;
-        default = pkgs.unstable.openasar;
+        default = pkgs.openasar;
       };
     };
     equicord = {
       enable = mkEnableOption "Use Equicord instead of Vencord, and Equibop instead of Vesktop";
       equicordPackage = mkOption {
         type = types.package;
-        default = pkgs.unstable.equicord;
+        default = pkgs.equicord;
       };
       equibopPackage = mkOption {
         type = types.package;
-        default = pkgs.unstable.equibop;
+        default = pkgs.equibop;
       };
     };
   };

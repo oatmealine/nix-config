@@ -110,6 +110,7 @@ in {
       };
 
       hm.home.pointerCursor = mkIf (cfg.cursor.name != null) {
+        enable = true;
         gtk.enable = true;
         x11.enable = true;
         dotIcons.enable = true;

@@ -25,7 +25,7 @@ in {
     # nix
     nix-output-monitor nh
     # dev
-    sqlitebrowser sqlite-interactive nil dig python3 openssl unstable.assetripper
+    sqlitebrowser sqlite-interactive nil dig python3 openssl assetripper
     patdiff glslang my.sdfgen
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
@@ -42,32 +42,32 @@ in {
     gparted seahorse baobab scrcpy fastfetch zenity mullvad-vpn easyeffects
     pavucontrol my.iterator-icons
     # debug
-    strace ltrace lsof unstable.helvum
+    strace ltrace lsof helvum
     # apps
-    (inputs.vivaldi.legacyPackages.${system}.vivaldi.override { proprietaryCodecs = true; })
-    telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk unstable.krita
-    inkscape obsidian vlc unstable.kdePackages.kdenlive audacity aseprite imhex
-    jetbrains.rider lrcget picard blockbench unstable.archipelago signal-desktop
-    (blender.override { rocmSupport = true; }) unstable.poptracker my.mxlrc-go
+    (vivaldi.override { proprietaryCodecs = true; })
+    telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
+    inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
+    jetbrains.rider lrcget picard blockbench archipelago signal-desktop
+    (blender.override { rocmSupport = true; }) poptracker my.mxlrc-go
     my.arrowvortex
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
     # compatilibility
-    wineWow64Packages.stable unstable.winetricks
+    wineWow64Packages.stable winetricks
     # misc
-    cowsay file which tree gnused unstable.yt-dlp libnotify font-manager wev
-    lua54Packages.lua unstable.tauon nicotine-plus transmission_4-gtk
+    cowsay file which tree gnused yt-dlp libnotify font-manager wev
+    lua54Packages.lua tauon nicotine-plus transmission_4-gtk
     nodejs_latest inputs.pond.packages.${system}.pond
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
-    unstable.gale (unstable.olympus.override { celesteWrapper = "steam-run"; })
+    gale (olympus.override { celesteWrapper = "steam-run"; })
     my.loenn my.tetrio-desktop easyrpg-player
-    (unstable.prismlauncher.override {
+    (prismlauncher.override {
       additionalPrograms = [ vlc ];
       additionalLibs = [ vlc ];
     })
-    (unstable.ringracers.overrideAttrs {
+    (ringracers.overrideAttrs {
       src = pkgs.fetchFromGitHub {
         owner = "Superstarxalien";
         repo = "RadioRacers";
@@ -75,13 +75,13 @@ in {
         hash = "sha256-u69DCQGoLO6R2rd3JGo+l1L60cQZKcPVx5rpWqwGUaQ=";
       };
     })
-    unstable.vintagestory my.casual-pre-loader vtfedit my.rust-vpk
+    vintagestory my.casual-pre-loader vtfedit my.rust-vpk
     # my.tomodachi-texture-tool
     inputs.ryubing.packages.${system}.default
 
     # plugins & audio
-    unstable.vital unstable.resonarium my.glitch2
-    unstable.yabridge unstable.yabridgectl
+    vital resonarium my.glitch2
+    yabridge yabridgectl
     my.nih-plug
     # i love pirating software
     (let

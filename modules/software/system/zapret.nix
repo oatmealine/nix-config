@@ -15,7 +15,7 @@ in {
     };
     package = mkOption {
       type = types.package;
-      default = pkgs.unstable.zapret;
+      default = pkgs.zapret;
       example = "pkgs.zapret";
     };
   };

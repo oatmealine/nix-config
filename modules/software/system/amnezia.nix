@@ -28,8 +28,8 @@ in {
 
     /*hm.programs.waybar.settings.mainBar."custom/vpn" = let
       interface = "wg0";
-      awg = "${pkgs.unstable.amneziawg-tools}/bin/awg";
-      awg-quick = "${pkgs.unstable.amneziawg-tools}/bin/awg-quick";
+      awg = "${pkgs.amneziawg-tools}/bin/awg";
+      awg-quick = "${pkgs.amneziawg-tools}/bin/awg-quick";
       script = pkgs.writeScript "awg-ctl" ''
         set -euo pipefail
 

@@ -80,6 +80,8 @@ in {
             size = 10.5;
           };
         };
+
+        tray.enabled = false;
       };
 
       extensions = with inputs.vicinae-extensions.packages.${system}; [

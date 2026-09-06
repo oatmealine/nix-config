@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     programs.steam = let
       steam = if !cfg.millennium
-        then pkgs.unstable.steam
+        then pkgs.steam
         else inputs.millennium.packages.${system}.default;
     in {
       enable = true;
@@ -32,9 +32,9 @@ in {
           keyutils
         ]));
       };
-      extraCompatPackages = with pkgs.unstable; [
-        (proton-ge-bin.override { steamDisplayName = proton-ge-bin.version; })
-        pkgs.my.proton-cachyos
+      extraCompatPackages = with pkgs; [
+        (proton-ge-bin.overrideAttrs { steamDisplayName = proton-ge-bin.version; })
+        my.proton-cachyos
       ];
       protontricks.enable = true;
     };

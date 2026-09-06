@@ -13,9 +13,9 @@ in {
     services.xserver.enable = true; # oouhhuuhuuhuuuruuhuhuhu
     environment.systemPackages = with pkgs; [
       #config.modules.desktop.themes.sddmTheme.package
-      libsForQt5.qt5.qtsvg
-      libsForQt5.qt5.qtgraphicaleffects
-      libsForQt5.qt5.qtquickcontrols2
+      #libsForQt5.qt5.qtsvg
+      #libsForQt5.qt5.qtgraphicaleffects
+      #libsForQt5.qt5.qtquickcontrols2
     ];
     services.displayManager.sddm = {
       enable = true;

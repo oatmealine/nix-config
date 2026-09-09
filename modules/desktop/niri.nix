@@ -279,6 +279,7 @@ in {
           {
             matches = [
               { app-id = ''^org\.wezfurlong\.wezterm$''; }
+              { app-id = "^tauonmb$"; }
             ];
             background-effect.blur = true;
           }
@@ -475,8 +476,8 @@ in {
         };
 
         blur = {
-          passes = 2;
-          offset = 2.5;
+          passes = 3;
+          offset = 3;
           noise = 0.14;
         };
 

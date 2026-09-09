@@ -249,7 +249,7 @@ in {
       distractions.steam.enable = true;
       distractions.steam.gamemode = true;
       distractions.steam.gamescope = true;
-      distractions.steam.millennium = true;
+      distractions.steam.millennium = false; # temporary hopefully
       distractions.discord.enable = true;
       distractions.discord.vencord.enable = true;
       #distractions.discord.vesktop.enable = true;

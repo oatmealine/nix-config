@@ -19,11 +19,12 @@ in {
     in {
       enable = true;
       package = steam.override {
+        extraLibraries = pkgs: [ pkgs.libxcb ];
         extraPkgs = (pkgs: (optional cfg.gamescope pkgs.gamescope) ++ (with pkgs; [
-          xorg.libXcursor
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXScrnSaver
+          libxcursor
+          libxi
+          libxinerama
+          libxscrnsaver
           libpng
           libpulseaudio
           libvorbis

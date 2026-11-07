@@ -13,7 +13,7 @@ let
   # buffer size. lower size = less latency but less stability
   # default is what's used unless otherwise specified by the program
   defaultQuantum = 128;
-  minQuantum = 64;
+  minQuantum = 128;
   maxQuantum = 256;
   # https://wiki.archlinux.org/title/PipeWire#Resampling
   resampleQuality = 10;

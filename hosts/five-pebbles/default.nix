@@ -26,14 +26,15 @@ in {
     nix-output-monitor nh
     # dev
     sqlitebrowser sqlite-interactive nil dig python3 openssl assetripper
-    patdiff glslang my.sdfgen
+    # patdiff # broken for now
+    glslang my.sdfgen nixd zed-editor bubblewrap
     # https://gist.github.com/Lgmrszd/98fb7054e63a7199f9510ba20a39bc67
     (symlinkJoin {
-      name = "idea-oss";
-      paths = [ jetbrains.idea-oss ];
+      name = "intellij-idea";
+      paths = [ intellij-idea ];
       buildInputs = [ makeWrapper ];
       postBuild = ''
-        wrapProgram $out/bin/idea-oss \
+        wrapProgram $out/bin/intellij-idea \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib libx11 libxcursor]}"
       '';
     })
@@ -42,13 +43,13 @@ in {
     gparted seahorse baobab scrcpy fastfetch zenity mullvad-vpn easyeffects
     pavucontrol my.iterator-icons
     # debug
-    strace ltrace lsof helvum
+    strace lsof helvum
     # apps
     (vivaldi.override { proprietaryCodecs = true; })
-    telegram-desktop onlyoffice-desktopeditors mpv qalculate-gtk krita
-    inkscape obsidian vlc kdePackages.kdenlive audacity aseprite imhex
-    jetbrains.rider lrcget picard blockbench archipelago signal-desktop
-    (blender.override { rocmSupport = true; }) poptracker my.mxlrc-go
+    telegram-desktop onlyoffice-desktopeditors mpv krita inkscape obsidian
+    vlc kdePackages.kdenlive audacity aseprite imhex rider lrcget
+    picard blockbench archipelago signal-desktop (blender.override { rocmSupport = true; })
+    poptracker my.mxlrc-go
     my.arrowvortex
       # i feel like these should just be rider dependencies
       dotnet-sdk mono
@@ -57,7 +58,8 @@ in {
     # misc
     cowsay file which tree gnused yt-dlp libnotify font-manager wev
     lua54Packages.lua tauon nicotine-plus transmission_4-gtk
-    nodejs_latest inputs.pond.packages.${system}.pond
+    nodejs_latest inputs.pond.packages.${system}.pond llama-cpp-rocm
+    pnpm
     # love2d (to be moved elsewhere)
     love my.love-release my.love-js
     # games
@@ -75,9 +77,9 @@ in {
         hash = "sha256-u69DCQGoLO6R2rd3JGo+l1L60cQZKcPVx5rpWqwGUaQ=";
       };
     })
-    vintagestory my.casual-pre-loader vtfedit my.rust-vpk
+    vintagestory my.casual-pre-loader vtfedit #my.rust-vpk # broken
     # my.tomodachi-texture-tool
-    inputs.ryubing.packages.${system}.default
+    #inputs.ryubing.packages.${system}.default
 
     # plugins & audio
     vital resonarium my.glitch2
@@ -133,6 +135,11 @@ in {
   programs.ssh = {
     package = pkgs.openssh_hpn;
   };
+  
+  hm.programs.mangohud = {
+    enable = true;
+    #enableSessionWide = true;
+  };
 
   #services.earlyoom.enable = true;
   #services.earlyoom.freeMemThreshold = 5;
@@ -145,6 +152,8 @@ in {
   #];
 
   services.mullvad-vpn.enable = true;
+
+  services.lact.enable = true; # GPU monitoring & overclocking
 
   # ideally always off for my own sanity
   #hm.services.podman.enable = true;
@@ -249,8 +258,9 @@ in {
       distractions.steam.enable = true;
       distractions.steam.gamemode = true;
       distractions.steam.gamescope = true;
-      distractions.steam.millennium = false; # temporary hopefully
+      distractions.steam.millennium = true;
       distractions.discord.enable = true;
+      distractions.discord.package = pkgs.master.discord; # https://nixpkgs-tracker.ocfox.me/?pr=581099
       distractions.discord.vencord.enable = true;
       #distractions.discord.vesktop.enable = true;
       #distractions.discord.openasar.enable = true;

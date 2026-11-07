@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "nixpkgs/master";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,8 +37,6 @@
     nix-alien.inputs.nix-index-database.follows = "nix-index-database";
 
     stackpkgs.url = "git+https://code.thishorsie.rocks/ryze/stackpkgs";
-
-    millennium.url = "github:Trivaris/Millennium?dir=packages/nix";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -75,11 +74,14 @@
     ryubing.inputs.nixpkgs.follows = "nixpkgs";
 
     bitwig.url = "nixpkgs/655e3354167d63919a7f376897aa762d45d595e9";
+    # https://github.com/NixOS/nixpkgs/pull/538226
+    millennium.url = "github:DrymarchonShaun/nixpkgs/millennium-init";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-master,
     ...
   }: let
     inherit (lib.my) mapModules mapModulesRec mapHosts;
@@ -90,6 +92,9 @@
         inherit system;
         config.allowUnfree = true;
         config.allowAliases = false;
+        config.problems.handlers = {
+          "gtk+".broken = "warn";
+        };
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
     pkgs = mkPkgs nixpkgs [
@@ -113,6 +118,7 @@
       // {
         default = final: prev: {
           my = self.packages.${system};
+          master = mkPkgs nixpkgs-master [];
         };
       };
 

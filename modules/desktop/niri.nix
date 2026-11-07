@@ -8,14 +8,7 @@ in {
     enable = mkEnableOption "Enable niri, a scrollable-tiling Wayland compositor.";
     package = mkOption {
       type = types.package;
-      # https://github.com/niri-wm/niri/pull/1791
-      default = (inputs.niri.packages.${system}.niri-unstable.overrideAttrs (old: {
-        patches = old.patches ++ [(pkgs.fetchpatch {
-          name = "26.04-support-shm-sharing.patch";
-          url = "https://github.com/wrvsrx/niri/compare/tag_support-shm-sharing_4~19..tag_support-shm-sharing_4.patch";
-          sha256 = "sha256-mfX0CVJWSFb/Hr1lDvlggphpXc2PI6C5CBa+aGwkVIM=";
-        })];
-      }));
+      default = inputs.niri.packages.${system}.niri-unstable;
       example = "pkgs.niri";
     };
     xwaylandPackage = mkOption {
@@ -50,7 +43,10 @@ in {
         background: alpha(@window_bg_color, 0.75);
       }
       gridview.view,
-      statuspage {
+      statuspage,
+      treeview, columnview,
+      headerbar,
+      textview, textview > text {
         background: transparent;
       }
     '';
@@ -148,7 +144,7 @@ in {
         # https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
         animations = {
           window-resize = {
-            custom-shader = ''
+            custom-shader.text = ''
               vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
                 vec3 coords_next_geo = niri_curr_geo_to_next_geo * coords_curr_geo;
 
@@ -192,7 +188,7 @@ in {
               curve = "linear";
               duration-ms = 600;
             };
-            custom-shader = ''
+            custom-shader.text = ''
               vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
                 float progress = niri_clamped_progress * niri_clamped_progress;
                 vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
@@ -288,6 +284,7 @@ in {
               # libadwaita
               { app-id = ''^org\.gnome\.Nautilus$''; }
               { app-id = ''^org\.gnome\.FileRoller$''; }
+              { app-id = ''^org\.gnome\.''; } # fuck it why not
             ];
 
             geometry-corner-radius = allCorners 15.0;

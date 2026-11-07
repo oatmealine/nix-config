@@ -20,15 +20,17 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+  #boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
   #boot.kernelPackages = pkgs.linuxPackages_xanmod;
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   
   boot.kernelParams = [
     # supposedly helps with a couple of realtime-related issues
-    "preempt=full"
+    #"preempt=full"
     # fix for a very specific amdgpu bug, see: https://www.reddit.com/r/linux_gaming/comments/1gspac1/amdgpu_faild_with_error_ring_gfx_000_timeout/
     #"amdgpu.ppfeaturemask=0xfffd7fff"
+    # fix for another very specific amdgpu bug w/ power management. not applicable
+    #"amdgpu.dcdebugmask=0x400"
   ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
@@ -36,8 +38,10 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "amdgpu" ];
 
-  # fix lower res in boot screen
-  hardware.amdgpu.initrd.enable = true;
+  # fix lower res in boot screen (doesn't work, lol)
+  #hardware.amdgpu.initrd.enable = true;
+  # lm-sensors, i think?
+  hardware.sensor.iio.enable = true;
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
@@ -69,6 +73,9 @@
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm       -    -    -     -    ${pkgs.rocmPackages.clr}"
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+    
+    # allow global intel-rapl counter read access
+    "r+ /sys/class/powercap/intel-rapl:0/energy_uj - - - - 0444"
   ];
 
   environment.variables = {

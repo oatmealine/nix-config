@@ -166,7 +166,7 @@ in {
               then "${lib.getExe config.modules.desktop.hyprlock.package}"
               else "${pkgs.libnotify}/bin/notify-send 'no lock screen configured' -i 'error'";
             powerSelect = pkgs.writeScript "power-menu" ''
-              cmd=$(echo 'shutdown|reboot|suspend|lock|exit' | rofi -dmenu -sep '|' -i -p 'what to do ?' -theme-str 'window { height: 148px; }')
+              cmd=$(echo -e 'shutdown\nreboot\nsuspend\nlock\nexit' | vicinae dmenu --placeholder "what to do ?" -H 310 --no-section)
               case "$cmd" in
                 shutdown)
                   shutdown now

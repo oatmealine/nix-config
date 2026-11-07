@@ -42,8 +42,9 @@ in {
       type = types.package;
       default = pkgs.writeScript "awww-swap" (''
         base="${wallpapersFolder}"
-        file=$(ls "$base" | rofi -dmenu -sep '\n' -i -p 'wallpaper select')
-        wallpaper="$base/$file"
+        #file=$(ls "$base" | rofi -dmenu -sep '\n' -i -p 'wallpaper select')
+        #wallpaper="$base/$file"
+        wallpaper=$(find "$base" -type f -a \! -path '*.blurcache*' | sort | vicinae dmenu -p 'Pick a wallpaper...')
 
         [ ! -f "$wallpaper" ] && exit 0
 

@@ -9,33 +9,39 @@ in {
     gamemode = mkEnableOption "Use gamemode, an on-demand Linux system performance optimizer";
     gamescope = mkEnableOption "Use gamescope, a mini-compositor for game performance";
     millennium = mkEnableOption "Use Millennium, a Steam clientmod";
+    mangohud = mkEnableOption "Add MangoHUD to the Steam environment";
   };
 
   config = mkIf cfg.enable {
     programs.steam = let
       steam = if !cfg.millennium
         then pkgs.steam
-        else inputs.millennium.packages.${system}.default;
+        else inputs.millennium.legacyPackages.${system}.steamWithMillennium;
     in {
       enable = true;
       package = steam.override {
         extraLibraries = pkgs: [ pkgs.libxcb ];
-        extraPkgs = (pkgs: (optional cfg.gamescope pkgs.gamescope) ++ (with pkgs; [
-          libxcursor
-          libxi
-          libxinerama
-          libxscrnsaver
-          libpng
-          libpulseaudio
-          libvorbis
-          stdenv.cc.cc.lib
-          libkrb5
-          keyutils
-        ]));
+        extraPkgs = (pkgs:
+          (optional cfg.gamescope pkgs.gamescope) ++
+          (optional cfg.mangohud pkgs.mangohud) ++
+          (with pkgs; [
+            libxcursor
+            libxi
+            libxinerama
+            libxscrnsaver
+            libpng
+            libpulseaudio
+            libvorbis
+            stdenv.cc.cc.lib
+            libkrb5
+            keyutils
+          ])
+        );
       };
       extraCompatPackages = with pkgs; [
         (proton-ge-bin.overrideAttrs { steamDisplayName = proton-ge-bin.version; })
         my.proton-cachyos
+        my.proton-lina-unity-leak-fix
       ];
       protontricks.enable = true;
     };
@@ -54,22 +60,8 @@ in {
         ENABLE_GAMESCOPE_WSI = "1";
         #WINE_FULLSCREEN_FSR = "1";
         # Games allegedly prefer X11
-        SDL_VIDEODRIVER = "x11";
+        #SDL_VIDEODRIVER = "x11";
       };
-      args = [
-        "--expose-wayland"
-
-        "-e" # Enable steam integration
-        "--steam"
-
-        "--adaptive-sync"
-        #"--hdr-enabled"
-        #"--hdr-itm-enable"
-
-        "--output-width 1920"
-        "--output-height 1080"
-        "-r 75"
-      ];
     };
     user.packages = with pkgs; [ protontricks steam-run ];
   };

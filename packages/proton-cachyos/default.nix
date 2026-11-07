@@ -5,11 +5,11 @@
 
 stdenv.mkDerivation rec {
   name = "proton-cachyos";
-  version = "10.0-20260424";
+  version = "11.0-20261015";
 
   src = fetchzip {
     url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${version}-slr/proton-cachyos-${version}-slr-x86_64_v3.tar.xz";
-    hash = "sha256-mINDT2+bUiiuaV8dzx/K5mD3eIWaSe32jbTiztf6ez4=";
+    hash = "sha256-USZ7wVV069xmGJdtyg6b/pdv7qqLkUkSZEyHiiVIs1o=";
   };
 
   dontUnpack = true;

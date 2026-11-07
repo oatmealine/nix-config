@@ -52,11 +52,14 @@ in {
         #"https://hyprland.cachix.org"
         #"https://cache.lix.systems"
         #"https://oatmealine.cachix.org
-        "https://vicinae.cachix.org"
-        "https://attic.xuyh0120.win/lantian"
+        "https://vicinae.cachix.org" # vicinae
+        #"https://attic.xuyh0120.win/lantian" # cachyos kernel builds
+        "https://cache.xinux.uz" # alt cachyos kernel builds mirror
         #"https://cache.garnix.io"
-        "https://fenix.cachix.org"
-        "https://niri-epireyn.cachix.org"
+        "https://fenix.cachix.org" # rust builds
+        "https://niri.cachix.org" # niri
+        "https://niri-epireyn.cachix.org" # also niri, but different flake owner
+        "https://nixos-rocm.cachix.org" # amd rocm related stuff
       ];
       trusted-public-keys = [
         #"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -65,10 +68,13 @@ in {
         #"cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         #"oatmealine.cachix.org-1:Ee3e/VVuXZgcF3u8UxMoK9EVhRtwadNU8MxN3+61Ds0="
         "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+        #"lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         #"cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
         "fenix.cachix.org-1:ecJhr+RdYEdcVgUkjruiYhjbBloIEGov7bos90cZi0Q="
+        "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
         "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
+        "nixos-rocm.cachix.org-1:VEpsf7pRIijjd8csKjFNBGzkBqOmw8H9PRmgAq14LnE="
       ];
     };
   };

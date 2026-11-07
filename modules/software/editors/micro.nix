@@ -27,6 +27,7 @@ in {
         scrollbar = true;
         tabsize = 2;
         tabstospaces = true;
+        colorcolumn = 80;
 
         colorScheme = schemeName;
       };

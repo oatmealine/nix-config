@@ -9,6 +9,7 @@ in {
     package = mkOption {
       type = types.package;
       default = inputs.vicinae.packages.${system}.default;
+      #default = pkgs.vicinae;
     };
   };
 
@@ -21,39 +22,49 @@ in {
         autoStart = true;
         environment = {
           USE_LAYER_SHELL = 1;
+          QSG_RHI_BACKEND = "vulkan";
+          EMOJI_FONT = "Twemoji COLR";
         };
       };
 
       settings = {
-        # is this needed?
-        "$schema" = "https://vicinae.com/schemas/config.json";
+        input_server.enabled = false; # doesn't work on nix anyways
+        tray.enabled = false;
+
+        font = {
+          normal = {
+            family = "Rec Mono Casual";
+            size = 10.5;
+          };
+        };
+
+        telemetry.system_info = false;
 
         pop_to_root_on_close = true;
         
         launcher_window = {
           opacity = 0.7;
-          client_side_decorations.enabled = false;
-
-          layer_shell = {
-            enabled = true;
-            keyboard_interactivity = "exclusive"; # 'exclusive' | 'on_demand'
-            # either 'overlay' or 'top'.
-            # Other layers are not supported as they are unsuitable for a launcher.
-            # 'top' is recommended as using 'overlay' will make the vicinae window appear on top of IME popovers in some scenarios.
-            layer = "top";
-          };
+          client_side_decorations.enabled = true;
+          client_side_decorations.shadow_size = 0;
+          layer_shell.enabled = true;
         };
 
         favorites = [
           "core:search-emojis"
           "@knoopx/vicinae-extension-nix-0:packages"
-          "clipboard:history"
+          "@knoopx/vicinae-extension-nix-0:options"
         ];
 
         providers = {
+          browser-extension.enabled = false;
+          developer.enabled = false;
+          system.enabled = false;
+          wm.enabled = false;
+          power.enabled = false;
+          
           core = {
             entrypoints = {
-              sponsor.enable = false;
+              sponsor.enabled = false;
             };
           };
           applications = {
@@ -65,23 +76,10 @@ in {
             enabled = false;
             preferences.autoIndexing = false;
           };
-          clipboard = {
-            eraseOnStartup = true;
-          };
+          clipboard.preferences.eraseOnStartup = true;
         };
-
-        telemetry.system_info = false;
 
         escape_key_behavior = "close_window";
-
-        font = {
-          normal = {
-            family = "Recursive";
-            size = 10.5;
-          };
-        };
-
-        tray.enabled = false;
       };
 
       extensions = with inputs.vicinae-extensions.packages.${system}; [
